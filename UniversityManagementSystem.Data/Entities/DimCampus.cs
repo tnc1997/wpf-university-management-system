@@ -13,7 +13,5 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<FactLibrary> Libraries { get; set; }
 
         public ICollection<FactRoom> Rooms { get; set; }
-
-        public ICollection<FactStudent> Students { get; set; }
     }
 }

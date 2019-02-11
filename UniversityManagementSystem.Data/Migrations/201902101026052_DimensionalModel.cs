@@ -109,18 +109,15 @@ namespace UniversityManagementSystem.Data.Migrations
                         ModuleId = c.Decimal(false, 10, 0),
                         ClassificationId = c.Decimal(false, 10, 0),
                         YearId = c.Decimal(false, 10, 0),
-                        NoOfStudents = c.Decimal(false, 10, 0),
-                        DimCampus_Id = c.Decimal(precision: 10, scale: 0)
+                        NoOfStudents = c.Decimal(false, 10, 0)
                     })
                 .PrimaryKey(t => new {t.ModuleId, t.ClassificationId, t.YearId})
                 .ForeignKey("S1502752.DimClassifications", t => t.ClassificationId, true)
                 .ForeignKey("S1502752.DimModules", t => t.ModuleId, true)
                 .ForeignKey("S1502752.DimYears", t => t.YearId, true)
-                .ForeignKey("S1502752.DimCampus", t => t.DimCampus_Id)
                 .Index(t => t.ClassificationId)
                 .Index(t => t.ModuleId)
-                .Index(t => t.YearId)
-                .Index(t => t.DimCampus_Id);
+                .Index(t => t.YearId);
 
             CreateTable(
                     "S1502752.DimClassifications",
@@ -247,7 +244,6 @@ namespace UniversityManagementSystem.Data.Migrations
         {
             DropForeignKey("S1502752.FactRentals", "YearId", "S1502752.DimYears");
             DropForeignKey("S1502752.FactHalls", "YearId", "S1502752.DimYears");
-            DropForeignKey("S1502752.FactStudents", "DimCampus_Id", "S1502752.DimCampus");
             DropForeignKey("S1502752.FactRooms", "YearId", "S1502752.DimYears");
             DropForeignKey("S1502752.FactRooms", "CampusId", "S1502752.DimCampus");
             DropForeignKey("S1502752.FactLibraries", "YearId", "S1502752.DimYears");
@@ -271,7 +267,6 @@ namespace UniversityManagementSystem.Data.Migrations
             DropForeignKey("S1502752.FactRentals", "BookId", "S1502752.DimBooks");
             DropIndex("S1502752.FactRentals", new[] {"YearId"});
             DropIndex("S1502752.FactHalls", new[] {"YearId"});
-            DropIndex("S1502752.FactStudents", new[] {"DimCampus_Id"});
             DropIndex("S1502752.FactRooms", new[] {"YearId"});
             DropIndex("S1502752.FactRooms", new[] {"CampusId"});
             DropIndex("S1502752.FactLibraries", new[] {"YearId"});
