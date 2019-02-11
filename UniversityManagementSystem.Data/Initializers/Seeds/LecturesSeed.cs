@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Data.Initializers.Seeds

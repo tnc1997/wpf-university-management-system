@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Data.Initializers.Seeds
@@ -278,6 +277,90 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Course = CoursesSeed.Computing
         };
 
+        public static Graduation BarbaraEldridAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2017,
+            User = UsersSeed.BarbaraEldrid,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BarbeGrigolliAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2016,
+            User = UsersSeed.BarbeGrigolli,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BarbeeBowsAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2017,
+            User = UsersSeed.BarbeeBows,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BarbraLackieAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2018,
+            User = UsersSeed.BarbraLackie,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BarrChattAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2018,
+            User = UsersSeed.BarrChatt,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BarrisMityashinAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2015,
+            User = UsersSeed.BarrisMityashin,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BartonGaskampAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2016,
+            User = UsersSeed.BartonGaskamp,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BartramWoolastonAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2017,
+            User = UsersSeed.BartramWoolaston,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BartyArminAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2015,
+            User = UsersSeed.BartyArmin,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BaseYesenevAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2018,
+            User = UsersSeed.BaseYesenev,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BasiaWigginAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2017,
+            User = UsersSeed.BasiaWiggin,
+            Course = CoursesSeed.Advertising
+        };
+
+        public static Graduation BathshebaTruettAdvertisingGraduation { get; } = new Graduation
+        {
+            Year = 2016,
+            User = UsersSeed.BathshebaTruett,
+            Course = CoursesSeed.Advertising
+        };
+
         public static Graduation[] ToArray()
         {
             return new []
@@ -320,7 +403,19 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
                 AlmetaSevittComputingGraduation,
                 AmberGreenshieldsComputingGraduation,
                 AmberHaganComputingGraduation,
-                AmeliaEdesonComputingGraduation
+                AmeliaEdesonComputingGraduation,
+                BarbaraEldridAdvertisingGraduation,
+                BarbeGrigolliAdvertisingGraduation,
+                BarbeeBowsAdvertisingGraduation,
+                BarbraLackieAdvertisingGraduation,
+                BarrChattAdvertisingGraduation,
+                BarrisMityashinAdvertisingGraduation,
+                BartonGaskampAdvertisingGraduation,
+                BartramWoolastonAdvertisingGraduation,
+                BartyArminAdvertisingGraduation,
+                BaseYesenevAdvertisingGraduation,
+                BasiaWigginAdvertisingGraduation,
+                BathshebaTruettAdvertisingGraduation
             };
         }
     }
