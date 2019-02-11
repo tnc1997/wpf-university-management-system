@@ -7974,9 +7974,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Title = "Working in Communities"
         };
 
-        public static List<Module> ToList()
+        public static Module[] ToArray()
         {
-            return new List<Module>
+            return new []
             {
                 Ac4004,
                 Ac4005,

@@ -12410,9 +12410,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
 
         #endregion
 
-        public static List<Lecture> ToList()
+        public static Lecture[] ToArray()
         {
-            return new List<Lecture>
+            return new []
             {
                 Ct4005Run1Lecture1,
                 Ct4005Run1Lecture2,

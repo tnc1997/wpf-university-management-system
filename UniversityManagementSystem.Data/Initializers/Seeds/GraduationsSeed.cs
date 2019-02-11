@@ -278,9 +278,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Course = CoursesSeed.Computing
         };
 
-        public static List<Graduation> ToList()
+        public static Graduation[] ToArray()
         {
-            return new List<Graduation>
+            return new []
             {
                 AbbyHarwickComputingGraduation,
                 AbbyeHurdidgeComputingGraduation,

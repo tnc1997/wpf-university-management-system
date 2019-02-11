@@ -563,9 +563,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Campus = CampusesSeed.Hardwick
         };
 
-        public static List<Course> ToList()
+        public static Course[] ToArray()
         {
-            return new List<Course>
+            return new []
             {
                 AccountingAndBusinessManagement,
                 AccountingAndFinance,

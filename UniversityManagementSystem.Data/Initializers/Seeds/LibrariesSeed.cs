@@ -29,9 +29,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Campus = CampusesSeed.Park
         };
 
-        public static List<Library> ToList()
+        public static Library[] ToArray()
         {
-            return new List<Library>
+            return new []
             {
                 FrancisCloseHallNorthLibrary,
                 FrancisCloseHallSouthLibrary,

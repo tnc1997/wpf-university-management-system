@@ -9005,9 +9005,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Course = CoursesSeed.AnimalBiology
         };
 
-        public static List<User> ToList()
+        public static User[] ToArray()
         {
-            return new List<User>
+            return new []
             {
                 AbbeLakin,
                 AbbyHarwick,

@@ -25,9 +25,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Name = "Park"
         };
 
-        public static List<Campus> ToList()
+        public static Campus[] ToArray()
         {
-            return new List<Campus>
+            return new []
             {
                 FrancisCloseHall,
                 Hardwick,

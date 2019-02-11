@@ -1529,9 +1529,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Campus = CampusesSeed.Park
         };
 
-        public static List<Room> ToList()
+        public static Room[] ToArray()
         {
-            return new List<Room>
+            return new []
             {
                 FcCe002,
                 FcCe102,

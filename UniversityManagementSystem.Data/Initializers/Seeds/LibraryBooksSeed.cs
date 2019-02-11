@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Data.Initializers.Seeds
 {
     internal static class LibraryBooksSeed
     {
-        public static List<LibraryBook> ToList()
+        public static LibraryBook[] ToArray()
         {
-            return new List<LibraryBook>
+            return new []
             {
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstAgile},
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstAndroid},
@@ -18,8 +17,7 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstJava},
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstJavaScript},
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstLearnToCode},
-                new LibraryBook
-                    {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstObjectOrientedProgramming},
+                new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstObjectOrientedProgramming},
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstPmp},
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstPython},
                 new LibraryBook {Library = LibrariesSeed.ParkLibrary, Book = BooksSeed.HeadFirstRuby},

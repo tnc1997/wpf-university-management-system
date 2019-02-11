@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201901252239354_InitialCommit.Designer.cs">
       <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902101026052_DimensionalModel.cs" />
+    <Compile Include="Migrations\201902101026052_DimensionalModel.Designer.cs">
+      <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,6 +112,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201901252239354_InitialCommit.resx">
       <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902101026052_DimensionalModel.resx">
+      <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

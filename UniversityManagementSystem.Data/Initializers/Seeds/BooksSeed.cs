@@ -95,9 +95,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Author = "Dawn Griffiths"
         };
 
-        public static List<Book> ToList()
+        public static Book[] ToArray()
         {
-            return new List<Book>
+            return new []
             {
                 HeadFirstAgile,
                 HeadFirstAndroid,

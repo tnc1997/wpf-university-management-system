@@ -7337,9 +7337,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
         
         #endregion
 
-        public static List<Result> ToList()
+        public static Result[] ToArray()
         {
-            return new List<Result>
+            return new []
             {
                 AbbyHarwickCt4005Run1Assignment1Result,
                 AbbyHarwickCt4008Run1Assignment1Result,

@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using UniversityManagementSystem.Data.Contexts;
 using UniversityManagementSystem.Data.Initializers.Seeds;
 
@@ -8,40 +9,55 @@ namespace UniversityManagementSystem.Data.Initializers
     {
         protected override async void Seed(ApplicationDbContext context)
         {
-            context.Assignments.AddRange(AssignmentsSeed.ToList());
+            context.Campuses.AddOrUpdate(CampusesSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Books.AddRange(BooksSeed.ToList());
+            context.Modules.AddOrUpdate(ModulesSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Campuses.AddRange(CampusesSeed.ToList());
+            context.Runs.AddOrUpdate(RunsSeed.ToArray());
+            await context.SaveChangesAsync();
+            
+            context.Assignments.AddOrUpdate(AssignmentsSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.CourseModules.AddRange(CourseModulesSeed.ToList());
+            context.Books.AddOrUpdate(BooksSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Courses.AddRange(CoursesSeed.ToList());
+            context.Courses.AddOrUpdate(CoursesSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Enrolments.AddRange(EnrolmentsSeed.ToList());
+            context.CourseModules.AddOrUpdate(CourseModulesSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Graduations.AddRange(GraduationsSeed.ToList());
+            context.Users.AddOrUpdate(UsersSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Halls.AddRange(HallsSeed.ToList());
+            context.Results.AddOrUpdate(ResultsSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Lectures.AddRange(LecturesSeed.ToList());
+            context.Rentals.AddOrUpdate(RentalsSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Libraries.AddRange(LibrariesSeed.ToList());
+            context.Enrolments.AddOrUpdate(EnrolmentsSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.LibraryBooks.AddRange(LibraryBooksSeed.ToList());
+            context.Rooms.AddOrUpdate(RoomsSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Modules.AddRange(ModulesSeed.ToList());
+            context.Lectures.AddOrUpdate(LecturesSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Rentals.AddRange(RentalsSeed.ToList());
+            context.Halls.AddOrUpdate(HallsSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Results.AddRange(ResultsSeed.ToList());
+            context.Libraries.AddOrUpdate(LibrariesSeed.ToArray());
+            await context.SaveChangesAsync();
+            
+            context.LibraryBooks.AddOrUpdate(LibraryBooksSeed.ToArray());
+            await context.SaveChangesAsync();
 
-            context.Rooms.AddRange(RoomsSeed.ToList());
-
-            context.Runs.AddRange(RunsSeed.ToList());
-
-            context.Users.AddRange(UsersSeed.ToList());
-
+            context.Graduations.AddOrUpdate(GraduationsSeed.ToArray());
             await context.SaveChangesAsync();
         }
     }

@@ -65,9 +65,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Campus = CampusesSeed.Oxstalls
         };
 
-        public static List<Hall> ToList()
+        public static Hall[] ToArray()
         {
-            return new List<Hall>
+            return new []
             {
                 BlackfriarsResidences,
                 EildonAndMerrowdown,

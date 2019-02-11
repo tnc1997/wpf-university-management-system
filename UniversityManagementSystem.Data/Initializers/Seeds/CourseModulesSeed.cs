@@ -5,9 +5,9 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
 {
     internal static class CourseModulesSeed
     {
-        public static List<CourseModule> ToList()
+        public static CourseModule[] ToArray()
         {
-            return new List<CourseModule>
+            return new []
             {
                 new CourseModule {Course = CoursesSeed.AccountingAndFinance, Module = ModulesSeed.Ac4004},
                 new CourseModule {Course = CoursesSeed.AccountingAndFinance, Module = ModulesSeed.Ac4005},
