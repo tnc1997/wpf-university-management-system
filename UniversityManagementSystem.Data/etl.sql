@@ -472,26 +472,26 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactStudentsEtl AS
 BEGIN
   INSERT INTO "FactStudents"
   SELECT "ModuleId",
-         UFN_ResultsGetClassification("Users"."Id", R1."ModuleId"),
-         UFN_DimYearsGetId(R1."Year"),
+         UFN_ResultsGetClassification("Users"."Id", R."ModuleId"),
+         UFN_DimYearsGetId(R."Year"),
          COUNT("Users"."Id")
   FROM "Users"
          INNER JOIN "Enrolments" E
                     ON "Users"."Id" = E."UserId"
-         INNER JOIN "Runs" R1
-                    ON E."RunId" = R1."Id"
+         INNER JOIN "Runs" R
+                    ON E."RunId" = R."Id"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactStudents"
-      WHERE "FactStudents"."ModuleId" = R1."ModuleId"
-        AND "ClassificationId" = UFN_ResultsGetClassification("Users"."Id", R1."ModuleId")
-        AND "YearId" = UFN_DimYearsGetId(R1."Year")
+      WHERE "FactStudents"."ModuleId" = R."ModuleId"
+        AND "ClassificationId" = UFN_ResultsGetClassification("Users"."Id", R."ModuleId")
+        AND "YearId" = UFN_DimYearsGetId(R."Year")
     )
-  GROUP BY UFN_DimYearsGetId(R1."Year"),
-           UFN_ResultsGetClassification("Users"."Id", R1."ModuleId"),
+  GROUP BY UFN_DimYearsGetId(R."Year"),
+           UFN_ResultsGetClassification("Users"."Id", R."ModuleId"),
            "ModuleId"
-  ORDER BY UFN_DimYearsGetId(R1."Year"),
-           UFN_ResultsGetClassification("Users"."Id", R1."ModuleId"),
+  ORDER BY UFN_DimYearsGetId(R."Year"),
+           UFN_ResultsGetClassification("Users"."Id", R."ModuleId"),
            "ModuleId";
 END;
 
