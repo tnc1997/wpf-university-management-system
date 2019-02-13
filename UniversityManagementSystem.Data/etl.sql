@@ -1,9 +1,10 @@
 -- FUNCTIONS
 
 -- Gets the id of the year dimension which corresponds to a year.
-CREATE OR REPLACE FUNCTION S1502752.UFN_DimYearsGetIdByYear(year IN NUMBER) RETURN NUMBER IS id NUMBER;
+CREATE OR REPLACE FUNCTION S1502752.UFN_DimYearsGetId(year IN NUMBER) RETURN NUMBER IS id NUMBER;
 BEGIN
-  SELECT "Id" INTO id
+  SELECT "Id"
+         INTO id
   FROM "DimYears"
   WHERE "Year" = year;
 
@@ -44,6 +45,29 @@ BEGIN
   ELSIF grade >= 70 THEN
     RETURN '1';
   END IF;
+END;
+
+-- Gets the classification of the average grade of all the results which correspond to a user and a module.
+CREATE OR REPLACE FUNCTION S1502752.UFN_ResultsGetClassification(userId NUMBER, moduleId NUMBER) RETURN NVARCHAR2 AS
+  averageGrade NUMBER := UFN_ResultsGetAverageGrade(userId, moduleId);
+BEGIN
+  RETURN UFN_MapGradeToClassification(averageGrade);
+END;
+
+-- Gets the average grade of all the results which correspond to a user and a module.
+CREATE OR REPLACE FUNCTION S1502752.UFN_ResultsGetAverageGrade(userId NUMBER, moduleId NUMBER) RETURN NUMBER IS averageGrade NUMBER;
+BEGIN
+  SELECT AVG("Grade")
+         INTO averageGrade
+  FROM "Results"
+         INNER JOIN "Assignments" A
+                    ON "Results"."AssignmentId" = A."Id"
+         INNER JOIN "Runs" R
+                    ON A."RunId" = R."Id"
+  WHERE "UserId" = userId
+    AND "ModuleId" = moduleId;
+
+  RETURN averageGrade;
 END;
 
 -- PROCEDURES
@@ -237,7 +261,7 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactAssignmentsEtl AS
 BEGIN
   INSERT INTO "FactAssignments"
   SELECT "ModuleId",
-         UFN_DimYearsGetIdByYear("Year"),
+         UFN_DimYearsGetId("Year"),
          COUNT(DISTINCT "Assignments"."Id")
   FROM "Assignments"
          INNER JOIN "Runs" R
@@ -246,11 +270,11 @@ BEGIN
       SELECT *
       FROM "FactAssignments"
       WHERE "FactAssignments"."ModuleId" = R."ModuleId"
-        AND "YearId" = UFN_DimYearsGetIdByYear("Year")
+        AND "YearId" = UFN_DimYearsGetId("Year")
     )
-  GROUP BY UFN_DimYearsGetIdByYear("Year"),
+  GROUP BY UFN_DimYearsGetId("Year"),
            "ModuleId"
-  ORDER BY UFN_DimYearsGetIdByYear("Year"),
+  ORDER BY UFN_DimYearsGetId("Year"),
            "ModuleId";
 END;
 
@@ -261,7 +285,7 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactBooksEtl AS
 BEGIN
   INSERT INTO "FactBooks"
   SELECT "LibraryId",
-         UFN_DimYearsGetIdByYear(year),
+         UFN_DimYearsGetId(year),
          COUNT(DISTINCT "Books"."Id")
   FROM "Books"
          INNER JOIN "LibraryBooks" LB
@@ -270,11 +294,11 @@ BEGIN
       SELECT *
       FROM "FactBooks"
       WHERE "FactBooks"."LibraryId" = LB."LibraryId"
-        AND "YearId" = UFN_DimYearsGetIdByYear(year)
+        AND "YearId" = UFN_DimYearsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetIdByYear(year),
+  GROUP BY UFN_DimYearsGetId(year),
            "LibraryId"
-  ORDER BY UFN_DimYearsGetIdByYear(year),
+  ORDER BY UFN_DimYearsGetId(year),
            "LibraryId";
 END;
 
@@ -284,17 +308,17 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactGraduatesEtl AS
 BEGIN
   INSERT INTO "FactGraduates"
   SELECT "CourseId",
-         UFN_DimYearsGetIdByYear("Year"),
+         UFN_DimYearsGetId("Year"),
          COUNT(DISTINCT "Id")
   FROM "Graduations"
   WHERE NOT EXISTS(
       SELECT * FROM "FactGraduates"
       WHERE "FactGraduates"."CourseId" = "Graduations"."CourseId"
-        AND "YearId" = UFN_DimYearsGetIdByYear("Year")
+        AND "YearId" = UFN_DimYearsGetId("Year")
     )
-  GROUP BY UFN_DimYearsGetIdByYear("Year"),
+  GROUP BY UFN_DimYearsGetId("Year"),
            "CourseId"
-  ORDER BY UFN_DimYearsGetIdByYear("Year"),
+  ORDER BY UFN_DimYearsGetId("Year"),
            "CourseId";
 END;
 
@@ -305,18 +329,18 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactHallsEtl AS
 BEGIN
   INSERT INTO "FactHalls"
   SELECT "CampusId",
-         UFN_DimYearsGetIdByYear(year),
+         UFN_DimYearsGetId(year),
          COUNT(DISTINCT "Id")
   FROM "Halls"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactHalls"
       WHERE "FactHalls"."CampusId" = "Halls"."CampusId"
-        AND "YearId" = UFN_DimYearsGetIdByYear(year)
+        AND "YearId" = UFN_DimYearsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetIdByYear(year),
+  GROUP BY UFN_DimYearsGetId(year),
            "CampusId"
-  ORDER BY UFN_DimYearsGetIdByYear(year),
+  ORDER BY UFN_DimYearsGetId(year),
            "CampusId";
 END;
 
@@ -327,7 +351,7 @@ BEGIN
   INSERT INTO "FactLectures"
   SELECT "ModuleId",
          "RoomId",
-         UFN_DimYearsGetIdByYear("Year"),
+         UFN_DimYearsGetId("Year"),
          COUNT(DISTINCT "Lectures"."Id")
   FROM "Lectures"
          INNER JOIN "Runs" R
@@ -339,12 +363,12 @@ BEGIN
       FROM "FactLectures"
       WHERE "FactLectures"."ModuleId" = R."ModuleId"
         AND "FactLectures"."RoomId" = "Lectures"."RoomId"
-        AND "YearId" = UFN_DimYearsGetIdByYear("Year")
+        AND "YearId" = UFN_DimYearsGetId("Year")
     )
-  GROUP BY UFN_DimYearsGetIdByYear("Year"),
+  GROUP BY UFN_DimYearsGetId("Year"),
            "RoomId",
            "ModuleId"
-  ORDER BY UFN_DimYearsGetIdByYear("Year"),
+  ORDER BY UFN_DimYearsGetId("Year"),
            "RoomId",
            "ModuleId";
 END;
@@ -356,18 +380,18 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactLibrariesEtl AS
 BEGIN
   INSERT INTO "FactLibraries"
   SELECT "CampusId",
-         UFN_DimYearsGetIdByYear(year),
+         UFN_DimYearsGetId(year),
          COUNT(DISTINCT "Id")
   FROM "Halls"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactLibraries"
       WHERE "FactLibraries"."CampusId" = "Halls"."CampusId"
-        AND "YearId" = UFN_DimYearsGetIdByYear(year)
+        AND "YearId" = UFN_DimYearsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetIdByYear(year),
+  GROUP BY UFN_DimYearsGetId(year),
            "CampusId"
-  ORDER BY UFN_DimYearsGetIdByYear(year),
+  ORDER BY UFN_DimYearsGetId(year),
            "CampusId";
 END;
 
@@ -378,7 +402,7 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactModulesEtl AS
 BEGIN
   INSERT INTO "FactModules"
   SELECT "CourseId",
-         UFN_DimYearsGetIdByYear(year),
+         UFN_DimYearsGetId(year),
          COUNT(DISTINCT "Id")
   FROM "Modules"
          INNER JOIN "CourseModules" CM
@@ -387,11 +411,11 @@ BEGIN
       SELECT *
       FROM "FactModules"
       WHERE "FactModules"."CourseId" = CM."CourseId"
-        AND "YearId" = UFN_DimYearsGetIdByYear(year)
+        AND "YearId" = UFN_DimYearsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetIdByYear(year),
+  GROUP BY UFN_DimYearsGetId(year),
            "CourseId"
-  ORDER BY UFN_DimYearsGetIdByYear(year),
+  ORDER BY UFN_DimYearsGetId(year),
            "CourseId";
 END;
 
@@ -403,7 +427,7 @@ BEGIN
   INSERT INTO "FactRentals"
   SELECT "UserId",
          "BookId",
-         UFN_DimYearsGetIdByYear(year),
+         UFN_DimYearsGetId(year),
          COUNT(DISTINCT "Id")
   FROM "Rentals"
   WHERE NOT EXISTS(
@@ -411,12 +435,12 @@ BEGIN
       FROM "FactRentals"
       WHERE "FactRentals"."UserId" = "Rentals"."UserId"
         AND "FactRentals"."BookId" = "Rentals"."BookId"
-        AND "YearId" = UFN_DimYearsGetIdByYear(year)
+        AND "YearId" = UFN_DimYearsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetIdByYear(year),
+  GROUP BY UFN_DimYearsGetId(year),
            "BookId",
            "UserId"
-  ORDER BY UFN_DimYearsGetIdByYear(year),
+  ORDER BY UFN_DimYearsGetId(year),
            "BookId",
            "UserId";
 END;
@@ -428,18 +452,18 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactRoomsEtl AS
 BEGIN
   INSERT INTO "FactRooms"
   SELECT "CampusId",
-         UFN_DimYearsGetIdByYear(year),
+         UFN_DimYearsGetId(year),
          COUNT(DISTINCT "Id")
   FROM "Rooms"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactRooms"
       WHERE "FactRooms"."CampusId" = "Rooms"."CampusId"
-        AND "YearId" = UFN_DimYearsGetIdByYear(year)
+        AND "YearId" = UFN_DimYearsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetIdByYear(year),
+  GROUP BY UFN_DimYearsGetId(year),
            "CampusId"
-  ORDER BY UFN_DimYearsGetIdByYear(year),
+  ORDER BY UFN_DimYearsGetId(year),
            "CampusId";
 END;
 
@@ -449,30 +473,26 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_FactStudentsEtl AS
 BEGIN
   INSERT INTO "FactStudents"
   SELECT "ModuleId",
-         UFN_MapGradeToClassification("Grade"),
-         UFN_DimYearsGetIdByYear(R1."Year"),
-         COUNT(DISTINCT "Users"."Id")
+         UFN_ResultsGetClassification("Users"."Id", R1."ModuleId"),
+         UFN_DimYearsGetId(R1."Year"),
+         COUNT("Users"."Id")
   FROM "Users"
          INNER JOIN "Enrolments" E
                     ON "Users"."Id" = E."UserId"
          INNER JOIN "Runs" R1
                     ON E."RunId" = R1."Id"
-         INNER JOIN "Assignments" A
-                    ON R1."Id" = A."RunId"
-         INNER JOIN "Results" R2
-                    ON A."Id" = R2."AssignmentId"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactStudents"
       WHERE "FactStudents"."ModuleId" = R1."ModuleId"
-        AND "ClassificationId" = UFN_MapGradeToClassification("Grade")
-        AND "YearId" = UFN_DimYearsGetIdByYear(R1."Year")
+        AND "ClassificationId" = UFN_ResultsGetClassification("Users"."Id", R1."ModuleId")
+        AND "YearId" = UFN_DimYearsGetId(R1."Year")
     )
-  GROUP BY UFN_DimYearsGetIdByYear(R1."Year"),
-           UFN_MapGradeToClassification("Grade"),
+  GROUP BY UFN_DimYearsGetId(R1."Year"),
+           UFN_ResultsGetClassification("Users"."Id", R1."ModuleId"),
            "ModuleId"
-  ORDER BY UFN_DimYearsGetIdByYear(R1."Year"),
-           UFN_MapGradeToClassification("Grade"),
+  ORDER BY UFN_DimYearsGetId(R1."Year"),
+           UFN_ResultsGetClassification("Users"."Id", R1."ModuleId"),
            "ModuleId";
 END;
 
