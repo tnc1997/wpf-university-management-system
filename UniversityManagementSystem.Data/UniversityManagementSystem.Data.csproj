@@ -1,86 +1,128 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{D08F8D8B-63AA-4547-B0CD-142D0BA2772D}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>UniversityManagementSystem.Data</RootNamespace>
-        <AssemblyName>UniversityManagementSystem.Data</AssemblyName>
-        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Xml" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Contexts\ApplicationDbContext.cs" />
-        <Compile Include="Entities\Assignment.cs" />
-        <Compile Include="Entities\Book.cs" />
-        <Compile Include="Entities\Campus.cs" />
-        <Compile Include="Entities\Course.cs" />
-        <Compile Include="Entities\CourseModule.cs" />
-        <Compile Include="Entities\Enrolment.cs" />
-        <Compile Include="Entities\EntityBase.cs" />
-        <Compile Include="Entities\Graduation.cs" />
-        <Compile Include="Entities\Hall.cs" />
-        <Compile Include="Entities\IEntity.cs" />
-        <Compile Include="Entities\Lecture.cs" />
-        <Compile Include="Entities\Library.cs" />
-        <Compile Include="Entities\LibraryBook.cs" />
-        <Compile Include="Entities\Module.cs" />
-        <Compile Include="Entities\Rental.cs" />
-        <Compile Include="Entities\Result.cs" />
-        <Compile Include="Entities\Room.cs" />
-        <Compile Include="Entities\Run.cs" />
-        <Compile Include="Entities\User.cs" />
-        <Compile Include="Initializers\ApplicationDbInitializer.cs" />
-        <Compile Include="Migrations\201901252239354_InitialCommit.cs" />
-        <Compile Include="Migrations\201901252239354_InitialCommit.Designer.cs">
-          <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
-        </Compile>
-        <Compile Include="Migrations\Configuration.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Migrations\201901252239354_InitialCommit.resx">
-        <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
-      </EmbeddedResource>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D08F8D8B-63AA-4547-B0CD-142D0BA2772D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniversityManagementSystem.Data</RootNamespace>
+    <AssemblyName>UniversityManagementSystem.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contexts\ApplicationDbContext.cs" />
+    <Compile Include="Entities\Assignment.cs" />
+    <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\Campus.cs" />
+    <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\CourseModule.cs" />
+    <Compile Include="Entities\DimBook.cs" />
+    <Compile Include="Entities\DimCampus.cs" />
+    <Compile Include="Entities\DimCourse.cs" />
+    <Compile Include="Entities\DimClassification.cs" />
+    <Compile Include="Entities\DimLibrary.cs" />
+    <Compile Include="Entities\DimModule.cs" />
+    <Compile Include="Entities\DimRoom.cs" />
+    <Compile Include="Entities\DimYear.cs" />
+    <Compile Include="Entities\DimUser.cs" />
+    <Compile Include="Entities\Enrolment.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\FactAssignment.cs" />
+    <Compile Include="Entities\FactBook.cs" />
+    <Compile Include="Entities\FactGraduate.cs" />
+    <Compile Include="Entities\FactHall.cs" />
+    <Compile Include="Entities\FactLecture.cs" />
+    <Compile Include="Entities\FactLibrary.cs" />
+    <Compile Include="Entities\FactModule.cs" />
+    <Compile Include="Entities\FactRental.cs" />
+    <Compile Include="Entities\FactRoom.cs" />
+    <Compile Include="Entities\FactStudent.cs" />
+    <Compile Include="Entities\Graduation.cs" />
+    <Compile Include="Entities\Hall.cs" />
+    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\Lecture.cs" />
+    <Compile Include="Entities\Library.cs" />
+    <Compile Include="Entities\LibraryBook.cs" />
+    <Compile Include="Entities\Module.cs" />
+    <Compile Include="Entities\Rental.cs" />
+    <Compile Include="Entities\Result.cs" />
+    <Compile Include="Entities\Room.cs" />
+    <Compile Include="Entities\Run.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Initializers\ApplicationDbInitializer.cs" />
+    <Compile Include="Initializers\Seeds\AssignmentsSeed.cs" />
+    <Compile Include="Initializers\Seeds\BooksSeed.cs" />
+    <Compile Include="Initializers\Seeds\CampusesSeed.cs" />
+    <Compile Include="Initializers\Seeds\CourseModulesSeed.cs" />
+    <Compile Include="Initializers\Seeds\CoursesSeed.cs" />
+    <Compile Include="Initializers\Seeds\EnrolmentsSeed.cs" />
+    <Compile Include="Initializers\Seeds\GraduationsSeed.cs" />
+    <Compile Include="Initializers\Seeds\HallsSeed.cs" />
+    <Compile Include="Initializers\Seeds\LecturesSeed.cs" />
+    <Compile Include="Initializers\Seeds\LibrariesSeed.cs" />
+    <Compile Include="Initializers\Seeds\LibraryBooksSeed.cs" />
+    <Compile Include="Initializers\Seeds\ModulesSeed.cs" />
+    <Compile Include="Initializers\Seeds\RentalsSeed.cs" />
+    <Compile Include="Initializers\Seeds\ResultsSeed.cs" />
+    <Compile Include="Initializers\Seeds\RoomsSeed.cs" />
+    <Compile Include="Initializers\Seeds\RunsSeed.cs" />
+    <Compile Include="Initializers\Seeds\UsersSeed.cs" />
+    <Compile Include="Migrations\201901252239354_InitialCommit.cs" />
+    <Compile Include="Migrations\201901252239354_InitialCommit.Designer.cs">
+      <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902101026052_DimensionalModel.cs" />
+    <Compile Include="Migrations\201902101026052_DimensionalModel.Designer.cs">
+      <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901252239354_InitialCommit.resx">
+      <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902101026052_DimensionalModel.resx">
+      <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>
