@@ -262,7 +262,7 @@ BEGIN
   INSERT INTO "FactAssignments"
   SELECT "ModuleId",
          UFN_DimYearsGetId("Year"),
-         COUNT(DISTINCT "Assignments"."Id")
+         COUNT("Assignments"."Id")
   FROM "Assignments"
          INNER JOIN "Runs" R
                     ON "Assignments"."RunId" = R."Id"
@@ -286,7 +286,7 @@ BEGIN
   INSERT INTO "FactBooks"
   SELECT "LibraryId",
          UFN_DimYearsGetId(year),
-         COUNT(DISTINCT "Books"."Id")
+         COUNT("Books"."Id")
   FROM "Books"
          INNER JOIN "LibraryBooks" LB
                     ON "Books"."Id" = LB."BookId"
@@ -309,7 +309,7 @@ BEGIN
   INSERT INTO "FactGraduates"
   SELECT "CourseId",
          UFN_DimYearsGetId("Year"),
-         COUNT(DISTINCT "Id")
+         COUNT("Id")
   FROM "Graduations"
   WHERE NOT EXISTS(
       SELECT * FROM "FactGraduates"
@@ -330,7 +330,7 @@ BEGIN
   INSERT INTO "FactHalls"
   SELECT "CampusId",
          UFN_DimYearsGetId(year),
-         COUNT(DISTINCT "Id")
+         COUNT("Id")
   FROM "Halls"
   WHERE NOT EXISTS(
       SELECT *
@@ -352,7 +352,7 @@ BEGIN
   SELECT "ModuleId",
          "RoomId",
          UFN_DimYearsGetId("Year"),
-         COUNT(DISTINCT "Lectures"."Id")
+         COUNT("Lectures"."Id")
   FROM "Lectures"
          INNER JOIN "Runs" R
                     ON "Lectures"."RunId" = R."Id"
@@ -381,12 +381,12 @@ BEGIN
   INSERT INTO "FactLibraries"
   SELECT "CampusId",
          UFN_DimYearsGetId(year),
-         COUNT(DISTINCT "Id")
-  FROM "Halls"
+         COUNT("Id")
+  FROM "Libraries"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactLibraries"
-      WHERE "FactLibraries"."CampusId" = "Halls"."CampusId"
+      WHERE "FactLibraries"."CampusId" = "Libraries"."CampusId"
         AND "YearId" = UFN_DimYearsGetId(year)
     )
   GROUP BY UFN_DimYearsGetId(year),
@@ -403,7 +403,7 @@ BEGIN
   INSERT INTO "FactModules"
   SELECT "CourseId",
          UFN_DimYearsGetId(year),
-         COUNT(DISTINCT "Id")
+         COUNT("Id")
   FROM "Modules"
          INNER JOIN "CourseModules" CM
                     ON "Modules"."Id" = CM."ModuleId"
@@ -422,25 +422,24 @@ END;
 -- Extracts all the rentals from the operational database and transforms them into the rentals fact table if
   -- they are not already present in said fact table.
 CREATE OR REPLACE PROCEDURE S1502752.USP_FactRentalsEtl AS
-  year NUMBER := UFN_GetAcademicYear();
 BEGIN
   INSERT INTO "FactRentals"
   SELECT "UserId",
          "BookId",
-         UFN_DimYearsGetId(year),
-         COUNT(DISTINCT "Id")
+         UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
+         COUNT("Id")
   FROM "Rentals"
   WHERE NOT EXISTS(
       SELECT *
       FROM "FactRentals"
       WHERE "FactRentals"."UserId" = "Rentals"."UserId"
         AND "FactRentals"."BookId" = "Rentals"."BookId"
-        AND "YearId" = UFN_DimYearsGetId(year)
+        AND "YearId" = UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate"))
     )
-  GROUP BY UFN_DimYearsGetId(year),
+  GROUP BY UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
            "BookId",
            "UserId"
-  ORDER BY UFN_DimYearsGetId(year),
+  ORDER BY UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
            "BookId",
            "UserId";
 END;
@@ -453,7 +452,7 @@ BEGIN
   INSERT INTO "FactRooms"
   SELECT "CampusId",
          UFN_DimYearsGetId(year),
-         COUNT(DISTINCT "Id")
+         COUNT("Id")
   FROM "Rooms"
   WHERE NOT EXISTS(
       SELECT *
