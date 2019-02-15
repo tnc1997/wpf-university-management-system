@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace UniversityManagementSystem.Data.Entities
 {
-    public class DimUser
+    public class UserDim
     {
         public int Id { get; set; }
 
@@ -10,6 +10,6 @@ namespace UniversityManagementSystem.Data.Entities
 
         public string LastName { get; set; }
 
-        public ICollection<FactRental> Rentals { get; set; }
+        public ICollection<RentalFact> RentalFacts { get; set; }
     }
 }

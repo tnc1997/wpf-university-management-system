@@ -2,12 +2,14 @@ using System.Collections.Generic;
 
 namespace UniversityManagementSystem.Data.Entities
 {
-    public class DimRoom
+    public class BookDim
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public ICollection<FactLecture> Lectures { get; set; }
+        public string Author { get; set; }
+
+        public ICollection<RentalFact> RentalFacts { get; set; }
     }
 }
