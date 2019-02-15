@@ -113,6 +113,8 @@ namespace UniversityManagementSystem.Data.Contexts
         public DbSet<BookDim> BookDims { get; set; }
 
         public DbSet<CampusDim> CampusDims { get; set; }
+        
+        public DbSet<ClassificationDim> ClassificationDims { get; set; }
 
         public DbSet<CourseDim> CourseDims { get; set; }
 

@@ -39,32 +39,52 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="AssignmentFactService.cs" />
+        <Compile Include="BookDimService.cs" />
         <Compile Include="BookFactService.cs" />
+        <Compile Include="CampusDimService.cs" />
+        <Compile Include="ClassificationDimService.cs" />
+        <Compile Include="CourseDimService.cs" />
+        <Compile Include="DimServiceBase.cs" />
         <Compile Include="FactServiceBase.cs" />
         <Compile Include="GraduationFactService.cs" />
         <Compile Include="HallFactService.cs" />
         <Compile Include="IAssignmentFactService.cs" />
+        <Compile Include="IBookDimService.cs" />
         <Compile Include="IBookFactService.cs" />
+        <Compile Include="ICampusDimService.cs" />
+        <Compile Include="IClassificationDimService.cs" />
+        <Compile Include="ICourseDimService.cs" />
+        <Compile Include="IDimService.cs" />
         <Compile Include="IFactService.cs" />
         <Compile Include="IGraduationFactService.cs" />
         <Compile Include="IHallFactService.cs" />
         <Compile Include="ILectureFactService.cs" />
+        <Compile Include="ILibraryDimService.cs" />
         <Compile Include="ILibraryFactService.cs" />
+        <Compile Include="IModuleDimService.cs" />
         <Compile Include="IModuleFactService.cs" />
         <Compile Include="IRentalFactService.cs" />
+        <Compile Include="IRoomDimService.cs" />
         <Compile Include="IRoomFactService.cs" />
         <Compile Include="IService.cs" />
         <Compile Include="IStudentFactService.cs" />
+        <Compile Include="IUserDimService.cs" />
         <Compile Include="IUserService.cs" />
+        <Compile Include="IYearDimService.cs" />
         <Compile Include="LectureFactService.cs" />
+        <Compile Include="LibraryDimService.cs" />
         <Compile Include="LibraryFactService.cs" />
+        <Compile Include="ModuleDimService.cs" />
         <Compile Include="ModuleFactService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RentalFactService.cs" />
+        <Compile Include="RoomDimService.cs" />
         <Compile Include="RoomFactService.cs" />
         <Compile Include="ServiceBase.cs" />
         <Compile Include="StudentFactService.cs" />
+        <Compile Include="UserDimService.cs" />
         <Compile Include="UserService.cs" />
+        <Compile Include="YearDimService.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
