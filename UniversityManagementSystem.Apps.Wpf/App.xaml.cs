@@ -15,6 +15,16 @@ namespace UniversityManagementSystem.Apps.Wpf
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IAssignmentFactService, AssignmentFactService>();
+            containerRegistry.RegisterSingleton<IBookFactService, BookFactService>();
+            containerRegistry.RegisterSingleton<IGraduationFactService, GraduationFactService>();
+            containerRegistry.RegisterSingleton<IHallFactService, HallFactService>();
+            containerRegistry.RegisterSingleton<ILectureFactService, LectureFactService>();
+            containerRegistry.RegisterSingleton<ILibraryFactService, LibraryFactService>();
+            containerRegistry.RegisterSingleton<IModuleFactService, ModuleFactService>();
+            containerRegistry.RegisterSingleton<IRentalFactService, RentalFactService>();
+            containerRegistry.RegisterSingleton<IRoomFactService, RoomFactService>();
+            containerRegistry.RegisterSingleton<IStudentFactService, StudentFactService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
 
             containerRegistry.Register<IMainWindowViewModel, MainWindowViewModel>();
