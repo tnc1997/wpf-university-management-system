@@ -4,7 +4,7 @@ using UniversityManagementSystem.Specifications;
 
 namespace UniversityManagementSystem.Services
 {
-    public interface IFactService<TFact> where TFact : IFact
+    public interface IFactService<TFact> : IService<TFact> where TFact : IFact
     {
         Task<int> GetSumAsync();
         Task<int> GetSumAsync(ISpecification<TFact> specification);

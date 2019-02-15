@@ -53,6 +53,7 @@
         <Compile Include="IModuleFactService.cs" />
         <Compile Include="IRentalFactService.cs" />
         <Compile Include="IRoomFactService.cs" />
+        <Compile Include="IService.cs" />
         <Compile Include="IStudentFactService.cs" />
         <Compile Include="IUserService.cs" />
         <Compile Include="LectureFactService.cs" />
