@@ -95,6 +95,10 @@
       <Project>{403da3da-9b25-4da5-bd55-235642e99ad0}</Project>
       <Name>UniversityManagementSystem.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Specifications\UniversityManagementSystem.Specifications.csproj">
+      <Project>{55a75553-df3e-4559-b96f-711faf3ad212}</Project>
+      <Name>UniversityManagementSystem.Specifications</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

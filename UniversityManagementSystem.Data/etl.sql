@@ -1,16 +1,5 @@
 -- FUNCTIONS
 
--- Gets the id of the year dimension which corresponds to a year.
-CREATE OR REPLACE FUNCTION S1502752.UFN_DimYearsGetId(year IN NUMBER) RETURN NUMBER IS id NUMBER;
-BEGIN
-  SELECT "Id"
-         INTO id
-  FROM "DimYears"
-  WHERE "Year" = year;
-
-  RETURN id;
-END;
-
 -- Gets the academic year of a date. For example, calling this function with a date of 01/08/2018 would return
   -- 2018; likewise, calling this function with a date of 31/07/2019 would also return 2018.
 CREATE OR REPLACE FUNCTION S1502752.UFN_GetAcademicYearFromDate(dateValue IN DATE) RETURN NUMBER AS
@@ -55,7 +44,8 @@ BEGIN
 END;
 
 -- Gets the average grade of all the results which correspond to a user and a module.
-CREATE OR REPLACE FUNCTION S1502752.UFN_ResultsGetAverageGrade(userId NUMBER, moduleId NUMBER) RETURN NUMBER IS averageGrade NUMBER;
+CREATE OR REPLACE FUNCTION S1502752.UFN_ResultsGetAverageGrade(userId NUMBER, moduleId NUMBER) RETURN NUMBER AS
+  averageGrade NUMBER;
 BEGIN
   SELECT AVG("Grade")
          INTO averageGrade
@@ -70,173 +60,185 @@ BEGIN
   RETURN averageGrade;
 END;
 
+-- Gets the id of the year dimension which corresponds to a year.
+CREATE OR REPLACE FUNCTION S1502752.UFN_YearDimsGetId(year IN NUMBER) RETURN NUMBER AS
+  id NUMBER;
+BEGIN
+  SELECT "Id"
+         INTO id
+  FROM "YearDims"
+  WHERE "Year" = year;
+
+  RETURN id;
+END;
+
 -- PROCEDURES
 
--- Extracts all the books from the operational database and loads them into the books dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimBooksEtl AS
+-- Extracts all the books from the operational database and loads them into the book dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_BookDimsEtl AS
 BEGIN
-  INSERT INTO "DimBooks"
+  INSERT INTO "BookDims"
   SELECT "Id",
          "Name",
          "Author"
   FROM "Books"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimBooks"
-      WHERE "DimBooks"."Id" = "Books"."Id"
+      FROM "BookDims"
+      WHERE "BookDims"."Id" = "Books"."Id"
     );
 END;
 
--- Extracts all the campuses from the operational database and loads them into the campuses dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimCampusEtl AS
+-- Extracts all the campuses from the operational database and loads them into the campus dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_CampusDimsEtl AS
 BEGIN
-  INSERT INTO "DimCampus"
+  INSERT INTO "CampusDims"
   SELECT "Id",
          "Name"
   FROM "Campus"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimCampus"
-      WHERE "DimCampus"."Id" = "Campus"."Id"
+      FROM "CampusDims"
+      WHERE "CampusDims"."Id" = "Campus"."Id"
     );
 END;
 
--- Loads the classifications into the classifications dimension table if they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimClassificationsEtl AS
+-- Loads the classifications into the classification dimensions table if they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_ClassificationDimsEtl AS
   noOfClassifications NUMBER;
 BEGIN
   SELECT COUNT("Id")
          INTO noOfClassifications
-  FROM "DimClassifications";
+  FROM "ClassificationDims";
 
   IF noOfClassifications = 0 THEN
-    INSERT INTO "DimClassifications"
+    INSERT INTO "ClassificationDims"
     ("Classification")
     VALUES
     ('U');
 
-    INSERT INTO "DimClassifications"
+    INSERT INTO "ClassificationDims"
     ("Classification")
     VALUES
     ('3');
 
-    INSERT INTO "DimClassifications"
+    INSERT INTO "ClassificationDims"
     ("Classification")
     VALUES
     ('2.2');
 
-    INSERT INTO "DimClassifications"
+    INSERT INTO "ClassificationDims"
     ("Classification")
     VALUES
     ('2.1');
 
-    INSERT INTO "DimClassifications"
+    INSERT INTO "ClassificationDims"
     ("Classification")
     VALUES
     ('1');
   END IF;
 END;
 
--- Extracts all the courses from the operational database and loads them into the courses dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimCoursesEtl AS
+-- Extracts all the courses from the operational database and loads them into the course dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_CourseDimsEtl AS
 BEGIN
-  INSERT INTO "DimCourses"
+  INSERT INTO "CourseDims"
   SELECT "Id",
          "Name"
   FROM "Courses"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimCourses"
-      WHERE "DimCourses"."Id" = "Courses"."Id"
+      FROM "CourseDims"
+      WHERE "CourseDims"."Id" = "Courses"."Id"
     );
 END;
 
--- Extracts all the libraries from the operational database and loads them into the libraries dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimLibrariesEtl AS
+-- Extracts all the libraries from the operational database and loads them into the library dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_LibraryDimsEtl AS
 BEGIN
-  INSERT INTO "DimLibraries"
+  INSERT INTO "LibraryDims"
   SELECT "Id",
          "Name"
   FROM "Libraries"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimLibraries"
-      WHERE "DimLibraries"."Id" = "Libraries"."Id"
+      FROM "LibraryDims"
+      WHERE "LibraryDims"."Id" = "Libraries"."Id"
     );
 END;
 
--- Extracts all the modules from the operational database and loads them into the modules dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimModulesEtl AS
+-- Extracts all the modules from the operational database and loads them into the module dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_ModuleDimsEtl AS
 BEGIN
-  INSERT INTO "DimModules"
+  INSERT INTO "ModuleDims"
   SELECT "Id",
          "Code",
          "Title"
   FROM "Modules"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimModules"
-      WHERE "DimModules"."Id" = "Modules"."Id"
+      FROM "ModuleDims"
+      WHERE "ModuleDims"."Id" = "Modules"."Id"
     );
 END;
 
--- Extracts all the rooms from the operational database and loads them into the rooms dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimRoomsEtl AS
+-- Extracts all the rooms from the operational database and loads them into the room dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_RoomDimsEtl AS
 BEGIN
-  INSERT INTO "DimRooms"
+  INSERT INTO "RoomDims"
   SELECT "Id",
          "Name"
   FROM "Rooms"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimRooms"
-      WHERE "DimRooms"."Id" = "Rooms"."Id"
+      FROM "RoomDims"
+      WHERE "RoomDims"."Id" = "Rooms"."Id"
     );
 END;
 
--- Extracts all the users from the operational database and loads them into the users dimension table if
-  -- they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimUsersEtl AS
+-- Extracts all the users from the operational database and loads them into the user dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_UserDimsEtl AS
 BEGIN
-  INSERT INTO "DimUsers"
+  INSERT INTO "UserDims"
   SELECT "Id",
          "FirstName",
          "LastName"
   FROM "Users"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "DimUsers"
-      WHERE "DimUsers"."Id" = "Users"."Id"
+      FROM "UserDims"
+      WHERE "UserDims"."Id" = "Users"."Id"
     );
 END;
 
--- Loads the years into the years dimension table if they are not already present in said dimension table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_DimYearsEtl AS
+-- Loads the years into the year dimensions table if they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_YearDimsEtl AS
   noOfYears NUMBER;
   year NUMBER := UFN_GetAcademicYear();
 BEGIN
   SELECT COUNT("Id")
          INTO noOfYears
-  FROM "DimYears";
+  FROM "YearDims";
 
   IF noOfYears = 0 THEN
-    INSERT INTO "DimYears"
+    INSERT INTO "YearDims"
     ("Year")
     VALUES
     (2015);
 
-    INSERT INTO "DimYears"
+    INSERT INTO "YearDims"
     ("Year")
     VALUES
     (2016);
 
-    INSERT INTO "DimYears"
+    INSERT INTO "YearDims"
     ("Year")
     VALUES
     (2017);
@@ -244,114 +246,114 @@ BEGIN
 
   SELECT COUNT("Id")
          INTO noOfYears
-  FROM "DimYears"
+  FROM "YearDims"
   WHERE "Year" = year;
 
   IF noOfYears = 0 THEN
-    INSERT INTO "DimYears"
+    INSERT INTO "YearDims"
     ("Year")
     VALUES
     (year);
   END IF;
 END;
 
--- Extracts all the assignments from the operational database and transforms them into the assignments fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactAssignmentsEtl AS
+-- Extracts all the assignments from the operational database and transforms them into the assignment facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_AssignmentFactsEtl AS
 BEGIN
-  INSERT INTO "FactAssignments"
+  INSERT INTO "AssignmentFacts"
   SELECT "ModuleId",
-         UFN_DimYearsGetId("Year"),
+         UFN_YearDimsGetId("Year"),
          COUNT("Assignments"."Id")
   FROM "Assignments"
          INNER JOIN "Runs" R
                     ON "Assignments"."RunId" = R."Id"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactAssignments"
-      WHERE "FactAssignments"."ModuleId" = R."ModuleId"
-        AND "YearId" = UFN_DimYearsGetId("Year")
+      FROM "AssignmentFacts"
+      WHERE "ModuleDimId" = "ModuleId"
+        AND "YearDimId" = UFN_YearDimsGetId("Year")
     )
-  GROUP BY UFN_DimYearsGetId("Year"),
+  GROUP BY UFN_YearDimsGetId("Year"),
            "ModuleId"
-  ORDER BY UFN_DimYearsGetId("Year"),
+  ORDER BY UFN_YearDimsGetId("Year"),
            "ModuleId";
 END;
 
--- Extracts all the books from the operational database and transforms them into the books fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactBooksEtl AS
+-- Extracts all the books from the operational database and transforms them into the book facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_BookFactsEtl AS
   year NUMBER := UFN_GetAcademicYear();
 BEGIN
-  INSERT INTO "FactBooks"
+  INSERT INTO "BookFacts"
   SELECT "LibraryId",
-         UFN_DimYearsGetId(year),
+         UFN_YearDimsGetId(year),
          COUNT("Books"."Id")
   FROM "Books"
          INNER JOIN "LibraryBooks" LB
                     ON "Books"."Id" = LB."BookId"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactBooks"
-      WHERE "FactBooks"."LibraryId" = LB."LibraryId"
-        AND "YearId" = UFN_DimYearsGetId(year)
+      FROM "BookFacts"
+      WHERE "LibraryDimId" = "LibraryId"
+        AND "YearDimId" = UFN_YearDimsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetId(year),
+  GROUP BY UFN_YearDimsGetId(year),
            "LibraryId"
-  ORDER BY UFN_DimYearsGetId(year),
+  ORDER BY UFN_YearDimsGetId(year),
            "LibraryId";
 END;
 
--- Extracts all the graduates from the operational database and transforms them into the graduates fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactGraduatesEtl AS
+-- Extracts all the graduations from the operational database and transforms them into the graduation facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_GraduationFactsEtl AS
 BEGIN
-  INSERT INTO "FactGraduates"
+  INSERT INTO "GraduationFacts"
   SELECT "CourseId",
-         UFN_DimYearsGetId("Year"),
+         UFN_YearDimsGetId("Year"),
          COUNT("Id")
   FROM "Graduations"
   WHERE NOT EXISTS(
-      SELECT * FROM "FactGraduates"
-      WHERE "FactGraduates"."CourseId" = "Graduations"."CourseId"
-        AND "YearId" = UFN_DimYearsGetId("Year")
+      SELECT * FROM "GraduationFacts"
+      WHERE "CourseDimId" = "CourseId"
+        AND "YearDimId" = UFN_YearDimsGetId("Year")
     )
-  GROUP BY UFN_DimYearsGetId("Year"),
+  GROUP BY UFN_YearDimsGetId("Year"),
            "CourseId"
-  ORDER BY UFN_DimYearsGetId("Year"),
+  ORDER BY UFN_YearDimsGetId("Year"),
            "CourseId";
 END;
 
--- Extracts all the halls from the operational database and transforms them into the halls fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactHallsEtl AS
+-- Extracts all the halls from the operational database and transforms them into the hall facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_HallFactsEtl AS
   year NUMBER := UFN_GetAcademicYear();
 BEGIN
-  INSERT INTO "FactHalls"
+  INSERT INTO "HallFacts"
   SELECT "CampusId",
-         UFN_DimYearsGetId(year),
+         UFN_YearDimsGetId(year),
          COUNT("Id")
   FROM "Halls"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactHalls"
-      WHERE "FactHalls"."CampusId" = "Halls"."CampusId"
-        AND "YearId" = UFN_DimYearsGetId(year)
+      FROM "HallFacts"
+      WHERE "CampusDimId" = "CampusId"
+        AND "YearDimId" = UFN_YearDimsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetId(year),
+  GROUP BY UFN_YearDimsGetId(year),
            "CampusId"
-  ORDER BY UFN_DimYearsGetId(year),
+  ORDER BY UFN_YearDimsGetId(year),
            "CampusId";
 END;
 
--- Extracts all the lectures from the operational database and transforms them into the lectures fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactLecturesEtl AS
+-- Extracts all the lectures from the operational database and transforms them into the lecture facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_LectureFactsEtl AS
 BEGIN
-  INSERT INTO "FactLectures"
+  INSERT INTO "LectureFacts"
   SELECT "ModuleId",
          "RoomId",
-         UFN_DimYearsGetId("Year"),
+         UFN_YearDimsGetId("Year"),
          COUNT("Lectures"."Id")
   FROM "Lectures"
          INNER JOIN "Runs" R
@@ -360,120 +362,120 @@ BEGIN
                     ON R."ModuleId" = M."Id"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactLectures"
-      WHERE "FactLectures"."ModuleId" = R."ModuleId"
-        AND "FactLectures"."RoomId" = "Lectures"."RoomId"
-        AND "YearId" = UFN_DimYearsGetId("Year")
+      FROM "LectureFacts"
+      WHERE "ModuleDimId" = "ModuleId"
+        AND "RoomDimId" = "RoomId"
+        AND "YearDimId" = UFN_YearDimsGetId("Year")
     )
-  GROUP BY UFN_DimYearsGetId("Year"),
+  GROUP BY UFN_YearDimsGetId("Year"),
            "RoomId",
            "ModuleId"
-  ORDER BY UFN_DimYearsGetId("Year"),
+  ORDER BY UFN_YearDimsGetId("Year"),
            "RoomId",
            "ModuleId";
 END;
 
--- Extracts all the libraries from the operational database and transforms them into the libraries fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactLibrariesEtl AS
+-- Extracts all the libraries from the operational database and transforms them into the library facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_LibraryFactsEtl AS
   year NUMBER := UFN_GetAcademicYear();
 BEGIN
-  INSERT INTO "FactLibraries"
+  INSERT INTO "LibraryFacts"
   SELECT "CampusId",
-         UFN_DimYearsGetId(year),
+         UFN_YearDimsGetId(year),
          COUNT("Id")
   FROM "Libraries"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactLibraries"
-      WHERE "FactLibraries"."CampusId" = "Libraries"."CampusId"
-        AND "YearId" = UFN_DimYearsGetId(year)
+      FROM "LibraryFacts"
+      WHERE "CampusDimId" = "CampusId"
+        AND "YearDimId" = UFN_YearDimsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetId(year),
+  GROUP BY UFN_YearDimsGetId(year),
            "CampusId"
-  ORDER BY UFN_DimYearsGetId(year),
+  ORDER BY UFN_YearDimsGetId(year),
            "CampusId";
 END;
 
--- Extracts all the modules from the operational database and transforms them into the modules fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactModulesEtl AS
+-- Extracts all the modules from the operational database and transforms them into the module facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_ModuleFactsEtl AS
   year NUMBER := UFN_GetAcademicYear();
 BEGIN
-  INSERT INTO "FactModules"
+  INSERT INTO "ModuleFacts"
   SELECT "CourseId",
-         UFN_DimYearsGetId(year),
+         UFN_YearDimsGetId(year),
          COUNT("Id")
   FROM "Modules"
          INNER JOIN "CourseModules" CM
                     ON "Modules"."Id" = CM."ModuleId"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactModules"
-      WHERE "FactModules"."CourseId" = CM."CourseId"
-        AND "YearId" = UFN_DimYearsGetId(year)
+      FROM "ModuleFacts"
+      WHERE "CourseDimId" = "CourseId"
+        AND "YearDimId" = UFN_YearDimsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetId(year),
+  GROUP BY UFN_YearDimsGetId(year),
            "CourseId"
-  ORDER BY UFN_DimYearsGetId(year),
+  ORDER BY UFN_YearDimsGetId(year),
            "CourseId";
 END;
 
--- Extracts all the rentals from the operational database and transforms them into the rentals fact table if
-  -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactRentalsEtl AS
+-- Extracts all the rentals from the operational database and transforms them into the rental facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_RentalFactsEtl AS
 BEGIN
-  INSERT INTO "FactRentals"
+  INSERT INTO "RentalFacts"
   SELECT "UserId",
          "BookId",
-         UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
+         UFN_YearDimsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
          COUNT("Id")
   FROM "Rentals"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactRentals"
-      WHERE "FactRentals"."UserId" = "Rentals"."UserId"
-        AND "FactRentals"."BookId" = "Rentals"."BookId"
-        AND "YearId" = UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate"))
+      FROM "RentalFacts"
+      WHERE "UserDimId" = "UserId"
+        AND "BookDimId" = "BookId"
+        AND "YearDimId" = UFN_YearDimsGetId(UFN_GetAcademicYearFromDate("CheckoutDate"))
     )
-  GROUP BY UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
+  GROUP BY UFN_YearDimsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
            "BookId",
            "UserId"
-  ORDER BY UFN_DimYearsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
+  ORDER BY UFN_YearDimsGetId(UFN_GetAcademicYearFromDate("CheckoutDate")),
            "BookId",
            "UserId";
 END;
 
--- Extracts all the rooms from the operational database and transforms them into the rooms fact table if
+-- Extracts all the rooms from the operational database and transforms them into the room facts table if
   -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactRoomsEtl AS
+CREATE OR REPLACE PROCEDURE S1502752.USP_RoomFactsEtl AS
   year NUMBER := UFN_GetAcademicYear();
 BEGIN
-  INSERT INTO "FactRooms"
+  INSERT INTO "RoomFacts"
   SELECT "CampusId",
-         UFN_DimYearsGetId(year),
+         UFN_YearDimsGetId(year),
          COUNT("Id")
   FROM "Rooms"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactRooms"
-      WHERE "FactRooms"."CampusId" = "Rooms"."CampusId"
-        AND "YearId" = UFN_DimYearsGetId(year)
+      FROM "RoomFacts"
+      WHERE "CampusDimId" = "CampusId"
+        AND "YearDimId" = UFN_YearDimsGetId(year)
     )
-  GROUP BY UFN_DimYearsGetId(year),
+  GROUP BY UFN_YearDimsGetId(year),
            "CampusId"
-  ORDER BY UFN_DimYearsGetId(year),
+  ORDER BY UFN_YearDimsGetId(year),
            "CampusId";
 END;
 
--- Extracts all the students from the operational database and transforms them into the students fact table if
+-- Extracts all the students from the operational database and transforms them into the student facts table if
   -- they are not already present in said fact table.
-CREATE OR REPLACE PROCEDURE S1502752.USP_FactStudentsEtl AS
+CREATE OR REPLACE PROCEDURE S1502752.USP_StudentFactsEtl AS
 BEGIN
-  INSERT INTO "FactStudents"
+  INSERT INTO "StudentFacts"
   SELECT "ModuleId",
-         UFN_ResultsGetClassification("Users"."Id", R."ModuleId"),
-         UFN_DimYearsGetId(R."Year"),
+         UFN_ResultsGetClassification("Users"."Id", "ModuleId"),
+         UFN_YearDimsGetId(R."Year"),
          COUNT("Users"."Id")
   FROM "Users"
          INNER JOIN "Enrolments" E
@@ -482,39 +484,39 @@ BEGIN
                     ON E."RunId" = R."Id"
   WHERE NOT EXISTS(
       SELECT *
-      FROM "FactStudents"
-      WHERE "FactStudents"."ModuleId" = R."ModuleId"
-        AND "ClassificationId" = UFN_ResultsGetClassification("Users"."Id", R."ModuleId")
-        AND "YearId" = UFN_DimYearsGetId(R."Year")
+      FROM "StudentFacts"
+      WHERE "ModuleDimId" = "ModuleId"
+        AND "ClassificationDimId" = UFN_ResultsGetClassification("Users"."Id", "ModuleId")
+        AND "YearDimId" = UFN_YearDimsGetId(R."Year")
     )
-  GROUP BY UFN_DimYearsGetId(R."Year"),
-           UFN_ResultsGetClassification("Users"."Id", R."ModuleId"),
+  GROUP BY UFN_YearDimsGetId(R."Year"),
+           UFN_ResultsGetClassification("Users"."Id", "ModuleId"),
            "ModuleId"
-  ORDER BY UFN_DimYearsGetId(R."Year"),
-           UFN_ResultsGetClassification("Users"."Id", R."ModuleId"),
+  ORDER BY UFN_YearDimsGetId(R."Year"),
+           UFN_ResultsGetClassification("Users"."Id", "ModuleId"),
            "ModuleId";
 END;
 
 CREATE OR REPLACE PROCEDURE S1502752.USP_Etl AS
 BEGIN
-  USP_DimBooksEtl();
-  USP_DimCampusEtl();
-  USP_DimClassificationsEtl();
-  USP_DimCoursesEtl();
-  USP_DimLibrariesEtl();
-  USP_DimModulesEtl();
-  USP_DimRoomsEtl();
-  USP_DimUsersEtl();
-  USP_DimYearsEtl();
+  USP_BookDimsEtl();
+  USP_CampusDimsEtl();
+  USP_ClassificationDimsEtl();
+  USP_CourseDimsEtl();
+  USP_LibraryDimsEtl();
+  USP_ModuleDimsEtl();
+  USP_RoomDimsEtl();
+  USP_UserDimsEtl();
+  USP_YearDimsEtl();
 
-  USP_FactAssignmentsEtl();
-  USP_FactBooksEtl();
-  USP_FactGraduatesEtl();
-  USP_FactHallsEtl();
-  USP_FactLecturesEtl();
-  USP_FactLibrariesEtl();
-  USP_FactModulesEtl();
-  USP_FactRentalsEtl();
-  USP_FactRoomsEtl();
-  USP_FactStudentsEtl();
+  USP_AssignmentFactsEtl();
+  USP_BookFactsEtl();
+  USP_GraduationFactsEtl();
+  USP_HallFactsEtl();
+  USP_LectureFactsEtl();
+  USP_LibraryFactsEtl();
+  USP_ModuleFactsEtl();
+  USP_RentalFactsEtl();
+  USP_RoomFactsEtl();
+  USP_StudentFactsEtl();
 END;

@@ -4,11 +4,11 @@ using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Services
 {
-    public class UserService : ServiceBase<User>, IUserService
+    public class HallFactService : FactServiceBase<HallFact>, IHallFactService
     {
-        protected override DbSet<User> GetDbSet(ApplicationDbContext context)
+        protected override DbSet<HallFact> GetDbSet(ApplicationDbContext context)
         {
-            return context.Users;
+            return context.HallFacts;
         }
     }
 }

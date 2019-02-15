@@ -35,35 +35,35 @@ namespace UniversityManagementSystem.Data.Contexts
 
             #region Composite Primary Keys
 
-            modelBuilder.Entity<FactAssignment>()
-                .HasKey(assignment => new {assignment.ModuleId, assignment.YearId});
+            modelBuilder.Entity<AssignmentFact>()
+                .HasKey(assignment => new {assignment.ModuleDimId, assignment.YearDimId});
 
-            modelBuilder.Entity<FactBook>()
-                .HasKey(book => new {book.LibraryId, book.YearId});
+            modelBuilder.Entity<BookFact>()
+                .HasKey(book => new {book.LibraryDimId, book.YearDimId});
 
-            modelBuilder.Entity<FactGraduate>()
-                .HasKey(graduate => new {graduate.CourseId, graduate.YearId});
+            modelBuilder.Entity<GraduationFact>()
+                .HasKey(graduate => new {graduate.CourseDimId, graduate.YearDimId});
 
-            modelBuilder.Entity<FactHall>()
-                .HasKey(hall => new {hall.CampusId, hall.YearId});
+            modelBuilder.Entity<HallFact>()
+                .HasKey(hall => new {hall.CampusDimId, hall.YearDimId});
 
-            modelBuilder.Entity<FactLecture>()
-                .HasKey(lecture => new {lecture.ModuleId, lecture.RoomId, lecture.YearId});
+            modelBuilder.Entity<LectureFact>()
+                .HasKey(lecture => new {lecture.ModuleDimId, lecture.RoomDimId, lecture.YearDimId});
 
-            modelBuilder.Entity<FactLibrary>()
-                .HasKey(library => new {library.CampusId, library.YearId});
+            modelBuilder.Entity<LibraryFact>()
+                .HasKey(library => new {library.CampusDimId, library.YearDimId});
 
-            modelBuilder.Entity<FactModule>()
-                .HasKey(module => new {module.CourseId, module.YearId});
+            modelBuilder.Entity<ModuleFact>()
+                .HasKey(module => new {module.CourseDimId, module.YearDimId});
 
-            modelBuilder.Entity<FactRental>()
-                .HasKey(rental => new {rental.UserId, rental.BookId, rental.YearId});
+            modelBuilder.Entity<RentalFact>()
+                .HasKey(rental => new {rental.UserDimId, rental.BookDimId, rental.YearDimId});
 
-            modelBuilder.Entity<FactRoom>()
-                .HasKey(room => new {room.CampusId, room.YearId});
+            modelBuilder.Entity<RoomFact>()
+                .HasKey(room => new {room.CampusDimId, room.YearDimId});
 
-            modelBuilder.Entity<FactStudent>()
-                .HasKey(student => new {student.ModuleId, student.ClassificationId, student.YearId});
+            modelBuilder.Entity<StudentFact>()
+                .HasKey(student => new {student.ModuleDimId, student.ClassificationDimId, student.YearDimId});
 
             #endregion
 
@@ -110,41 +110,43 @@ namespace UniversityManagementSystem.Data.Contexts
 
         #region Data Warehouse
 
-        public DbSet<DimBook> DimBooks { get; set; }
+        public DbSet<BookDim> BookDims { get; set; }
 
-        public DbSet<DimCampus> DimCampuses { get; set; }
+        public DbSet<CampusDim> CampusDims { get; set; }
+        
+        public DbSet<ClassificationDim> ClassificationDims { get; set; }
 
-        public DbSet<DimCourse> DimCourses { get; set; }
+        public DbSet<CourseDim> CourseDims { get; set; }
 
-        public DbSet<DimLibrary> DimLibraries { get; set; }
+        public DbSet<LibraryDim> LibraryDims { get; set; }
 
-        public DbSet<DimModule> DimModules { get; set; }
+        public DbSet<ModuleDim> ModuleDims { get; set; }
 
-        public DbSet<DimRoom> DimRooms { get; set; }
+        public DbSet<RoomDim> RoomDims { get; set; }
 
-        public DbSet<DimUser> DimUsers { get; set; }
+        public DbSet<UserDim> UserDims { get; set; }
 
-        public DbSet<DimYear> DimYears { get; set; }
+        public DbSet<YearDim> YearDims { get; set; }
 
-        public DbSet<FactAssignment> FactAssignments { get; set; }
+        public DbSet<AssignmentFact> AssignmentFacts { get; set; }
 
-        public DbSet<FactBook> FactBooks { get; set; }
+        public DbSet<BookFact> BookFacts { get; set; }
 
-        public DbSet<FactGraduate> FactGraduates { get; set; }
+        public DbSet<GraduationFact> GraduationFacts { get; set; }
 
-        public DbSet<FactHall> FactHalls { get; set; }
+        public DbSet<HallFact> HallFacts { get; set; }
 
-        public DbSet<FactLecture> FactLectures { get; set; }
+        public DbSet<LectureFact> LectureFacts { get; set; }
 
-        public DbSet<FactLibrary> FactLibraries { get; set; }
+        public DbSet<LibraryFact> LibraryFacts { get; set; }
 
-        public DbSet<FactModule> FactModules { get; set; }
+        public DbSet<ModuleFact> ModuleFacts { get; set; }
 
-        public DbSet<FactRental> FactRentals { get; set; }
+        public DbSet<RentalFact> RentalFacts { get; set; }
 
-        public DbSet<FactRoom> FactRooms { get; set; }
+        public DbSet<RoomFact> RoomFacts { get; set; }
 
-        public DbSet<FactStudent> FactStudents { get; set; }
+        public DbSet<StudentFact> StudentFacts { get; set; }
 
         #endregion
     }

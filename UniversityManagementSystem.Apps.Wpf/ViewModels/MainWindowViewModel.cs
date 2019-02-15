@@ -1,20 +1,22 @@
 using System.Threading.Tasks;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
 
 namespace UniversityManagementSystem.Apps.Wpf.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
-        public MainWindowViewModel(IUserService userService)
+        public MainWindowViewModel(IAssignmentFactService assignmentFactService)
         {
-            UserService = userService;
+            AssignmentFactService = assignmentFactService;
         }
 
-        private IUserService UserService { get; }
+        private IAssignmentFactService AssignmentFactService { get; }
 
         public override async Task LoadAsync()
         {
-            var users = await UserService.GetAsync();
+            var specification = new AssignmentFactYearSpecification(4) & new AssignmentFactModuleSpecification(391);
+            var noOfAssignments = await AssignmentFactService.GetSumAsync(specification);
         }
     }
 }

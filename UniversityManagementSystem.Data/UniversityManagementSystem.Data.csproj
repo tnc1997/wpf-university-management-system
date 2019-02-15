@@ -44,30 +44,32 @@
     <Compile Include="Entities\Campus.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\CourseModule.cs" />
-    <Compile Include="Entities\DimBook.cs" />
-    <Compile Include="Entities\DimCampus.cs" />
-    <Compile Include="Entities\DimCourse.cs" />
-    <Compile Include="Entities\DimClassification.cs" />
-    <Compile Include="Entities\DimLibrary.cs" />
-    <Compile Include="Entities\DimModule.cs" />
-    <Compile Include="Entities\DimRoom.cs" />
-    <Compile Include="Entities\DimYear.cs" />
-    <Compile Include="Entities\DimUser.cs" />
+    <Compile Include="Entities\BookDim.cs" />
+    <Compile Include="Entities\CampusDim.cs" />
+    <Compile Include="Entities\CourseDim.cs" />
+    <Compile Include="Entities\ClassificationDim.cs" />
+    <Compile Include="Entities\LibraryDim.cs" />
+    <Compile Include="Entities\ModuleDim.cs" />
+    <Compile Include="Entities\RoomDim.cs" />
+    <Compile Include="Entities\YearDim.cs" />
+    <Compile Include="Entities\UserDim.cs" />
     <Compile Include="Entities\Enrolment.cs" />
     <Compile Include="Entities\EntityBase.cs" />
-    <Compile Include="Entities\FactAssignment.cs" />
-    <Compile Include="Entities\FactBook.cs" />
-    <Compile Include="Entities\FactGraduate.cs" />
-    <Compile Include="Entities\FactHall.cs" />
-    <Compile Include="Entities\FactLecture.cs" />
-    <Compile Include="Entities\FactLibrary.cs" />
-    <Compile Include="Entities\FactModule.cs" />
-    <Compile Include="Entities\FactRental.cs" />
-    <Compile Include="Entities\FactRoom.cs" />
-    <Compile Include="Entities\FactStudent.cs" />
+    <Compile Include="Entities\AssignmentFact.cs" />
+    <Compile Include="Entities\FactBase.cs" />
+    <Compile Include="Entities\BookFact.cs" />
+    <Compile Include="Entities\GraduationFact.cs" />
+    <Compile Include="Entities\HallFact.cs" />
+    <Compile Include="Entities\LectureFact.cs" />
+    <Compile Include="Entities\LibraryFact.cs" />
+    <Compile Include="Entities\ModuleFact.cs" />
+    <Compile Include="Entities\RentalFact.cs" />
+    <Compile Include="Entities\RoomFact.cs" />
+    <Compile Include="Entities\StudentFact.cs" />
     <Compile Include="Entities\Graduation.cs" />
     <Compile Include="Entities\Hall.cs" />
     <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\IFact.cs" />
     <Compile Include="Entities\Lecture.cs" />
     <Compile Include="Entities\Library.cs" />
     <Compile Include="Entities\LibraryBook.cs" />
@@ -103,6 +105,10 @@
     <Compile Include="Migrations\201902101026052_DimensionalModel.Designer.cs">
       <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902141445595_DimensionalModel1.cs" />
+    <Compile Include="Migrations\201902141445595_DimensionalModel1.Designer.cs">
+      <DependentUpon>201902141445595_DimensionalModel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902101026052_DimensionalModel.resx">
       <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902141445595_DimensionalModel1.resx">
+      <DependentUpon>201902141445595_DimensionalModel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

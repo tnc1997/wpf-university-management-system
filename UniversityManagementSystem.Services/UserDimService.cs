@@ -4,11 +4,11 @@ using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Services
 {
-    public class UserService : ServiceBase<User>, IUserService
+    public class UserDimService : DimServiceBase<UserDim>, IUserDimService
     {
-        protected override DbSet<User> GetDbSet(ApplicationDbContext context)
+        protected override DbSet<UserDim> GetDbSet(ApplicationDbContext context)
         {
-            return context.Users;
+            return context.UserDims;
         }
     }
 }
