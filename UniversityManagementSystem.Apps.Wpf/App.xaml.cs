@@ -15,6 +15,26 @@ namespace UniversityManagementSystem.Apps.Wpf
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            #region Services
+            
+            containerRegistry.RegisterSingleton<IUserService, UserService>();
+
+            #region Dims
+
+            containerRegistry.RegisterSingleton<IBookDimService, BookDimService>();
+            containerRegistry.RegisterSingleton<ICampusDimService, CampusDimService>();
+            containerRegistry.RegisterSingleton<IClassificationDimService, ClassificationDimService>();
+            containerRegistry.RegisterSingleton<ICourseDimService, CourseDimService>();
+            containerRegistry.RegisterSingleton<ILibraryDimService, LibraryDimService>();
+            containerRegistry.RegisterSingleton<IModuleDimService, ModuleDimService>();
+            containerRegistry.RegisterSingleton<IRoomDimService, RoomDimService>();
+            containerRegistry.RegisterSingleton<IUserDimService, UserDimService>();
+            containerRegistry.RegisterSingleton<IYearDimService, YearDimService>();
+
+            #endregion
+            
+            #region Facts
+            
             containerRegistry.RegisterSingleton<IAssignmentFactService, AssignmentFactService>();
             containerRegistry.RegisterSingleton<IBookFactService, BookFactService>();
             containerRegistry.RegisterSingleton<IGraduationFactService, GraduationFactService>();
@@ -25,9 +45,16 @@ namespace UniversityManagementSystem.Apps.Wpf
             containerRegistry.RegisterSingleton<IRentalFactService, RentalFactService>();
             containerRegistry.RegisterSingleton<IRoomFactService, RoomFactService>();
             containerRegistry.RegisterSingleton<IStudentFactService, StudentFactService>();
-            containerRegistry.RegisterSingleton<IUserService, UserService>();
+            
+            #endregion
+
+            #endregion
+            
+            #region View Models
 
             containerRegistry.Register<IMainWindowViewModel, MainWindowViewModel>();
+            
+            #endregion
         }
     }
 }
