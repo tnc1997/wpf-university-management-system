@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Data.Initializers;
 
@@ -16,6 +18,18 @@ namespace UniversityManagementSystem.Data.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.HasDefaultSchema("S1502752");
+
+            bool Predicate(System.Reflection.PropertyInfo propertyInfo) =>
+                propertyInfo.PropertyType == typeof(string) &&
+                propertyInfo.GetCustomAttributes(typeof(MaxLengthAttribute), false).Length == 0;
+
+            void ConfigurationAction(ConventionPrimitivePropertyConfiguration propertyConfiguration) =>
+                propertyConfiguration.HasMaxLength(2000);
+
+            modelBuilder
+                .Properties()
+                .Where(Predicate)
+                .Configure(ConfigurationAction);
 
             #region Operational Database
 

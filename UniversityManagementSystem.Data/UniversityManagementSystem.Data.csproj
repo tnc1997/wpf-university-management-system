@@ -97,17 +97,9 @@
     <Compile Include="Initializers\Seeds\RoomsSeed.cs" />
     <Compile Include="Initializers\Seeds\RunsSeed.cs" />
     <Compile Include="Initializers\Seeds\UsersSeed.cs" />
-    <Compile Include="Migrations\201901252239354_InitialCommit.cs" />
-    <Compile Include="Migrations\201901252239354_InitialCommit.Designer.cs">
-      <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902101026052_DimensionalModel.cs" />
-    <Compile Include="Migrations\201902101026052_DimensionalModel.Designer.cs">
-      <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902141445595_DimensionalModel1.cs" />
-    <Compile Include="Migrations\201902141445595_DimensionalModel1.Designer.cs">
-      <DependentUpon>201902141445595_DimensionalModel1.cs</DependentUpon>
+    <Compile Include="Migrations\201902151341134_InitialCommit.cs" />
+    <Compile Include="Migrations\201902151341134_InitialCommit.Designer.cs">
+      <DependentUpon>201902151341134_InitialCommit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,14 +108,8 @@
     <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901252239354_InitialCommit.resx">
-      <DependentUpon>201901252239354_InitialCommit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902101026052_DimensionalModel.resx">
-      <DependentUpon>201902101026052_DimensionalModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902141445595_DimensionalModel1.resx">
-      <DependentUpon>201902141445595_DimensionalModel1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902151341134_InitialCommit.resx">
+      <DependentUpon>201902151341134_InitialCommit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

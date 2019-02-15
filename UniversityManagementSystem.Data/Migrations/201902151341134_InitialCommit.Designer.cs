@@ -7,13 +7,13 @@ namespace UniversityManagementSystem.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class DimensionalModel : IMigrationMetadata
+    public sealed partial class InitialCommit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DimensionalModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCommit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902101026052_DimensionalModel"; }
+            get { return "201902151341134_InitialCommit"; }
         }
         
         string IMigrationMetadata.Source
