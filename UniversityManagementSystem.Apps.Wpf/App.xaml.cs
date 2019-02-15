@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Prism.Ioc;
-using UniversityManagementSystem.Apps.Wpf.ViewModels;
 using UniversityManagementSystem.Apps.Wpf.Views;
 using UniversityManagementSystem.Services;
 
@@ -16,7 +15,7 @@ namespace UniversityManagementSystem.Apps.Wpf
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             #region Services
-            
+
             containerRegistry.RegisterSingleton<IUserService, UserService>();
 
             #region Dims
@@ -32,9 +31,9 @@ namespace UniversityManagementSystem.Apps.Wpf
             containerRegistry.RegisterSingleton<IYearDimService, YearDimService>();
 
             #endregion
-            
+
             #region Facts
-            
+
             containerRegistry.RegisterSingleton<IAssignmentFactService, AssignmentFactService>();
             containerRegistry.RegisterSingleton<IBookFactService, BookFactService>();
             containerRegistry.RegisterSingleton<IGraduationFactService, GraduationFactService>();
@@ -45,15 +44,16 @@ namespace UniversityManagementSystem.Apps.Wpf
             containerRegistry.RegisterSingleton<IRentalFactService, RentalFactService>();
             containerRegistry.RegisterSingleton<IRoomFactService, RoomFactService>();
             containerRegistry.RegisterSingleton<IStudentFactService, StudentFactService>();
-            
+
             #endregion
 
             #endregion
-            
-            #region View Models
 
-            containerRegistry.Register<IMainWindowViewModel, MainWindowViewModel>();
-            
+            #region Views
+
+            containerRegistry.RegisterForNavigation<LoginPage>();
+            containerRegistry.RegisterForNavigation<MainPage>();
+
             #endregion
         }
     }
