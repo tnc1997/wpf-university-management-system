@@ -1,0 +1,70 @@
+<Page
+    x:Class="UniversityManagementSystem.Apps.Wpf.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="Black"
+    Title="Login">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Image
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            Source="/Assets/Images/LoginBackground.jpg"
+            Stretch="UniformToFill"
+            VerticalAlignment="Center" />
+
+        <StackPanel
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            Width="320">
+
+            <Label
+                Content="Username"
+                Foreground="White" />
+
+            <TextBox
+                Height="20"
+                Text="{Binding Username, Mode=TwoWay}" />
+
+            <Rectangle Margin="12" />
+
+            <Label
+                Content="Password"
+                Foreground="White" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox
+                    Height="20"
+                    Text="{Binding Password, Mode=TwoWay}" />
+
+                <Button
+                    Command="{Binding LoginCommand}"
+                    Content="Login"
+                    Grid.Column="1"
+                    Height="20" />
+            </Grid>
+        </StackPanel>
+
+        <Image
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            Margin="24"
+            Source="/Assets/AppLogo.png"
+            Stretch="Uniform"
+            VerticalAlignment="Center"
+            Width="640" />
+    </Grid>
+</Page>

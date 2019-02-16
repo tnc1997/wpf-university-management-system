@@ -1,26 +1,22 @@
-﻿using System;
-using UniversityManagementSystem.Apps.Wpf.ViewModels;
+﻿using System.Windows;
+using Prism.Regions;
 
 namespace UniversityManagementSystem.Apps.Wpf.Views
 {
     public partial class MainWindow
     {
-        public MainWindow(IMainWindowViewModel viewModel)
+        public MainWindow(IRegionManager regionManager)
         {
-            ViewModel = viewModel;
+            RegionManager = regionManager;
 
             InitializeComponent();
         }
 
-        private IMainWindowViewModel ViewModel { get; }
+        private IRegionManager RegionManager { get; }
 
-        protected override async void OnInitialized(EventArgs e)
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            DataContext = ViewModel;
-
-            await ViewModel.LoadAsync();
-
-            base.OnInitialized(e);
+            RegionManager.RequestNavigate("ContentRegion", "LoginPage");
         }
     }
 }
