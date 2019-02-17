@@ -1,11 +1,10 @@
-<Page
-    x:Class="UniversityManagementSystem.Apps.Wpf.Views.LoginPage"
+<UserControl
+    x:Class="UniversityManagementSystem.Apps.Wpf.Modules.Auth.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Background="Black"
-    Title="Login">
+    Background="Black">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,9 +29,7 @@
                 Content="Username"
                 Foreground="White" />
 
-            <TextBox
-                Height="20"
-                Text="{Binding Username, Mode=TwoWay}" />
+            <TextBox Text="{Binding Username, Mode=TwoWay}" />
 
             <Rectangle Margin="12" />
 
@@ -46,15 +43,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox
-                    Height="20"
-                    Text="{Binding Password, Mode=TwoWay}" />
+                <TextBox Text="{Binding Password, Mode=TwoWay}" />
 
                 <Button
                     Command="{Binding LoginCommand}"
                     Content="Login"
-                    Grid.Column="1"
-                    Height="20" />
+                    Grid.Column="1" />
             </Grid>
         </StackPanel>
 
@@ -67,4 +61,4 @@
             VerticalAlignment="Center"
             Width="640" />
     </Grid>
-</Page>
+</UserControl>

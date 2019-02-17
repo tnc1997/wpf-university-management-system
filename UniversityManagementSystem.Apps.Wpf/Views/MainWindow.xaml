@@ -1,13 +1,11 @@
-﻿<Window
+﻿<controls:MetroWindow
     x:Class="UniversityManagementSystem.Apps.Wpf.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    Loaded="MainWindow_OnLoaded"
     Title="University Management System">
 
-    <Frame
-        NavigationUIVisibility="Hidden"
-        prism:RegionManager.RegionName="ContentRegion" />
-</Window>
+    <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+</controls:MetroWindow>

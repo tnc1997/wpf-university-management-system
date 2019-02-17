@@ -1,5 +1,9 @@
 ﻿using System.Windows;
 using Prism.Ioc;
+using Prism.Modularity;
+using UniversityManagementSystem.Apps.Wpf.Modules.Auth;
+using UniversityManagementSystem.Apps.Wpf.Modules.Home;
+using UniversityManagementSystem.Apps.Wpf.Modules.Main;
 using UniversityManagementSystem.Apps.Wpf.Views;
 using UniversityManagementSystem.Services;
 
@@ -7,6 +11,13 @@ namespace UniversityManagementSystem.Apps.Wpf
 {
     public partial class App
     {
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<AuthModule>();
+            moduleCatalog.AddModule<HomeModule>();
+            moduleCatalog.AddModule<MainModule>();
+        }
+
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
@@ -46,13 +57,6 @@ namespace UniversityManagementSystem.Apps.Wpf
             containerRegistry.RegisterSingleton<IStudentFactService, StudentFactService>();
 
             #endregion
-
-            #endregion
-
-            #region Views
-
-            containerRegistry.RegisterForNavigation<LoginPage>();
-            containerRegistry.RegisterForNavigation<MainPage>();
 
             #endregion
         }

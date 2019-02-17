@@ -54,20 +54,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\ILoginPageViewModel.cs" />
-    <Compile Include="ViewModels\IMainPageViewModel.cs" />
-    <Compile Include="ViewModels\IMainWindowViewModel.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\LoginPageViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -93,18 +80,30 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0212" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="3.0.0-alpha0103" />
     <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
     <PackageReference Include="Prism.DryIoc" Version="7.1.0.431" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\LoginPage.xaml" />
-    <Page Include="Views\MainPage.xaml" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Auth\UniversityManagementSystem.Apps.Wpf.Modules.Auth.csproj">
+      <Project>{f1a39f55-1e5c-43a9-8681-468281f8f6d0}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Home\UniversityManagementSystem.Apps.Wpf.Modules.Home.csproj">
+      <Project>{aa2d9343-2e80-4c52-bf5b-0114e8ff4ba1}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Home</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Main\UniversityManagementSystem.Apps.Wpf.Modules.Main.csproj">
+      <Project>{64a43f31-6d41-4333-bcb5-4e5bbdd31ca2}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Main</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
       <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
       <Name>UniversityManagementSystem.Data</Name>

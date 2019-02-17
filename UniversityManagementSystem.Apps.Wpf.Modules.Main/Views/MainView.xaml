@@ -1,0 +1,41 @@
+<UserControl
+    x:Class="UniversityManagementSystem.Apps.Wpf.Modules.Main.Views.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:models="clr-namespace:UniversityManagementSystem.Apps.Wpf.Modules.Main.Models"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <controls:HamburgerMenu
+        IsPaneOpen="True"
+        ItemsSource="{Binding MenuItems, Mode=OneWay}"
+        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+        VerticalScrollBarOnLeftSide="False">
+
+        <controls:HamburgerMenu.ItemTemplate>
+            <DataTemplate DataType="{x:Type models:NavigationViewItemModel}">
+                <Grid Height="48">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <iconPacks:PackIconMaterial
+                        HorizontalAlignment="Center"
+                        Kind="{Binding Icon, Mode=OneWay}"
+                        VerticalAlignment="Center" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        FontSize="16"
+                        Text="{Binding Title, Mode=OneWay}"
+                        VerticalAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+        </controls:HamburgerMenu.ItemTemplate>
+
+        <ContentControl x:Name="MainRegion" />
+    </controls:HamburgerMenu>
+</UserControl>
