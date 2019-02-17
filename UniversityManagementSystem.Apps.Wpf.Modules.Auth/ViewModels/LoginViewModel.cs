@@ -1,16 +1,17 @@
 using System.Threading.Tasks;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
 using UniversityManagementSystem.Services;
 
-namespace UniversityManagementSystem.Apps.Wpf.ViewModels
+namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
 {
-    public class LoginPageViewModel : ViewModelBase, ILoginPageViewModel
+    public class LoginViewModel : BindableBase
     {
-        private string _username;
         private string _password;
+        private string _username;
 
-        public LoginPageViewModel(IRegionManager regionManager, IUserService userService)
+        public LoginViewModel(IRegionManager regionManager, IUserService userService)
         {
             RegionManager = regionManager;
             UserService = userService;
@@ -46,7 +47,7 @@ namespace UniversityManagementSystem.Apps.Wpf.ViewModels
         private async Task LoginAsync()
         {
             if (await UserService.GetAsync(Username, Password) != null)
-                RegionManager.RequestNavigate("ContentRegion", "MainPage");
+                RegionManager.RequestNavigate("ContentRegion", "MainView");
         }
 
         private async void OnLoginAsync()
