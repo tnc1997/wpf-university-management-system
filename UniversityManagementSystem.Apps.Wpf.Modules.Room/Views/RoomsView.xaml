@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="UniversityManagementSystem.Apps.Wpf.Modules.Student.Views.StudentsView"
+    x:Class="UniversityManagementSystem.Apps.Wpf.Modules.Room.Views.RoomsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:liveCharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -8,7 +8,7 @@
 
     <liveCharts:CartesianChart LegendLocation="Right" Series="{Binding SeriesCollection}">
         <liveCharts:CartesianChart.AxisY>
-            <liveCharts:Axis Title="No Of Students" />
+            <liveCharts:Axis Title="No Of Rooms" />
         </liveCharts:CartesianChart.AxisY>
         
         <liveCharts:CartesianChart.AxisX>

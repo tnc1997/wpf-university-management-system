@@ -26,6 +26,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Student.ViewModels
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
+            SeriesCollection.Clear();
         }
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
