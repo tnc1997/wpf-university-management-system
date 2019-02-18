@@ -1,5 +1,17 @@
 -- FUNCTIONS
 
+-- Gets the id of the classification dimension which corresponds to a classification.
+CREATE OR REPLACE FUNCTION S1502752.UFN_ClassificationDimsGetId(classification IN NVARCHAR2) RETURN NUMBER AS
+  id NUMBER;
+BEGIN
+  SELECT "Id"
+         INTO id
+  FROM "ClassificationDims"
+  WHERE "Classification" = classification;
+  
+  RETURN id;
+END;
+
 -- Gets the academic year of a date. For example, calling this function with a date of 01/08/2018 would return
   -- 2018; likewise, calling this function with a date of 31/07/2019 would also return 2018.
 CREATE OR REPLACE FUNCTION S1502752.UFN_GetAcademicYearFromDate(dateValue IN DATE) RETURN NUMBER AS
@@ -474,7 +486,7 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_StudentFactsEtl AS
 BEGIN
   INSERT INTO "StudentFacts"
   SELECT "ModuleId",
-         UFN_ResultsGetClassification("Users"."Id", "ModuleId"),
+         UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId")),
          UFN_YearDimsGetId(R."Year"),
          COUNT("Users"."Id")
   FROM "Users"
@@ -486,14 +498,14 @@ BEGIN
       SELECT *
       FROM "StudentFacts"
       WHERE "ModuleDimId" = "ModuleId"
-        AND "ClassificationDimId" = UFN_ResultsGetClassification("Users"."Id", "ModuleId")
+        AND "ClassificationDimId" = UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId"))
         AND "YearDimId" = UFN_YearDimsGetId(R."Year")
     )
   GROUP BY UFN_YearDimsGetId(R."Year"),
-           UFN_ResultsGetClassification("Users"."Id", "ModuleId"),
+           UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId")),
            "ModuleId"
   ORDER BY UFN_YearDimsGetId(R."Year"),
-           UFN_ResultsGetClassification("Users"."Id", "ModuleId"),
+           UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId")),
            "ModuleId";
 END;
 

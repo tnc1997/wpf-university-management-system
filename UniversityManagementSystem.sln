@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Auth", "UniversityManagementSystem.Apps.Wpf.Modules.Auth\UniversityManagementSystem.Apps.Wpf.Modules.Auth.csproj", "{F1A39F55-1E5C-43A9-8681-468281F8F6D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Student", "UniversityManagementSystem.Apps.Wpf.Modules.Student\UniversityManagementSystem.Apps.Wpf.Modules.Student.csproj", "{D98A6AE6-9BBC-4C91-8E89-4EF172C0746D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Extensions", "UniversityManagementSystem.Extensions\UniversityManagementSystem.Extensions.csproj", "{127B4281-D4F4-4BB8-B6A3-825C5E27EE1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +51,13 @@ Global
 		{F1A39F55-1E5C-43A9-8681-468281F8F6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1A39F55-1E5C-43A9-8681-468281F8F6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1A39F55-1E5C-43A9-8681-468281F8F6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98A6AE6-9BBC-4C91-8E89-4EF172C0746D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98A6AE6-9BBC-4C91-8E89-4EF172C0746D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98A6AE6-9BBC-4C91-8E89-4EF172C0746D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98A6AE6-9BBC-4C91-8E89-4EF172C0746D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{127B4281-D4F4-4BB8-B6A3-825C5E27EE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127B4281-D4F4-4BB8-B6A3-825C5E27EE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127B4281-D4F4-4BB8-B6A3-825C5E27EE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127B4281-D4F4-4BB8-B6A3-825C5E27EE1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

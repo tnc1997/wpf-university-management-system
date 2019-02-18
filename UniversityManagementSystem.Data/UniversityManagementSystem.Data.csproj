@@ -97,9 +97,9 @@
     <Compile Include="Initializers\Seeds\RoomsSeed.cs" />
     <Compile Include="Initializers\Seeds\RunsSeed.cs" />
     <Compile Include="Initializers\Seeds\UsersSeed.cs" />
-    <Compile Include="Migrations\201902151341134_InitialCommit.cs" />
-    <Compile Include="Migrations\201902151341134_InitialCommit.Designer.cs">
-      <DependentUpon>201902151341134_InitialCommit.cs</DependentUpon>
+    <Compile Include="Migrations\201902181105592_InitialCommit.cs" />
+    <Compile Include="Migrations\201902181105592_InitialCommit.Designer.cs">
+      <DependentUpon>201902181105592_InitialCommit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,8 +108,8 @@
     <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902151341134_InitialCommit.resx">
-      <DependentUpon>201902151341134_InitialCommit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902181105592_InitialCommit.resx">
+      <DependentUpon>201902181105592_InitialCommit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

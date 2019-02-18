@@ -10,7 +10,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion("ContentRegion", typeof(LoginView));
+            // containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion("ContentRegion", typeof(LoginView));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Linq;
 using UniversityManagementSystem.Data.Contexts;
 using UniversityManagementSystem.Data.Entities;
 
@@ -9,6 +10,11 @@ namespace UniversityManagementSystem.Services
         protected override DbSet<RentalFact> GetDbSet(ApplicationDbContext context)
         {
             return context.RentalFacts;
+        }
+
+        protected override IQueryable<RentalFact> GetQueryable(ApplicationDbContext context)
+        {
+            return base.GetQueryable(context).Include(fact => fact.UserDim).Include(fact => fact.BookDim);
         }
     }
 }
