@@ -31,9 +31,9 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Rental.ViewModels
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var studentFacts = await RentalFactService.GetAsync();
+            var rentalFacts = await RentalFactService.GetAsync();
 
-            var dictionary = studentFacts
+            var dictionary = rentalFacts
                 .GroupBy(fact => fact.BookDim)
                 .ToDictionary(
                     facts => facts.Key,

@@ -31,9 +31,9 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Library.ViewModels
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var studentFacts = await LibraryFactService.GetAsync();
+            var libraryFacts = await LibraryFactService.GetAsync();
 
-            var dictionary = studentFacts
+            var dictionary = libraryFacts
                 .GroupBy(fact => fact.CampusDim)
                 .ToDictionary(
                     facts => facts.Key,

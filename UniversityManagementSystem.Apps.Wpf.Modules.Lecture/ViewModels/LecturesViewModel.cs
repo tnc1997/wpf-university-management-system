@@ -6,18 +6,18 @@ using Prism.Mvvm;
 using Prism.Regions;
 using UniversityManagementSystem.Services;
 
-namespace UniversityManagementSystem.Apps.Wpf.Modules.Room.ViewModels
+namespace UniversityManagementSystem.Apps.Wpf.Modules.Lecture.ViewModels
 {
-    public class RoomsViewModel : BindableBase, INavigationAware
+    public class LecturesViewModel : BindableBase, INavigationAware
     {
-        public RoomsViewModel(IRoomFactService roomFactService)
+        public LecturesViewModel(ILectureFactService lectureFactService)
         {
-            RoomFactService = roomFactService;
+            LectureFactService = lectureFactService;
         }
 
         public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
 
-        private IRoomFactService RoomFactService { get; }
+        private ILectureFactService LectureFactService { get; }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
@@ -31,10 +31,10 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Room.ViewModels
 
         public async void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var roomFacts = await RoomFactService.GetAsync();
+            var lectureFacts = await LectureFactService.GetAsync();
 
-            var dictionary = roomFacts
-                .GroupBy(fact => fact.CampusDim)
+            var dictionary = lectureFacts
+                .GroupBy(fact => fact.ModuleDim)
                 .ToDictionary(
                     facts => facts.Key,
                     facts => facts
@@ -52,7 +52,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Room.ViewModels
                     
                     return new LineSeries
                     {
-                        Title = pair.Key.Name,
+                        Title = $"{pair.Key.Code} - {pair.Key.Title}",
                         Values = new ChartValues<ObservablePoint>(points)
                     };
                 }).ToList();
