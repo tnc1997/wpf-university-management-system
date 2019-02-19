@@ -480,7 +480,7 @@ namespace UniversityManagementSystem.Data.Initializers.Seeds
             Title = "Multimedia Web Development",
             Details = "N/A",
             Deadline = new DateTime(2016, 5, 1, 18, 0, 0),
-            Run = RunsSeed.Ct5018Run1
+            Run = RunsSeed.Ct5017Run1
         };
 
         public static Assignment Ct5017Run2Assignment1 { get; } = new Assignment
