@@ -104,6 +104,10 @@
       <Project>{64a43f31-6d41-4333-bcb5-4e5bbdd31ca2}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Main</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Module\UniversityManagementSystem.Apps.Wpf.Modules.Module.csproj">
+      <Project>{0d65a1fd-bfe9-4ef7-ae88-dbdde41ab993}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Module</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Rental\UniversityManagementSystem.Apps.Wpf.Modules.Rental.csproj">
       <Project>{43ec41bc-4953-4a09-985a-7b32eb0c0b04}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Rental</Name>
