@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Configuration;
 using UniversityManagementSystem.Data.Entities;
@@ -35,10 +36,12 @@ namespace UniversityManagementSystem.Data.Contexts
 
             #region Composite Primary Keys
 
-            modelBuilder.Entity<CourseModule>()
+            modelBuilder
+                .Entity<CourseModule>()
                 .HasKey(courseModule => new {courseModule.CourseId, courseModule.ModuleId});
 
-            modelBuilder.Entity<LibraryBook>()
+            modelBuilder
+                .Entity<LibraryBook>()
                 .HasKey(libraryBook => new {libraryBook.LibraryId, libraryBook.BookId});
 
             #endregion
@@ -49,36 +52,85 @@ namespace UniversityManagementSystem.Data.Contexts
 
             #region Composite Primary Keys
 
-            modelBuilder.Entity<AssignmentFact>()
+            modelBuilder
+                .Entity<AssignmentFact>()
                 .HasKey(assignment => new {assignment.ModuleDimId, assignment.YearDimId});
 
-            modelBuilder.Entity<BookFact>()
+            modelBuilder
+                .Entity<BookFact>()
                 .HasKey(book => new {book.LibraryDimId, book.YearDimId});
 
-            modelBuilder.Entity<GraduationFact>()
+            modelBuilder
+                .Entity<GraduationFact>()
                 .HasKey(graduate => new {graduate.CourseDimId, graduate.YearDimId});
 
-            modelBuilder.Entity<HallFact>()
+            modelBuilder
+                .Entity<HallFact>()
                 .HasKey(hall => new {hall.CampusDimId, hall.YearDimId});
 
-            modelBuilder.Entity<LectureFact>()
+            modelBuilder
+                .Entity<LectureFact>()
                 .HasKey(lecture => new {lecture.ModuleDimId, lecture.RoomDimId, lecture.YearDimId});
 
-            modelBuilder.Entity<LibraryFact>()
+            modelBuilder
+                .Entity<LibraryFact>()
                 .HasKey(library => new {library.CampusDimId, library.YearDimId});
 
-            modelBuilder.Entity<ModuleFact>()
+            modelBuilder
+                .Entity<ModuleFact>()
                 .HasKey(module => new {module.CourseDimId, module.YearDimId});
 
-            modelBuilder.Entity<RentalFact>()
+            modelBuilder
+                .Entity<RentalFact>()
                 .HasKey(rental => new {rental.UserDimId, rental.BookDimId, rental.YearDimId});
 
-            modelBuilder.Entity<RoomFact>()
+            modelBuilder
+                .Entity<RoomFact>()
                 .HasKey(room => new {room.CampusDimId, room.YearDimId});
 
-            modelBuilder.Entity<StudentFact>()
+            modelBuilder
+                .Entity<StudentFact>()
                 .HasKey(student => new {student.ModuleDimId, student.ClassificationDimId, student.YearDimId});
 
+            #endregion
+
+            #region Disable Auto-Generated Primary Keys
+            
+            modelBuilder
+                .Entity<BookDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<CampusDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<CourseDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<LibraryDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<ModuleDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<RoomDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<UserDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            
             #endregion
 
             #endregion

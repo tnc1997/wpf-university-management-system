@@ -32,5 +32,10 @@ namespace UniversityManagementSystem.Services
                 return await dbSet.Where(specification.Expression).SumAsync(fact => fact.Count);
             }
         }
+
+        protected override IQueryable<TFact> GetQueryable(ApplicationDbContext context)
+        {
+            return base.GetQueryable(context).Include(fact => fact.YearDim);
+        }
     }
 }

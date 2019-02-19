@@ -13,7 +13,7 @@ namespace UniversityManagementSystem.Services
         {
             using (var context = new ApplicationDbContext())
             {
-                return await GetDbSet(context).ToListAsync();
+                return await GetQueryable(context).ToListAsync();
             }
         }
 
@@ -21,8 +21,13 @@ namespace UniversityManagementSystem.Services
         {
             using (var context = new ApplicationDbContext())
             {
-                return await GetDbSet(context).Where(specification.Expression).ToListAsync();
+                return await GetQueryable(context).Where(specification.Expression).ToListAsync();
             }
+        }
+
+        protected virtual IQueryable<TEntity> GetQueryable(ApplicationDbContext context)
+        {
+            return GetDbSet(context);
         }
 
         protected abstract DbSet<TEntity> GetDbSet(ApplicationDbContext context);

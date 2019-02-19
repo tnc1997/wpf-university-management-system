@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using UniversityManagementSystem.Data.Contexts;
 using UniversityManagementSystem.Data.Entities;
@@ -21,6 +22,11 @@ namespace UniversityManagementSystem.Services
 
                 return user == null || !Verify(password, user.PasswordHash) ? null : user;
             }
+        }
+
+        protected override IQueryable<User> GetQueryable(ApplicationDbContext context)
+        {
+            return base.GetQueryable(context).Include(user => user.Course);
         }
     }
 }

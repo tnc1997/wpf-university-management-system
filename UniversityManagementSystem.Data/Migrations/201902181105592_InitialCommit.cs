@@ -24,7 +24,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.ModuleDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         Code = c.String(maxLength: 2000),
                         Title = c.String(maxLength: 2000)
                     })
@@ -51,7 +51,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.RoomDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         Name = c.String(maxLength: 2000)
                     })
                 .PrimaryKey(t => t.Id);
@@ -83,7 +83,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.LibraryDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         Name = c.String(maxLength: 2000)
                     })
                 .PrimaryKey(t => t.Id);
@@ -106,7 +106,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.CourseDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         Name = c.String(maxLength: 2000)
                     })
                 .PrimaryKey(t => t.Id);
@@ -143,7 +143,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.CampusDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         Name = c.String(maxLength: 2000)
                     })
                 .PrimaryKey(t => t.Id);
@@ -197,7 +197,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.BookDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         Name = c.String(maxLength: 2000),
                         Author = c.String(maxLength: 2000)
                     })
@@ -207,7 +207,7 @@ namespace UniversityManagementSystem.Data.Migrations
                     "S1502752.UserDims",
                     c => new
                     {
-                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Id = c.Decimal(false, 10, 0),
                         FirstName = c.String(maxLength: 2000),
                         LastName = c.String(maxLength: 2000)
                     })

@@ -17,7 +17,16 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Main.ViewModels
 
             MenuItems = new ObservableCollection<NavigationViewItemModel>
             {
-                new NavigationViewItemModel("Home", "Home", "HomeView")
+                new NavigationViewItemModel("Home", "Home", "HomeView"),
+                new NavigationViewItemModel("Assignments", "File", "AssignmentsView"),
+                new NavigationViewItemModel("Books", "Book", "BooksView"),
+                new NavigationViewItemModel("Graduations", "School", "GraduationsView"),
+                new NavigationViewItemModel("Lectures", "Teach", "LecturesView"),
+                new NavigationViewItemModel("Libraries", "Library", "LibrariesView"),
+                new NavigationViewItemModel("Modules", "Briefcase", "ModulesView"),
+                new NavigationViewItemModel("Rentals", "Timer", "RentalsView"),
+                new NavigationViewItemModel("Rooms", "Domain", "RoomsView"),
+                new NavigationViewItemModel("Students", "Account", "StudentsView")
             };
 
             SelectedItem = MenuItems.First();
