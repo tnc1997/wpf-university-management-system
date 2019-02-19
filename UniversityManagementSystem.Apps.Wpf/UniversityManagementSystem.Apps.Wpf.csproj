@@ -96,6 +96,10 @@
       <Project>{f1a39f55-1e5c-43a9-8681-468281f8f6d0}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Auth</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Graduation\UniversityManagementSystem.Apps.Wpf.Modules.Graduation.csproj">
+      <Project>{f3eaf000-05ff-4e8a-b49a-d5f76c0d1d01}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Graduation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Home\UniversityManagementSystem.Apps.Wpf.Modules.Home.csproj">
       <Project>{aa2d9343-2e80-4c52-bf5b-0114e8ff4ba1}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Home</Name>

@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using UniversityManagementSystem.Apps.Wpf.Modules.Auth;
+using UniversityManagementSystem.Apps.Wpf.Modules.Graduation;
 using UniversityManagementSystem.Apps.Wpf.Modules.Home;
 using UniversityManagementSystem.Apps.Wpf.Modules.Lecture;
 using UniversityManagementSystem.Apps.Wpf.Modules.Library;
@@ -20,6 +21,7 @@ namespace UniversityManagementSystem.Apps.Wpf
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<AuthModule>();
+            moduleCatalog.AddModule<GraduationModule>();
             moduleCatalog.AddModule<HomeModule>();
             moduleCatalog.AddModule<LectureModule>();
             moduleCatalog.AddModule<LibraryModule>();

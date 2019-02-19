@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Lecture", "UniversityManagementSystem.Apps.Wpf.Modules.Lecture\UniversityManagementSystem.Apps.Wpf.Modules.Lecture.csproj", "{AD59217D-A9B2-4173-80E8-CDC55B36A800}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Graduation", "UniversityManagementSystem.Apps.Wpf.Modules.Graduation\UniversityManagementSystem.Apps.Wpf.Modules.Graduation.csproj", "{F3EAF000-05FF-4E8A-B49A-D5F76C0D1D01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,5 +91,9 @@ Global
 		{AD59217D-A9B2-4173-80E8-CDC55B36A800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD59217D-A9B2-4173-80E8-CDC55B36A800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD59217D-A9B2-4173-80E8-CDC55B36A800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3EAF000-05FF-4E8A-B49A-D5F76C0D1D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EAF000-05FF-4E8A-B49A-D5F76C0D1D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EAF000-05FF-4E8A-B49A-D5F76C0D1D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EAF000-05FF-4E8A-B49A-D5F76C0D1D01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
