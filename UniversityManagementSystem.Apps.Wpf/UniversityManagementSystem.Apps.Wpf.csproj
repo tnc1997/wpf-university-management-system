@@ -92,6 +92,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Assignment\UniversityManagementSystem.Apps.Wpf.Modules.Assignment.csproj">
+      <Project>{646d14c3-3de2-4431-82a1-f492172c9e97}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Assignment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Auth\UniversityManagementSystem.Apps.Wpf.Modules.Auth.csproj">
       <Project>{f1a39f55-1e5c-43a9-8681-468281f8f6d0}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Auth</Name>
