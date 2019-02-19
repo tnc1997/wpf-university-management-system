@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Module", "UniversityManagementSystem.Apps.Wpf.Modules.Module\UniversityManagementSystem.Apps.Wpf.Modules.Module.csproj", "{0D65A1FD-BFE9-4EF7-AE88-DBDDE41AB993}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Library", "UniversityManagementSystem.Apps.Wpf.Modules.Library\UniversityManagementSystem.Apps.Wpf.Modules.Library.csproj", "{23036B10-A0AB-405A-BD4C-D2334CD2850D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,5 +79,9 @@ Global
 		{0D65A1FD-BFE9-4EF7-AE88-DBDDE41AB993}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D65A1FD-BFE9-4EF7-AE88-DBDDE41AB993}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D65A1FD-BFE9-4EF7-AE88-DBDDE41AB993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23036B10-A0AB-405A-BD4C-D2334CD2850D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23036B10-A0AB-405A-BD4C-D2334CD2850D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23036B10-A0AB-405A-BD4C-D2334CD2850D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23036B10-A0AB-405A-BD4C-D2334CD2850D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

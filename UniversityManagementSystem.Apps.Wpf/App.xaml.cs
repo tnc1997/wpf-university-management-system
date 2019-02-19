@@ -3,6 +3,7 @@ using Prism.Ioc;
 using Prism.Modularity;
 using UniversityManagementSystem.Apps.Wpf.Modules.Auth;
 using UniversityManagementSystem.Apps.Wpf.Modules.Home;
+using UniversityManagementSystem.Apps.Wpf.Modules.Library;
 using UniversityManagementSystem.Apps.Wpf.Modules.Main;
 using UniversityManagementSystem.Apps.Wpf.Modules.Module;
 using UniversityManagementSystem.Apps.Wpf.Modules.Rental;
@@ -19,6 +20,7 @@ namespace UniversityManagementSystem.Apps.Wpf
         {
             moduleCatalog.AddModule<AuthModule>();
             moduleCatalog.AddModule<HomeModule>();
+            moduleCatalog.AddModule<LibraryModule>();
             moduleCatalog.AddModule<MainModule>();
             moduleCatalog.AddModule<ModuleModule>();
             moduleCatalog.AddModule<RentalModule>();
