@@ -8,7 +8,7 @@ BEGIN
          INTO id
   FROM "ClassificationDims"
   WHERE "Classification" = classification;
-  
+
   RETURN id;
 END;
 
@@ -486,26 +486,38 @@ CREATE OR REPLACE PROCEDURE S1502752.USP_StudentFactsEtl AS
 BEGIN
   INSERT INTO "StudentFacts"
   SELECT "ModuleId",
-         UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId")),
-         UFN_YearDimsGetId(R."Year"),
-         COUNT("Users"."Id")
-  FROM "Users"
-         INNER JOIN "Enrolments" E
-                    ON "Users"."Id" = E."UserId"
-         INNER JOIN "Runs" R
-                    ON E."RunId" = R."Id"
+         UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
+         UFN_YearDimsGetId("Year"),
+         COUNT("UserId")
+  FROM (
+         SELECT "ModuleId",
+                "UserId",
+                "Year",
+                AVG("Grade") Grade
+         FROM "Results"
+                INNER JOIN "Assignments" A
+                           ON "Results"."AssignmentId" = A."Id"
+                INNER JOIN "Runs" R
+                           ON A."RunId" = R."Id"
+         GROUP BY "Year",
+                  "UserId",
+                  "ModuleId"
+         ORDER BY "Year",
+                  "UserId",
+                  "ModuleId"
+       )
   WHERE NOT EXISTS(
       SELECT *
       FROM "StudentFacts"
       WHERE "ModuleDimId" = "ModuleId"
-        AND "ClassificationDimId" = UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId"))
-        AND "YearDimId" = UFN_YearDimsGetId(R."Year")
+        AND "ClassificationDimId" = UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade))
+        AND "YearDimId" = UFN_YearDimsGetId("Year")
     )
-  GROUP BY UFN_YearDimsGetId(R."Year"),
-           UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId")),
+  GROUP BY UFN_YearDimsGetId("Year"),
+           UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
            "ModuleId"
-  ORDER BY UFN_YearDimsGetId(R."Year"),
-           UFN_ClassificationDimsGetId(UFN_ResultsGetClassification("Users"."Id", "ModuleId")),
+  ORDER BY UFN_YearDimsGetId("Year"),
+           UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
            "ModuleId";
 END;
 

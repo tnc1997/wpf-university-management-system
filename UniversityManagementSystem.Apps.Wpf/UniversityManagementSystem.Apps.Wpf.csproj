@@ -144,6 +144,10 @@
       <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
       <Name>UniversityManagementSystem.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Extensions\UniversityManagementSystem.Extensions.csproj">
+      <Project>{127b4281-d4f4-4bb8-b6a3-825c5e27ee1c}</Project>
+      <Name>UniversityManagementSystem.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Services\UniversityManagementSystem.Services.csproj">
       <Project>{403da3da-9b25-4da5-bd55-235642e99ad0}</Project>
       <Name>UniversityManagementSystem.Services</Name>

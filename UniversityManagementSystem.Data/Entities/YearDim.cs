@@ -27,5 +27,10 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<RoomFact> RoomFacts { get; set; }
 
         public ICollection<StudentFact> StudentFacts { get; set; }
+
+        public override string ToString()
+        {
+            return Year.ToString();
+        }
     }
 }

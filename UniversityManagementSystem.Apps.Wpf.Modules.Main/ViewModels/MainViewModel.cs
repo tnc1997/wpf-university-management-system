@@ -41,7 +41,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Main.ViewModels
             get => _selectedItem;
             set
             {
-                SetProperty(ref _selectedItem, value);
+                if (!SetProperty(ref _selectedItem, value)) return;
 
                 RegionManager.RequestNavigate("MainRegion", _selectedItem.View);
             }

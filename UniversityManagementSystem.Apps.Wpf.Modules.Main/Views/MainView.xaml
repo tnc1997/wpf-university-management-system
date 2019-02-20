@@ -11,8 +11,7 @@
     <controls:HamburgerMenu
         IsPaneOpen="True"
         ItemsSource="{Binding MenuItems, Mode=OneWay}"
-        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-        VerticalScrollBarOnLeftSide="False">
+        SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
 
         <controls:HamburgerMenu.ItemTemplate>
             <DataTemplate DataType="{x:Type models:NavigationViewItemModel}">

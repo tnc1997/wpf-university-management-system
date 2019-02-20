@@ -45,6 +45,7 @@ namespace UniversityManagementSystem.Apps.Wpf
         {
             #region Services
 
+            containerRegistry.RegisterSingleton<IEnrolmentService, EnrolmentService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
 
             #region Dims

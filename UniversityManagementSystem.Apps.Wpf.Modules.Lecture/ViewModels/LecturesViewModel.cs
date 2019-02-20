@@ -52,7 +52,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Lecture.ViewModels
                     
                     return new LineSeries
                     {
-                        Title = $"{pair.Key.Code} - {pair.Key.Title}",
+                        Title = pair.Key.ToString(),
                         Values = new ChartValues<ObservablePoint>(points)
                     };
                 }).ToList();

@@ -8,10 +8,10 @@ namespace UniversityManagementSystem.Extensions
         /// <summary>
         /// Adds an enumerable of items to the end of the collection.
         /// </summary>
-        /// <typeparam name="T">The type of the items.</typeparam>
+        /// <typeparam name="TSource">The type of the items.</typeparam>
         /// <param name="collection">The collection to add the items to.</param>
         /// <param name="items">The items to add to the collection.</param>
-        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
+        public static void AddRange<TSource>(this ICollection<TSource> collection, IEnumerable<TSource> items)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
 
