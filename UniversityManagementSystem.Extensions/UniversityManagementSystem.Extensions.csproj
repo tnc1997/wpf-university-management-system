@@ -38,8 +38,15 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ChartValuesExtension.cs" />
         <Compile Include="CollectionExtension.cs" />
+        <Compile Include="DictionaryExtension.cs" />
+        <Compile Include="EnumerableExtension.cs" />
+        <Compile Include="LineSeriesExtension.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="LiveCharts" Version="0.9.7" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

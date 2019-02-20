@@ -53,6 +53,7 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+      <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0212" />
       <PackageReference Include="Prism.Wpf" Version="7.1.0.431" />
     </ItemGroup>
     <ItemGroup>

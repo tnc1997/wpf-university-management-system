@@ -15,5 +15,10 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<LectureFact> LectureFacts { get; set; }
 
         public ICollection<StudentFact> StudentFacts { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Code} - {Title}";
+        }
     }
 }
