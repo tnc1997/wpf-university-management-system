@@ -12,9 +12,11 @@ namespace UniversityManagementSystem.Data.Entities
 
         public ICollection<AssignmentFact> AssignmentFacts { get; set; }
 
+        public ICollection<EnrolmentFact> EnrolmentFacts { get; set; }
+
         public ICollection<LectureFact> LectureFacts { get; set; }
 
-        public ICollection<StudentFact> StudentFacts { get; set; }
+        public ICollection<ResultFact> ResultFacts { get; set; }
 
         public override string ToString()
         {

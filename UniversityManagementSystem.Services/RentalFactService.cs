@@ -14,7 +14,12 @@ namespace UniversityManagementSystem.Services
 
         protected override IQueryable<RentalFact> GetQueryable(ApplicationDbContext context)
         {
-            return base.GetQueryable(context).Include(fact => fact.UserDim).Include(fact => fact.BookDim);
+            return base.GetQueryable(context)
+                .Include(fact => fact.BookDim)
+                .Include(fact => fact.UserDim)
+                .OrderBy(fact => fact.YearDimId)
+                .ThenBy(fact => fact.BookDimId)
+                .ThenBy(fact => fact.UserDimId);
         }
     }
 }

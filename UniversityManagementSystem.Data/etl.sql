@@ -153,6 +153,21 @@ BEGIN
   END IF;
 END;
 
+-- Extracts all the countries from the operational database and loads them into the country dimensions table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_CountryDimsEtl AS
+BEGIN
+  INSERT INTO "CountryDims"
+  SELECT "Id",
+         "Name"
+  FROM "Countries"
+  WHERE NOT EXISTS(
+      SELECT *
+      FROM "CountryDims"
+      WHERE "CountryDims"."Id" = "Countries"."Id"
+    );
+END;
+
 -- Extracts all the courses from the operational database and loads them into the course dimensions table if
   -- they are not already present in said table.
 CREATE OR REPLACE PROCEDURE S1502752.USP_CourseDimsEtl AS
@@ -316,6 +331,28 @@ BEGIN
            "LibraryId";
 END;
 
+-- Extracts all the enrolments from the operational database and transforms them into the enrolment facts table if
+  -- they are not already present in said table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_EnrolmentFactsEtl AS
+BEGIN
+  INSERT INTO "EnrolmentFacts"
+  SELECT "ModuleId",
+         UFN_YearDimsGetId("Year"),
+         COUNT("Enrolments"."Id")
+  FROM "Enrolments"
+         INNER JOIN "Runs" R
+                    ON "Enrolments"."RunId" = R."Id"
+  WHERE NOT EXISTS(
+      SELECT * FROM "EnrolmentFacts"
+      WHERE "ModuleDimId" = "ModuleId"
+        AND "YearDimId" = UFN_YearDimsGetId("Year")
+    )
+  GROUP BY UFN_YearDimsGetId("Year"),
+           "ModuleId"
+  ORDER BY UFN_YearDimsGetId("Year"),
+           "ModuleId";
+END;
+
 -- Extracts all the graduations from the operational database and transforms them into the graduation facts table if
   -- they are not already present in said table.
 CREATE OR REPLACE PROCEDURE S1502752.USP_GraduationFactsEtl AS
@@ -458,6 +495,47 @@ BEGIN
            "UserId";
 END;
 
+-- Extracts all the results from the operational database and transforms them into the result facts table if
+  -- they are not already present in said fact table.
+CREATE OR REPLACE PROCEDURE S1502752.USP_ResultFactsEtl AS
+BEGIN
+  INSERT INTO "ResultFacts"
+  SELECT "ModuleId",
+         UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
+         UFN_YearDimsGetId("Year"),
+         COUNT("UserId")
+  FROM (
+         SELECT "ModuleId",
+                "UserId",
+                "Year",
+                AVG("Grade") Grade
+         FROM "Results"
+                INNER JOIN "Assignments" A
+                           ON "Results"."AssignmentId" = A."Id"
+                INNER JOIN "Runs" R
+                           ON A."RunId" = R."Id"
+         GROUP BY "Year",
+                  "UserId",
+                  "ModuleId"
+         ORDER BY "Year",
+                  "UserId",
+                  "ModuleId"
+       )
+  WHERE NOT EXISTS(
+      SELECT *
+      FROM "ResultFacts"
+      WHERE "ModuleDimId" = "ModuleId"
+        AND "ClassificationDimId" = UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade))
+        AND "YearDimId" = UFN_YearDimsGetId("Year")
+    )
+  GROUP BY UFN_YearDimsGetId("Year"),
+           UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
+           "ModuleId"
+  ORDER BY UFN_YearDimsGetId("Year"),
+           UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
+           "ModuleId";
+END;
+
 -- Extracts all the rooms from the operational database and transforms them into the room facts table if
   -- they are not already present in said fact table.
 CREATE OR REPLACE PROCEDURE S1502752.USP_RoomFactsEtl AS
@@ -483,42 +561,26 @@ END;
 -- Extracts all the students from the operational database and transforms them into the student facts table if
   -- they are not already present in said fact table.
 CREATE OR REPLACE PROCEDURE S1502752.USP_StudentFactsEtl AS
+  year NUMBER := UFN_GetAcademicYear();
 BEGIN
   INSERT INTO "StudentFacts"
-  SELECT "ModuleId",
-         UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
-         UFN_YearDimsGetId("Year"),
-         COUNT("UserId")
-  FROM (
-         SELECT "ModuleId",
-                "UserId",
-                "Year",
-                AVG("Grade") Grade
-         FROM "Results"
-                INNER JOIN "Assignments" A
-                           ON "Results"."AssignmentId" = A."Id"
-                INNER JOIN "Runs" R
-                           ON A."RunId" = R."Id"
-         GROUP BY "Year",
-                  "UserId",
-                  "ModuleId"
-         ORDER BY "Year",
-                  "UserId",
-                  "ModuleId"
-       )
-  WHERE NOT EXISTS(
+  SELECT "CountryId",
+         UFN_YearDimsGetId(year),
+         COUNT("Id")
+  FROM "Users"
+         INNER JOIN "UserRoles" UR
+                    ON "Users"."Id" = UR."UserId"
+  WHERE "RoleId" = 3
+    AND NOT EXISTS(
       SELECT *
       FROM "StudentFacts"
-      WHERE "ModuleDimId" = "ModuleId"
-        AND "ClassificationDimId" = UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade))
-        AND "YearDimId" = UFN_YearDimsGetId("Year")
+      WHERE "CountryDimId" = "CountryId"
+        AND "YearDimId" = UFN_YearDimsGetId(year)
     )
-  GROUP BY UFN_YearDimsGetId("Year"),
-           UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
-           "ModuleId"
-  ORDER BY UFN_YearDimsGetId("Year"),
-           UFN_ClassificationDimsGetId(UFN_MapGradeToClassification(Grade)),
-           "ModuleId";
+  GROUP BY UFN_YearDimsGetId(year),
+           "CountryId"
+  ORDER BY UFN_YearDimsGetId(year),
+           "CountryId";
 END;
 
 CREATE OR REPLACE PROCEDURE S1502752.USP_Etl AS
@@ -526,6 +588,7 @@ BEGIN
   USP_BookDimsEtl();
   USP_CampusDimsEtl();
   USP_ClassificationDimsEtl();
+  USP_CountryDimsEtl();
   USP_CourseDimsEtl();
   USP_LibraryDimsEtl();
   USP_ModuleDimsEtl();
@@ -535,12 +598,14 @@ BEGIN
 
   USP_AssignmentFactsEtl();
   USP_BookFactsEtl();
+  USP_EnrolmentFactsEtl();
   USP_GraduationFactsEtl();
   USP_HallFactsEtl();
   USP_LectureFactsEtl();
   USP_LibraryFactsEtl();
   USP_ModuleFactsEtl();
   USP_RentalFactsEtl();
+  USP_ResultFactsEtl();
   USP_RoomFactsEtl();
   USP_StudentFactsEtl();
 END;

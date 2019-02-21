@@ -20,11 +20,13 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Main.ViewModels
                 new NavigationViewItemModel("Home", "Home", "HomeView"),
                 new NavigationViewItemModel("Assignments", "File", "AssignmentsView"),
                 new NavigationViewItemModel("Books", "Book", "BooksView"),
+                new NavigationViewItemModel("Enrolments", "BriefcaseAccount", "EnrolmentsView"),
                 new NavigationViewItemModel("Graduations", "School", "GraduationsView"),
                 new NavigationViewItemModel("Lectures", "Teach", "LecturesView"),
                 new NavigationViewItemModel("Libraries", "Library", "LibrariesView"),
                 new NavigationViewItemModel("Modules", "Briefcase", "ModulesView"),
                 new NavigationViewItemModel("Rentals", "Timer", "RentalsView"),
+                new NavigationViewItemModel("Results", "FileAccount", "ResultsView"),
                 new NavigationViewItemModel("Rooms", "Domain", "RoomsView"),
                 new NavigationViewItemModel("Students", "Account", "StudentsView")
             };

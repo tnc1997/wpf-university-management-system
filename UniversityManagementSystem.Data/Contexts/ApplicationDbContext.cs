@@ -44,6 +44,10 @@ namespace UniversityManagementSystem.Data.Contexts
                 .Entity<LibraryBook>()
                 .HasKey(libraryBook => new {libraryBook.LibraryId, libraryBook.BookId});
 
+            modelBuilder
+                .Entity<UserRole>()
+                .HasKey(userRole => new {userRole.UserId, userRole.RoleId});
+
             #endregion
 
             #endregion
@@ -59,6 +63,10 @@ namespace UniversityManagementSystem.Data.Contexts
             modelBuilder
                 .Entity<BookFact>()
                 .HasKey(book => new {book.LibraryDimId, book.YearDimId});
+
+            modelBuilder
+                .Entity<EnrolmentFact>()
+                .HasKey(enrolment => new {enrolment.ModuleDimId, enrolment.YearDimId});
 
             modelBuilder
                 .Entity<GraduationFact>()
@@ -89,8 +97,12 @@ namespace UniversityManagementSystem.Data.Contexts
                 .HasKey(room => new {room.CampusDimId, room.YearDimId});
 
             modelBuilder
+                .Entity<ResultFact>()
+                .HasKey(result => new {result.ModuleDimId, result.ClassificationDimId, result.YearDimId});
+
+            modelBuilder
                 .Entity<StudentFact>()
-                .HasKey(student => new {student.ModuleDimId, student.ClassificationDimId, student.YearDimId});
+                .HasKey(student => new {student.CountryDimId, student.YearDimId});
 
             #endregion
 
@@ -103,6 +115,11 @@ namespace UniversityManagementSystem.Data.Contexts
 
             modelBuilder
                 .Entity<CampusDim>()
+                .Property(dim => dim.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder
+                .Entity<CountryDim>()
                 .Property(dim => dim.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
@@ -143,10 +160,12 @@ namespace UniversityManagementSystem.Data.Contexts
         public DbSet<Book> Books { get; set; }
 
         public DbSet<Campus> Campuses { get; set; }
-
-        public DbSet<Course> Courses { get; set; }
+        
+        public DbSet<Country> Countries { get; set; }
 
         public DbSet<CourseModule> CourseModules { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
 
         public DbSet<Enrolment> Enrolments { get; set; }
 
@@ -165,22 +184,30 @@ namespace UniversityManagementSystem.Data.Contexts
         public DbSet<Rental> Rentals { get; set; }
 
         public DbSet<Result> Results { get; set; }
+        
+        public DbSet<Role> Roles { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Run> Runs { get; set; }
+        
+        public DbSet<UserRole> UserRoles { get; set; }
 
         public DbSet<User> Users { get; set; }
 
         #endregion
 
         #region Data Warehouse
+        
+        #region Dims
 
         public DbSet<BookDim> BookDims { get; set; }
 
         public DbSet<CampusDim> CampusDims { get; set; }
         
         public DbSet<ClassificationDim> ClassificationDims { get; set; }
+        
+        public DbSet<CountryDim> CountryDims { get; set; }
 
         public DbSet<CourseDim> CourseDims { get; set; }
 
@@ -193,10 +220,16 @@ namespace UniversityManagementSystem.Data.Contexts
         public DbSet<UserDim> UserDims { get; set; }
 
         public DbSet<YearDim> YearDims { get; set; }
+        
+        #endregion
+        
+        #region Facts
 
         public DbSet<AssignmentFact> AssignmentFacts { get; set; }
 
         public DbSet<BookFact> BookFacts { get; set; }
+        
+        public DbSet<EnrolmentFact> EnrolmentFacts { get; set; }
 
         public DbSet<GraduationFact> GraduationFacts { get; set; }
 
@@ -210,9 +243,13 @@ namespace UniversityManagementSystem.Data.Contexts
 
         public DbSet<RentalFact> RentalFacts { get; set; }
 
+        public DbSet<ResultFact> ResultFacts { get; set; }
+
         public DbSet<RoomFact> RoomFacts { get; set; }
 
         public DbSet<StudentFact> StudentFacts { get; set; }
+        
+        #endregion
 
         #endregion
     }

@@ -42,15 +42,21 @@
     <Compile Include="Entities\Assignment.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Campus.cs" />
+    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\CountryDim.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\CourseModule.cs" />
     <Compile Include="Entities\BookDim.cs" />
     <Compile Include="Entities\CampusDim.cs" />
     <Compile Include="Entities\CourseDim.cs" />
     <Compile Include="Entities\ClassificationDim.cs" />
+    <Compile Include="Entities\EnrolmentFact.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\StudentFact.cs" />
     <Compile Include="Entities\LibraryDim.cs" />
     <Compile Include="Entities\ModuleDim.cs" />
     <Compile Include="Entities\RoomDim.cs" />
+    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Entities\YearDim.cs" />
     <Compile Include="Entities\UserDim.cs" />
     <Compile Include="Entities\Enrolment.cs" />
@@ -65,7 +71,7 @@
     <Compile Include="Entities\ModuleFact.cs" />
     <Compile Include="Entities\RentalFact.cs" />
     <Compile Include="Entities\RoomFact.cs" />
-    <Compile Include="Entities\StudentFact.cs" />
+    <Compile Include="Entities\ResultFact.cs" />
     <Compile Include="Entities\Graduation.cs" />
     <Compile Include="Entities\Hall.cs" />
     <Compile Include="Entities\IEntity.cs" />
@@ -83,6 +89,7 @@
     <Compile Include="Initializers\Seeds\AssignmentsSeed.cs" />
     <Compile Include="Initializers\Seeds\BooksSeed.cs" />
     <Compile Include="Initializers\Seeds\CampusesSeed.cs" />
+    <Compile Include="Initializers\Seeds\CountriesSeed.cs" />
     <Compile Include="Initializers\Seeds\CourseModulesSeed.cs" />
     <Compile Include="Initializers\Seeds\CoursesSeed.cs" />
     <Compile Include="Initializers\Seeds\EnrolmentsSeed.cs" />
@@ -96,10 +103,12 @@
     <Compile Include="Initializers\Seeds\ResultsSeed.cs" />
     <Compile Include="Initializers\Seeds\RoomsSeed.cs" />
     <Compile Include="Initializers\Seeds\RunsSeed.cs" />
+    <Compile Include="Initializers\Seeds\RolesSeed.cs" />
+    <Compile Include="Initializers\Seeds\UserRolesSeed.cs" />
     <Compile Include="Initializers\Seeds\UsersSeed.cs" />
-    <Compile Include="Migrations\201902181105592_InitialCommit.cs" />
-    <Compile Include="Migrations\201902181105592_InitialCommit.Designer.cs">
-      <DependentUpon>201902181105592_InitialCommit.cs</DependentUpon>
+    <Compile Include="Migrations\201902210805040_InitialCommit.cs" />
+    <Compile Include="Migrations\201902210805040_InitialCommit.Designer.cs">
+      <DependentUpon>201902210805040_InitialCommit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,8 +117,8 @@
     <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902181105592_InitialCommit.resx">
-      <DependentUpon>201902181105592_InitialCommit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902210805040_InitialCommit.resx">
+      <DependentUpon>201902210805040_InitialCommit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,30 +31,18 @@ namespace UniversityManagementSystem.Data.Migrations
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                    "S1502752.LectureFacts",
+                    "S1502752.EnrolmentFacts",
                     c => new
                     {
                         ModuleDimId = c.Decimal(false, 10, 0),
-                        RoomDimId = c.Decimal(false, 10, 0),
                         YearDimId = c.Decimal(false, 10, 0),
                         Count = c.Decimal(false, 10, 0)
                     })
-                .PrimaryKey(t => new {t.ModuleDimId, t.RoomDimId, t.YearDimId})
+                .PrimaryKey(t => new {t.ModuleDimId, t.YearDimId})
                 .ForeignKey("S1502752.ModuleDims", t => t.ModuleDimId, true)
-                .ForeignKey("S1502752.RoomDims", t => t.RoomDimId, true)
                 .ForeignKey("S1502752.YearDims", t => t.YearDimId, true)
                 .Index(t => t.ModuleDimId)
-                .Index(t => t.RoomDimId)
                 .Index(t => t.YearDimId);
-
-            CreateTable(
-                    "S1502752.RoomDims",
-                    c => new
-                    {
-                        Id = c.Decimal(false, 10, 0),
-                        Name = c.String(maxLength: 2000)
-                    })
-                .PrimaryKey(t => t.Id);
 
             CreateTable(
                     "S1502752.YearDims",
@@ -177,6 +165,32 @@ namespace UniversityManagementSystem.Data.Migrations
                 .Index(t => t.YearDimId);
 
             CreateTable(
+                    "S1502752.LectureFacts",
+                    c => new
+                    {
+                        ModuleDimId = c.Decimal(false, 10, 0),
+                        RoomDimId = c.Decimal(false, 10, 0),
+                        YearDimId = c.Decimal(false, 10, 0),
+                        Count = c.Decimal(false, 10, 0)
+                    })
+                .PrimaryKey(t => new {t.ModuleDimId, t.RoomDimId, t.YearDimId})
+                .ForeignKey("S1502752.ModuleDims", t => t.ModuleDimId, true)
+                .ForeignKey("S1502752.RoomDims", t => t.RoomDimId, true)
+                .ForeignKey("S1502752.YearDims", t => t.YearDimId, true)
+                .Index(t => t.ModuleDimId)
+                .Index(t => t.RoomDimId)
+                .Index(t => t.YearDimId);
+
+            CreateTable(
+                    "S1502752.RoomDims",
+                    c => new
+                    {
+                        Id = c.Decimal(false, 10, 0),
+                        Name = c.String(maxLength: 2000)
+                    })
+                .PrimaryKey(t => t.Id);
+
+            CreateTable(
                     "S1502752.RentalFacts",
                     c => new
                     {
@@ -214,7 +228,7 @@ namespace UniversityManagementSystem.Data.Migrations
                 .PrimaryKey(t => t.Id);
 
             CreateTable(
-                    "S1502752.StudentFacts",
+                    "S1502752.ResultFacts",
                     c => new
                     {
                         ModuleDimId = c.Decimal(false, 10, 0),
@@ -236,6 +250,29 @@ namespace UniversityManagementSystem.Data.Migrations
                     {
                         Id = c.Decimal(false, 10, 0, identity: true),
                         Classification = c.String(maxLength: 2000)
+                    })
+                .PrimaryKey(t => t.Id);
+
+            CreateTable(
+                    "S1502752.StudentFacts",
+                    c => new
+                    {
+                        CountryDimId = c.Decimal(false, 10, 0),
+                        YearDimId = c.Decimal(false, 10, 0),
+                        Count = c.Decimal(false, 10, 0)
+                    })
+                .PrimaryKey(t => new {t.CountryDimId, t.YearDimId})
+                .ForeignKey("S1502752.CountryDims", t => t.CountryDimId, true)
+                .ForeignKey("S1502752.YearDims", t => t.YearDimId, true)
+                .Index(t => t.CountryDimId)
+                .Index(t => t.YearDimId);
+
+            CreateTable(
+                    "S1502752.CountryDims",
+                    c => new
+                    {
+                        Id = c.Decimal(false, 10, 0),
+                        Country = c.String(maxLength: 2000)
                     })
                 .PrimaryKey(t => t.Id);
 
@@ -278,11 +315,23 @@ namespace UniversityManagementSystem.Data.Migrations
                         PasswordHash = c.String(maxLength: 2000),
                         FirstName = c.String(maxLength: 2000),
                         LastName = c.String(maxLength: 2000),
+                        CountryId = c.Decimal(false, 10, 0),
                         CourseId = c.Decimal(false, 10, 0)
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("S1502752.Countries", t => t.CountryId, true)
                 .ForeignKey("S1502752.Courses", t => t.CourseId, true)
+                .Index(t => t.CountryId)
                 .Index(t => t.CourseId);
+
+            CreateTable(
+                    "S1502752.Countries",
+                    c => new
+                    {
+                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Name = c.String(maxLength: 2000)
+                    })
+                .PrimaryKey(t => t.Id);
 
             CreateTable(
                     "S1502752.Courses",
@@ -414,7 +463,6 @@ namespace UniversityManagementSystem.Data.Migrations
                     c => new
                     {
                         Id = c.Decimal(false, 10, 0, identity: true),
-                        Year = c.Decimal(false, 10, 0),
                         UserId = c.Decimal(false, 10, 0),
                         RunId = c.Decimal(false, 10, 0)
                     })
@@ -461,10 +509,34 @@ namespace UniversityManagementSystem.Data.Migrations
                 .ForeignKey("S1502752.Users", t => t.UserId, true)
                 .Index(t => t.CourseId)
                 .Index(t => t.UserId);
+
+            CreateTable(
+                    "S1502752.UserRoles",
+                    c => new
+                    {
+                        UserId = c.Decimal(false, 10, 0),
+                        RoleId = c.Decimal(false, 10, 0)
+                    })
+                .PrimaryKey(t => new {t.UserId, t.RoleId})
+                .ForeignKey("S1502752.Roles", t => t.RoleId, true)
+                .ForeignKey("S1502752.Users", t => t.UserId, true)
+                .Index(t => t.RoleId)
+                .Index(t => t.UserId);
+
+            CreateTable(
+                    "S1502752.Roles",
+                    c => new
+                    {
+                        Id = c.Decimal(false, 10, 0, identity: true),
+                        Name = c.String(maxLength: 2000)
+                    })
+                .PrimaryKey(t => t.Id);
         }
 
         public override void Down()
         {
+            DropForeignKey("S1502752.UserRoles", "UserId", "S1502752.Users");
+            DropForeignKey("S1502752.UserRoles", "RoleId", "S1502752.Roles");
             DropForeignKey("S1502752.Results", "UserId", "S1502752.Users");
             DropForeignKey("S1502752.Users", "CourseId", "S1502752.Courses");
             DropForeignKey("S1502752.Graduations", "UserId", "S1502752.Users");
@@ -485,14 +557,20 @@ namespace UniversityManagementSystem.Data.Migrations
             DropForeignKey("S1502752.Libraries", "CampusId", "S1502752.Campus");
             DropForeignKey("S1502752.Halls", "CampusId", "S1502752.Campus");
             DropForeignKey("S1502752.Courses", "CampusId", "S1502752.Campus");
+            DropForeignKey("S1502752.Users", "CountryId", "S1502752.Countries");
             DropForeignKey("S1502752.Results", "AssignmentId", "S1502752.Assignments");
+            DropForeignKey("S1502752.EnrolmentFacts", "YearDimId", "S1502752.YearDims");
             DropForeignKey("S1502752.StudentFacts", "YearDimId", "S1502752.YearDims");
-            DropForeignKey("S1502752.StudentFacts", "ModuleDimId", "S1502752.ModuleDims");
-            DropForeignKey("S1502752.StudentFacts", "ClassificationDimId", "S1502752.ClassificationDims");
+            DropForeignKey("S1502752.StudentFacts", "CountryDimId", "S1502752.CountryDims");
+            DropForeignKey("S1502752.ResultFacts", "YearDimId", "S1502752.YearDims");
+            DropForeignKey("S1502752.ResultFacts", "ModuleDimId", "S1502752.ModuleDims");
+            DropForeignKey("S1502752.ResultFacts", "ClassificationDimId", "S1502752.ClassificationDims");
             DropForeignKey("S1502752.RentalFacts", "YearDimId", "S1502752.YearDims");
             DropForeignKey("S1502752.RentalFacts", "UserDimId", "S1502752.UserDims");
             DropForeignKey("S1502752.RentalFacts", "BookDimId", "S1502752.BookDims");
             DropForeignKey("S1502752.LectureFacts", "YearDimId", "S1502752.YearDims");
+            DropForeignKey("S1502752.LectureFacts", "RoomDimId", "S1502752.RoomDims");
+            DropForeignKey("S1502752.LectureFacts", "ModuleDimId", "S1502752.ModuleDims");
             DropForeignKey("S1502752.HallFacts", "YearDimId", "S1502752.YearDims");
             DropForeignKey("S1502752.RoomFacts", "YearDimId", "S1502752.YearDims");
             DropForeignKey("S1502752.RoomFacts", "CampusDimId", "S1502752.CampusDims");
@@ -506,9 +584,10 @@ namespace UniversityManagementSystem.Data.Migrations
             DropForeignKey("S1502752.BookFacts", "YearDimId", "S1502752.YearDims");
             DropForeignKey("S1502752.BookFacts", "LibraryDimId", "S1502752.LibraryDims");
             DropForeignKey("S1502752.AssignmentFacts", "YearDimId", "S1502752.YearDims");
-            DropForeignKey("S1502752.LectureFacts", "RoomDimId", "S1502752.RoomDims");
-            DropForeignKey("S1502752.LectureFacts", "ModuleDimId", "S1502752.ModuleDims");
+            DropForeignKey("S1502752.EnrolmentFacts", "ModuleDimId", "S1502752.ModuleDims");
             DropForeignKey("S1502752.AssignmentFacts", "ModuleDimId", "S1502752.ModuleDims");
+            DropIndex("S1502752.UserRoles", new[] {"UserId"});
+            DropIndex("S1502752.UserRoles", new[] {"RoleId"});
             DropIndex("S1502752.Results", new[] {"UserId"});
             DropIndex("S1502752.Users", new[] {"CourseId"});
             DropIndex("S1502752.Graduations", new[] {"UserId"});
@@ -529,14 +608,20 @@ namespace UniversityManagementSystem.Data.Migrations
             DropIndex("S1502752.Libraries", new[] {"CampusId"});
             DropIndex("S1502752.Halls", new[] {"CampusId"});
             DropIndex("S1502752.Courses", new[] {"CampusId"});
+            DropIndex("S1502752.Users", new[] {"CountryId"});
             DropIndex("S1502752.Results", new[] {"AssignmentId"});
+            DropIndex("S1502752.EnrolmentFacts", new[] {"YearDimId"});
             DropIndex("S1502752.StudentFacts", new[] {"YearDimId"});
-            DropIndex("S1502752.StudentFacts", new[] {"ModuleDimId"});
-            DropIndex("S1502752.StudentFacts", new[] {"ClassificationDimId"});
+            DropIndex("S1502752.StudentFacts", new[] {"CountryDimId"});
+            DropIndex("S1502752.ResultFacts", new[] {"YearDimId"});
+            DropIndex("S1502752.ResultFacts", new[] {"ModuleDimId"});
+            DropIndex("S1502752.ResultFacts", new[] {"ClassificationDimId"});
             DropIndex("S1502752.RentalFacts", new[] {"YearDimId"});
             DropIndex("S1502752.RentalFacts", new[] {"UserDimId"});
             DropIndex("S1502752.RentalFacts", new[] {"BookDimId"});
             DropIndex("S1502752.LectureFacts", new[] {"YearDimId"});
+            DropIndex("S1502752.LectureFacts", new[] {"RoomDimId"});
+            DropIndex("S1502752.LectureFacts", new[] {"ModuleDimId"});
             DropIndex("S1502752.HallFacts", new[] {"YearDimId"});
             DropIndex("S1502752.RoomFacts", new[] {"YearDimId"});
             DropIndex("S1502752.RoomFacts", new[] {"CampusDimId"});
@@ -550,9 +635,10 @@ namespace UniversityManagementSystem.Data.Migrations
             DropIndex("S1502752.BookFacts", new[] {"YearDimId"});
             DropIndex("S1502752.BookFacts", new[] {"LibraryDimId"});
             DropIndex("S1502752.AssignmentFacts", new[] {"YearDimId"});
-            DropIndex("S1502752.LectureFacts", new[] {"RoomDimId"});
-            DropIndex("S1502752.LectureFacts", new[] {"ModuleDimId"});
+            DropIndex("S1502752.EnrolmentFacts", new[] {"ModuleDimId"});
             DropIndex("S1502752.AssignmentFacts", new[] {"ModuleDimId"});
+            DropTable("S1502752.Roles");
+            DropTable("S1502752.UserRoles");
             DropTable("S1502752.Graduations");
             DropTable("S1502752.CourseModules");
             DropTable("S1502752.Modules");
@@ -567,14 +653,19 @@ namespace UniversityManagementSystem.Data.Migrations
             DropTable("S1502752.Halls");
             DropTable("S1502752.Campus");
             DropTable("S1502752.Courses");
+            DropTable("S1502752.Countries");
             DropTable("S1502752.Users");
             DropTable("S1502752.Results");
             DropTable("S1502752.Assignments");
-            DropTable("S1502752.ClassificationDims");
+            DropTable("S1502752.CountryDims");
             DropTable("S1502752.StudentFacts");
+            DropTable("S1502752.ClassificationDims");
+            DropTable("S1502752.ResultFacts");
             DropTable("S1502752.UserDims");
             DropTable("S1502752.BookDims");
             DropTable("S1502752.RentalFacts");
+            DropTable("S1502752.RoomDims");
+            DropTable("S1502752.LectureFacts");
             DropTable("S1502752.RoomFacts");
             DropTable("S1502752.LibraryFacts");
             DropTable("S1502752.CampusDims");
@@ -585,8 +676,7 @@ namespace UniversityManagementSystem.Data.Migrations
             DropTable("S1502752.LibraryDims");
             DropTable("S1502752.BookFacts");
             DropTable("S1502752.YearDims");
-            DropTable("S1502752.RoomDims");
-            DropTable("S1502752.LectureFacts");
+            DropTable("S1502752.EnrolmentFacts");
             DropTable("S1502752.ModuleDims");
             DropTable("S1502752.AssignmentFacts");
         }

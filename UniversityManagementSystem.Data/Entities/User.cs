@@ -12,6 +12,9 @@ namespace UniversityManagementSystem.Data.Entities
 
         public string LastName { get; set; }
 
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
+
         public int CourseId { get; set; }
         public Course Course { get; set; }
 
@@ -22,5 +25,7 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<Rental> Rentals { get; set; }
 
         public ICollection<Result> Results { get; set; }
+        
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

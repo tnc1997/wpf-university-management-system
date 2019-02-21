@@ -4,6 +4,7 @@ using Prism.Modularity;
 using UniversityManagementSystem.Apps.Wpf.Modules.Assignment;
 using UniversityManagementSystem.Apps.Wpf.Modules.Auth;
 using UniversityManagementSystem.Apps.Wpf.Modules.Book;
+using UniversityManagementSystem.Apps.Wpf.Modules.Enrolment;
 using UniversityManagementSystem.Apps.Wpf.Modules.Graduation;
 using UniversityManagementSystem.Apps.Wpf.Modules.Home;
 using UniversityManagementSystem.Apps.Wpf.Modules.Lecture;
@@ -11,6 +12,7 @@ using UniversityManagementSystem.Apps.Wpf.Modules.Library;
 using UniversityManagementSystem.Apps.Wpf.Modules.Main;
 using UniversityManagementSystem.Apps.Wpf.Modules.Module;
 using UniversityManagementSystem.Apps.Wpf.Modules.Rental;
+using UniversityManagementSystem.Apps.Wpf.Modules.Result;
 using UniversityManagementSystem.Apps.Wpf.Modules.Room;
 using UniversityManagementSystem.Apps.Wpf.Modules.Student;
 using UniversityManagementSystem.Apps.Wpf.Views;
@@ -25,6 +27,7 @@ namespace UniversityManagementSystem.Apps.Wpf
             moduleCatalog.AddModule<AssignmentModule>();
             moduleCatalog.AddModule<AuthModule>();
             moduleCatalog.AddModule<BookModule>();
+            moduleCatalog.AddModule<EnrolmentModule>();
             moduleCatalog.AddModule<GraduationModule>();
             moduleCatalog.AddModule<HomeModule>();
             moduleCatalog.AddModule<LectureModule>();
@@ -32,6 +35,7 @@ namespace UniversityManagementSystem.Apps.Wpf
             moduleCatalog.AddModule<MainModule>();
             moduleCatalog.AddModule<ModuleModule>();
             moduleCatalog.AddModule<RentalModule>();
+            moduleCatalog.AddModule<ResultModule>();
             moduleCatalog.AddModule<RoomModule>();
             moduleCatalog.AddModule<StudentModule>();
         }
@@ -45,7 +49,6 @@ namespace UniversityManagementSystem.Apps.Wpf
         {
             #region Services
 
-            containerRegistry.RegisterSingleton<IEnrolmentService, EnrolmentService>();
             containerRegistry.RegisterSingleton<IUserService, UserService>();
 
             #region Dims
@@ -53,6 +56,7 @@ namespace UniversityManagementSystem.Apps.Wpf
             containerRegistry.RegisterSingleton<IBookDimService, BookDimService>();
             containerRegistry.RegisterSingleton<ICampusDimService, CampusDimService>();
             containerRegistry.RegisterSingleton<IClassificationDimService, ClassificationDimService>();
+            containerRegistry.RegisterSingleton<ICountryDimService, CountryDimService>();
             containerRegistry.RegisterSingleton<ICourseDimService, CourseDimService>();
             containerRegistry.RegisterSingleton<ILibraryDimService, LibraryDimService>();
             containerRegistry.RegisterSingleton<IModuleDimService, ModuleDimService>();
@@ -66,6 +70,7 @@ namespace UniversityManagementSystem.Apps.Wpf
 
             containerRegistry.RegisterSingleton<IAssignmentFactService, AssignmentFactService>();
             containerRegistry.RegisterSingleton<IBookFactService, BookFactService>();
+            containerRegistry.RegisterSingleton<IEnrolmentFactService, EnrolmentFactService>();
             containerRegistry.RegisterSingleton<IGraduationFactService, GraduationFactService>();
             containerRegistry.RegisterSingleton<IHallFactService, HallFactService>();
             containerRegistry.RegisterSingleton<ILectureFactService, LectureFactService>();
@@ -73,6 +78,7 @@ namespace UniversityManagementSystem.Apps.Wpf
             containerRegistry.RegisterSingleton<IModuleFactService, ModuleFactService>();
             containerRegistry.RegisterSingleton<IRentalFactService, RentalFactService>();
             containerRegistry.RegisterSingleton<IRoomFactService, RoomFactService>();
+            containerRegistry.RegisterSingleton<IResultFactService, ResultFactService>();
             containerRegistry.RegisterSingleton<IStudentFactService, StudentFactService>();
 
             #endregion

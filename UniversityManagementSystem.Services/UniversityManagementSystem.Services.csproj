@@ -43,9 +43,10 @@
         <Compile Include="BookFactService.cs" />
         <Compile Include="CampusDimService.cs" />
         <Compile Include="ClassificationDimService.cs" />
+        <Compile Include="CountryDimService.cs" />
         <Compile Include="CourseDimService.cs" />
         <Compile Include="DimServiceBase.cs" />
-        <Compile Include="EnrolmentService.cs" />
+        <Compile Include="EnrolmentFactService.cs" />
         <Compile Include="FactServiceBase.cs" />
         <Compile Include="GraduationFactService.cs" />
         <Compile Include="HallFactService.cs" />
@@ -54,9 +55,10 @@
         <Compile Include="IBookFactService.cs" />
         <Compile Include="ICampusDimService.cs" />
         <Compile Include="IClassificationDimService.cs" />
+        <Compile Include="ICountryDimService.cs" />
         <Compile Include="ICourseDimService.cs" />
         <Compile Include="IDimService.cs" />
-        <Compile Include="IEnrolmentService.cs" />
+        <Compile Include="IEnrolmentFactService.cs" />
         <Compile Include="IFactService.cs" />
         <Compile Include="IGraduationFactService.cs" />
         <Compile Include="IHallFactService.cs" />
@@ -69,6 +71,7 @@
         <Compile Include="IRoomDimService.cs" />
         <Compile Include="IRoomFactService.cs" />
         <Compile Include="IService.cs" />
+        <Compile Include="IResultFactService.cs" />
         <Compile Include="IStudentFactService.cs" />
         <Compile Include="IUserDimService.cs" />
         <Compile Include="IUserService.cs" />
@@ -83,6 +86,7 @@
         <Compile Include="RoomDimService.cs" />
         <Compile Include="RoomFactService.cs" />
         <Compile Include="ServiceBase.cs" />
+        <Compile Include="ResultFactService.cs" />
         <Compile Include="StudentFactService.cs" />
         <Compile Include="UserDimService.cs" />
         <Compile Include="UserService.cs" />
