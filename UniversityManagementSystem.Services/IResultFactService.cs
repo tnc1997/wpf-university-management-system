@@ -2,7 +2,7 @@ using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Services
 {
-    public interface IEnrolmentService : IService<Enrolment>
+    public interface IResultFactService : IFactService<ResultFact>
     {
     }
 }

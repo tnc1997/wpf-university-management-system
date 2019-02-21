@@ -13,7 +13,7 @@ namespace UniversityManagementSystem.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201902181105592_InitialCommit"; }
+            get { return "201902210805040_InitialCommit"; }
         }
         
         string IMigrationMetadata.Source

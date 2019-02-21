@@ -8,7 +8,7 @@ namespace UniversityManagementSystem.Data.Entities
 
         public string Classification { get; set; }
 
-        public ICollection<StudentFact> StudentFacts { get; set; }
+        public ICollection<ResultFact> ResultFacts { get; set; }
 
         public override string ToString()
         {

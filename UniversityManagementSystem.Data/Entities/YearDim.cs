@@ -12,6 +12,8 @@ namespace UniversityManagementSystem.Data.Entities
 
         public ICollection<BookFact> BookFacts { get; set; }
 
+        public ICollection<EnrolmentFact> EnrolmentFacts { get; set; }
+
         public ICollection<GraduationFact> GraduationFacts { get; set; }
 
         public ICollection<HallFact> HallFacts { get; set; }
@@ -23,6 +25,8 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<ModuleFact> ModuleFacts { get; set; }
 
         public ICollection<RentalFact> RentalFacts { get; set; }
+
+        public ICollection<ResultFact> ResultFacts { get; set; }
 
         public ICollection<RoomFact> RoomFacts { get; set; }
 

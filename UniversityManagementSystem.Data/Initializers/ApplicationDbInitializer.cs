@@ -12,12 +12,18 @@ namespace UniversityManagementSystem.Data.Initializers
             context.Campuses.AddOrUpdate(CampusesSeed.ToArray());
             await context.SaveChangesAsync();
 
+            context.Countries.AddOrUpdate(CountriesSeed.ToArray());
+            await context.SaveChangesAsync();
+
             context.Modules.AddOrUpdate(ModulesSeed.ToArray());
+            await context.SaveChangesAsync();
+
+            context.Roles.AddOrUpdate(RolesSeed.ToArray());
             await context.SaveChangesAsync();
 
             context.Runs.AddOrUpdate(RunsSeed.ToArray());
             await context.SaveChangesAsync();
-            
+
             context.Assignments.AddOrUpdate(AssignmentsSeed.ToArray());
             await context.SaveChangesAsync();
 
@@ -31,6 +37,9 @@ namespace UniversityManagementSystem.Data.Initializers
             await context.SaveChangesAsync();
 
             context.Users.AddOrUpdate(UsersSeed.ToArray());
+            await context.SaveChangesAsync();
+
+            context.UserRoles.AddOrUpdate(UserRolesSeed.ToArray());
             await context.SaveChangesAsync();
 
             context.Results.AddOrUpdate(ResultsSeed.ToArray());
@@ -53,7 +62,7 @@ namespace UniversityManagementSystem.Data.Initializers
 
             context.Libraries.AddOrUpdate(LibrariesSeed.ToArray());
             await context.SaveChangesAsync();
-            
+
             context.LibraryBooks.AddOrUpdate(LibraryBooksSeed.ToArray());
             await context.SaveChangesAsync();
 

@@ -104,6 +104,10 @@
       <Project>{99cd74bd-e4f3-4edf-b866-39251b2f70de}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Book</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Enrolment\UniversityManagementSystem.Apps.Wpf.Modules.Enrolment.csproj">
+      <Project>{f885381f-ba56-433c-acc7-3a455363ed1c}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Enrolment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Graduation\UniversityManagementSystem.Apps.Wpf.Modules.Graduation.csproj">
       <Project>{f3eaf000-05ff-4e8a-b49a-d5f76c0d1d01}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Graduation</Name>
@@ -131,6 +135,10 @@
     <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Rental\UniversityManagementSystem.Apps.Wpf.Modules.Rental.csproj">
       <Project>{43ec41bc-4953-4a09-985a-7b32eb0c0b04}</Project>
       <Name>UniversityManagementSystem.Apps.Wpf.Modules.Rental</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Result\UniversityManagementSystem.Apps.Wpf.Modules.Result.csproj">
+      <Project>{de71f295-3df9-4bda-a7cc-aaffece29de2}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Result</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Room\UniversityManagementSystem.Apps.Wpf.Modules.Room.csproj">
       <Project>{3be49aed-5694-4ee6-8216-f8012b684212}</Project>
