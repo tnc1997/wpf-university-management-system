@@ -4,11 +4,11 @@ using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Specifications
 {
-    public class AssignmentFactYearSpecification : SpecificationBase<AssignmentFact>
+    public class AssignmentFactModuleDimSpecification : SpecificationBase<AssignmentFact>
     {
-        public AssignmentFactYearSpecification(int yearDimId)
+        public AssignmentFactModuleDimSpecification(int moduleDimId)
         {
-            Expression = fact => fact.YearDimId == yearDimId;
+            Expression = fact => fact.ModuleDimId == moduleDimId;
         }
 
         /// <inheritdoc />

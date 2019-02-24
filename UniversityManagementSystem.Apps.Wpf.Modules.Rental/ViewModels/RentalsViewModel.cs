@@ -1,63 +1,94 @@
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
+using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Rental.ViewModels
 {
-    public class RentalsViewModel : BindableBase, INavigationAware
+    public class RentalsViewModel : FactChartViewModelBase<RentalFact>
     {
-        public RentalsViewModel(IRentalFactService rentalFactService)
+        private BookDim _bookDim;
+        private INotifyTaskCompletion<IEnumerable<BookDim>> _bookDimsTask;
+        private UserDim _userDim;
+        private INotifyTaskCompletion<IEnumerable<UserDim>> _userDimsTask;
+
+        public RentalsViewModel(
+            IBookDimService bookDimService,
+            IRentalFactService rentalFactService,
+            IUserDimService userDimService
+        ) : base(rentalFactService)
         {
-            RentalFactService = rentalFactService;
+            BookDimService = bookDimService;
+            UserDimService = userDimService;
         }
 
-        public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
-
-        private IRentalFactService RentalFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public BookDim BookDim
         {
-            return true;
+            get => _bookDim;
+            set
+            {
+                if (!SetProperty(ref _bookDim, value)) return;
+
+                Specifications[typeof(BookDim)] = _bookDim == null
+                    ? null
+                    : new RentalFactBookDimSpecification(_bookDim.Id);
+
+                UpdateSeriesCollection();
+            }
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<BookDim>> BookDimsTask
         {
-            SeriesCollection.Clear();
+            get => _bookDimsTask;
+            private set => SetProperty(ref _bookDimsTask, value);
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        public UserDim UserDim
         {
-            var rentalFacts = await RentalFactService.GetAsync();
+            get => _userDim;
+            set
+            {
+                if (!SetProperty(ref _userDim, value)) return;
 
-            var dictionary = rentalFacts
-                .GroupBy(fact => fact.BookDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.YearDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1.Sum(fact => fact.Count)
-                        )
-                );
+                Specifications[typeof(UserDim)] = _userDim == null
+                    ? null
+                    : new RentalFactUserDimSpecification(_userDim.Id);
 
-            var seriesViews = dictionary
-                .Select(pair =>
-                {
-                    var points = pair.Value.Select(pair1 => new ObservablePoint(pair1.Key.Year, pair1.Value));
-                    
-                    return new LineSeries
-                    {
-                        Title = $"{pair.Key.Name} - {pair.Key.Author}",
-                        Values = new ChartValues<ObservablePoint>(points)
-                    };
-                }).ToList();
+                UpdateSeriesCollection();
+            }
+        }
 
-            SeriesCollection.AddRange(seriesViews);
+        public INotifyTaskCompletion<IEnumerable<UserDim>> UserDimsTask
+        {
+            get => _userDimsTask;
+            private set => SetProperty(ref _userDimsTask, value);
+        }
+
+        private IBookDimService BookDimService { get; }
+
+        private IUserDimService UserDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+            base.OnNavigatedFrom(navigationContext);
+
+            BookDim = null;
+            UserDim = null;
+        }
+
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
+
+            var task1 = Task.Run(BookDimService.GetAsync);
+            BookDimsTask = new NotifyTaskCompletion<IEnumerable<BookDim>>(task1);
+
+            var task2 = Task.Run(UserDimService.GetAsync);
+            UserDimsTask = new NotifyTaskCompletion<IEnumerable<UserDim>>(task2);
         }
     }
 }

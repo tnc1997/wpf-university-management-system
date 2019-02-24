@@ -37,6 +37,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Modules.Enrolment", "UniversityManagementSystem.Apps.Wpf.Modules.Enrolment\UniversityManagementSystem.Apps.Wpf.Modules.Enrolment.csproj", "{F885381F-BA56-433C-ACC7-3A455363ED1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.ViewModels", "UniversityManagementSystem.ViewModels\UniversityManagementSystem.ViewModels.csproj", "{602E18BF-E59B-406F-81D0-ACF8A865D907}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.Extensions", "UniversityManagementSystem.Apps.Wpf.Extensions\UniversityManagementSystem.Apps.Wpf.Extensions.csproj", "{4B4FFB70-FFCA-4581-9DAB-9609268F7FC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityManagementSystem.Apps.Wpf.ViewModels", "UniversityManagementSystem.Apps.Wpf.ViewModels\UniversityManagementSystem.Apps.Wpf.ViewModels.csproj", "{78C4D774-529E-41BB-BF16-893F1E9955F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,5 +125,17 @@ Global
 		{F885381F-BA56-433C-ACC7-3A455363ED1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F885381F-BA56-433C-ACC7-3A455363ED1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F885381F-BA56-433C-ACC7-3A455363ED1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{602E18BF-E59B-406F-81D0-ACF8A865D907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{602E18BF-E59B-406F-81D0-ACF8A865D907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{602E18BF-E59B-406F-81D0-ACF8A865D907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{602E18BF-E59B-406F-81D0-ACF8A865D907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B4FFB70-FFCA-4581-9DAB-9609268F7FC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B4FFB70-FFCA-4581-9DAB-9609268F7FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B4FFB70-FFCA-4581-9DAB-9609268F7FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B4FFB70-FFCA-4581-9DAB-9609268F7FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C4D774-529E-41BB-BF16-893F1E9955F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C4D774-529E-41BB-BF16-893F1E9955F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C4D774-529E-41BB-BF16-893F1E9955F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C4D774-529E-41BB-BF16-893F1E9955F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

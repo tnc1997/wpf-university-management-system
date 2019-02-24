@@ -1,40 +1,29 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Helpers;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
 using UniversityManagementSystem.Data.Entities;
-using UniversityManagementSystem.Extensions;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Result.ViewModels
 {
-    public class ResultsViewModel : BindableBase, INavigationAware
+    public class ResultsViewModel : FactChartViewModelBase<ResultFact>
     {
-        private int _axisMax;
-        private int _axisMin;
         private ClassificationDim _classificationDim;
-        private SeriesCollection _filteredSeriesCollection;
+        private INotifyTaskCompletion<IEnumerable<ClassificationDim>> _classificationDimsTask;
         private ModuleDim _moduleDim;
+        private INotifyTaskCompletion<IEnumerable<ModuleDim>> _moduleDimsTask;
 
-        public ResultsViewModel(IResultFactService resultFactService)
+        public ResultsViewModel(
+            IClassificationDimService classificationDimService,
+            IModuleDimService moduleDimService,
+            IResultFactService resultFactService
+        ) : base(resultFactService)
         {
-            ResultFactService = resultFactService;
-        }
-
-        public int AxisMax
-        {
-            get => _axisMax;
-            set => SetProperty(ref _axisMax, value);
-        }
-
-        public int AxisMin
-        {
-            get => _axisMin;
-            set => SetProperty(ref _axisMin, value);
+            ClassificationDimService = classificationDimService;
+            ModuleDimService = moduleDimService;
         }
 
         public ClassificationDim ClassificationDim
@@ -44,19 +33,18 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Result.ViewModels
             {
                 if (!SetProperty(ref _classificationDim, value)) return;
 
-                FilteredSeriesCollection =
-                    _classificationDim != null
-                        ? ClassificationFilteredSeriesCollections[_classificationDim]
-                        : SeriesCollection;
+                Specifications[typeof(ClassificationDim)] = _classificationDim == null
+                    ? null
+                    : new ResultFactClassificationDimSpecification(_classificationDim.Id);
+
+                UpdateSeriesCollection();
             }
         }
 
-        public ICollection<ClassificationDim> ClassificationDims { get; } = new ObservableCollection<ClassificationDim>();
-
-        public SeriesCollection FilteredSeriesCollection
+        public INotifyTaskCompletion<IEnumerable<ClassificationDim>> ClassificationDimsTask
         {
-            get => _filteredSeriesCollection;
-            set => SetProperty(ref _filteredSeriesCollection, value);
+            get => _classificationDimsTask;
+            private set => SetProperty(ref _classificationDimsTask, value);
         }
 
         public ModuleDim ModuleDim
@@ -66,99 +54,41 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Result.ViewModels
             {
                 if (!SetProperty(ref _moduleDim, value)) return;
 
-                FilteredSeriesCollection =
-                    _moduleDim != null
-                        ? ModuleFilteredSeriesCollections[_moduleDim]
-                        : SeriesCollection;
+                Specifications[typeof(ModuleDim)] = _moduleDim == null
+                    ? null
+                    : new ResultFactModuleDimSpecification(_moduleDim.Id);
+
+                UpdateSeriesCollection();
             }
         }
 
-        public ICollection<ModuleDim> ModuleDims { get; } = new ObservableCollection<ModuleDim>();
-
-        private IDictionary<ClassificationDim, SeriesCollection> ClassificationFilteredSeriesCollections { get; set; }
-
-        private IDictionary<ModuleDim, SeriesCollection> ModuleFilteredSeriesCollections { get; set; }
-
-        private SeriesCollection SeriesCollection { get; set; }
-
-        private IResultFactService ResultFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<ModuleDim>> ModuleDimsTask
         {
-            return true;
+            get => _moduleDimsTask;
+            private set => SetProperty(ref _moduleDimsTask, value);
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        private IClassificationDimService ClassificationDimService { get; }
+
+        private IModuleDimService ModuleDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            ClassificationDims.Clear();
-            ModuleDims.Clear();
+            base.OnNavigatedFrom(navigationContext);
+
+            ClassificationDim = null;
+            ModuleDim = null;
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        public override void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var resultFacts = (await ResultFactService.GetAsync()).ToList();
+            base.OnNavigatedTo(navigationContext);
 
-            ClassificationFilteredSeriesCollections = resultFacts
-                .GroupBy(fact => fact.ClassificationDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.ModuleDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1
-                                .GroupBy(fact => fact.YearDim)
-                                .ToDictionary(
-                                    facts2 => facts2.Key,
-                                    facts2 => facts2.Sum(fact => fact.Count)
-                                )
-                        ).Select(LineSeriesSelector)
-                        .AsSeriesCollection()
-                );
+            var task1 = Task.Run(ClassificationDimService.GetAsync);
+            ClassificationDimsTask = new NotifyTaskCompletion<IEnumerable<ClassificationDim>>(task1);
 
-            ClassificationDims.AddRange(ClassificationFilteredSeriesCollections.Keys);
-
-            ModuleFilteredSeriesCollections = resultFacts
-                .GroupBy(fact => fact.ModuleDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.ClassificationDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1
-                                .GroupBy(fact => fact.YearDim)
-                                .ToDictionary(
-                                    facts2 => facts2.Key,
-                                    facts2 => facts2.Sum(fact => fact.Count)
-                                )
-                        ).Select(LineSeriesSelector)
-                        .AsSeriesCollection()
-                );
-
-            ModuleDims.AddRange(ModuleFilteredSeriesCollections.Keys);
-
-            AxisMax = resultFacts.Max(fact => fact.YearDim.Year);
-            AxisMin = resultFacts.Min(fact => fact.YearDim.Year);
-
-            FilteredSeriesCollection = SeriesCollection = resultFacts
-                .GroupBy(fact => fact.YearDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts.Sum(fact => fact.Count)
-                ).AsObservablePoints(dim => dim.Year)
-                .AsChartValues()
-                .AsSeriesView<LineSeries>()
-                .AsSeriesCollection();
-        }
-
-        private static LineSeries LineSeriesSelector<TKey>(KeyValuePair<TKey, Dictionary<YearDim, int>> pair)
-        {
-            return new LineSeries
-            {
-                Title = pair.Key.ToString(),
-                Values = pair.Value.AsObservablePoints(dim => dim.Year).AsChartValues()
-            };
+            var task2 = Task.Run(ModuleDimService.GetAsync);
+            ModuleDimsTask = new NotifyTaskCompletion<IEnumerable<ModuleDim>>(task2);
         }
     }
 }

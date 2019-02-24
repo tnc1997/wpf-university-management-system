@@ -2,18 +2,22 @@
     x:Class="UniversityManagementSystem.Apps.Wpf.Modules.Main.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:UniversityManagementSystem.Apps.Wpf.Modules.Main.Models"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModels="clr-namespace:UniversityManagementSystem.Apps.Wpf.Modules.Main.ViewModels"
+    d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+    mc:Ignorable="d"
     prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <controls:HamburgerMenu
-        IsPaneOpen="True"
+    <mah:HamburgerMenu
         ItemsSource="{Binding MenuItems, Mode=OneWay}"
         SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
 
-        <controls:HamburgerMenu.ItemTemplate>
+        <mah:HamburgerMenu.ItemTemplate>
             <DataTemplate DataType="{x:Type models:NavigationViewItemModel}">
                 <Grid Height="48">
                     <Grid.ColumnDefinitions>
@@ -33,8 +37,8 @@
                         VerticalAlignment="Center" />
                 </Grid>
             </DataTemplate>
-        </controls:HamburgerMenu.ItemTemplate>
+        </mah:HamburgerMenu.ItemTemplate>
 
         <ContentControl x:Name="MainRegion" />
-    </controls:HamburgerMenu>
+    </mah:HamburgerMenu>
 </UserControl>

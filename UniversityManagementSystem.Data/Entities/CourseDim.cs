@@ -11,5 +11,10 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<GraduationFact> GraduationFacts { get; set; }
 
         public ICollection<ModuleFact> ModuleFacts { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

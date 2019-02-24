@@ -9,11 +9,6 @@ namespace UniversityManagementSystem.Services
 {
     public class UserService : ServiceBase<User>, IUserService
     {
-        protected override DbSet<User> GetDbSet(ApplicationDbContext context)
-        {
-            return context.Users;
-        }
-
         public async Task<User> GetAsync(string username, string password)
         {
             using (var context = new ApplicationDbContext())
@@ -22,6 +17,11 @@ namespace UniversityManagementSystem.Services
 
                 return user == null || !Verify(password, user.PasswordHash) ? null : user;
             }
+        }
+
+        protected override DbSet<User> GetDbSet(ApplicationDbContext context)
+        {
+            return context.Users;
         }
 
         protected override IQueryable<User> GetQueryable(ApplicationDbContext context)

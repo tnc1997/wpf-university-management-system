@@ -53,12 +53,17 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+      <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0212" />
       <PackageReference Include="Prism.Wpf" Version="7.1.0.431" />
     </ItemGroup>
     <ItemGroup>
       <Page Include="Views\AssignmentsView.xaml" />
     </ItemGroup>
     <ItemGroup>
+      <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.ViewModels\UniversityManagementSystem.Apps.Wpf.ViewModels.csproj">
+        <Project>{78c4d774-529e-41bb-bf16-893f1e9955f4}</Project>
+        <Name>UniversityManagementSystem.Apps.Wpf.ViewModels</Name>
+      </ProjectReference>
       <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
         <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
         <Name>UniversityManagementSystem.Data</Name>
@@ -66,6 +71,14 @@
       <ProjectReference Include="..\UniversityManagementSystem.Services\UniversityManagementSystem.Services.csproj">
         <Project>{403da3da-9b25-4da5-bd55-235642e99ad0}</Project>
         <Name>UniversityManagementSystem.Services</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\UniversityManagementSystem.Specifications\UniversityManagementSystem.Specifications.csproj">
+        <Project>{55a75553-df3e-4559-b96f-711faf3ad212}</Project>
+        <Name>UniversityManagementSystem.Specifications</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\UniversityManagementSystem.ViewModels\UniversityManagementSystem.ViewModels.csproj">
+        <Project>{602e18bf-e59b-406f-81d0-acf8a865d907}</Project>
+        <Name>UniversityManagementSystem.ViewModels</Name>
       </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

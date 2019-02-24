@@ -1,63 +1,63 @@
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
+using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Book.ViewModels
 {
-    public class BooksViewModel : BindableBase, INavigationAware
+    public class BooksViewModel : FactChartViewModelBase<BookFact>
     {
-        public BooksViewModel(IBookFactService bookFactService)
+        private LibraryDim _libraryDim;
+        private INotifyTaskCompletion<IEnumerable<LibraryDim>> _libraryDimsTask;
+
+        public BooksViewModel(
+            IBookFactService bookFactService,
+            ILibraryDimService libraryDimService
+        ) : base(bookFactService)
         {
-            BookFactService = bookFactService;
+            LibraryDimService = libraryDimService;
         }
 
-        public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
-
-        private IBookFactService BookFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public LibraryDim LibraryDim
         {
-            return true;
+            get => _libraryDim;
+            set
+            {
+                if (!SetProperty(ref _libraryDim, value)) return;
+
+                Specifications[typeof(LibraryDim)] = _libraryDim == null
+                    ? null
+                    : new BookFactLibraryDimSpecification(_libraryDim.Id);
+
+                UpdateSeriesCollection();
+            }
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<LibraryDim>> LibraryDimsTask
         {
-            SeriesCollection.Clear();
+            get => _libraryDimsTask;
+            private set => SetProperty(ref _libraryDimsTask, value);
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        private ILibraryDimService LibraryDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            var bookFacts = await BookFactService.GetAsync();
+            base.OnNavigatedFrom(navigationContext);
 
-            var dictionary = bookFacts
-                .GroupBy(fact => fact.LibraryDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.YearDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1.Sum(fact => fact.Count)
-                        )
-                );
+            LibraryDim = null;
+        }
 
-            var seriesViews = dictionary
-                .Select(pair =>
-                {
-                    var points = pair.Value.Select(pair1 => new ObservablePoint(pair1.Key.Year, pair1.Value));
-                    
-                    return new LineSeries
-                    {
-                        Title = pair.Key.Name,
-                        Values = new ChartValues<ObservablePoint>(points)
-                    };
-                }).ToList();
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
 
-            SeriesCollection.AddRange(seriesViews);
+            var task = Task.Run(LibraryDimService.GetAsync);
+            LibraryDimsTask = new NotifyTaskCompletion<IEnumerable<LibraryDim>>(task);
         }
     }
 }

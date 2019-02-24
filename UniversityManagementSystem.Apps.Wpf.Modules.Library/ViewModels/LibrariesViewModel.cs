@@ -1,63 +1,63 @@
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
+using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Library.ViewModels
 {
-    public class LibrariesViewModel : BindableBase, INavigationAware
+    public class LibrariesViewModel : FactChartViewModelBase<LibraryFact>
     {
-        public LibrariesViewModel(ILibraryFactService libraryFactService)
+        private CampusDim _campusDim;
+        private INotifyTaskCompletion<IEnumerable<CampusDim>> _campusDimsTask;
+
+        public LibrariesViewModel(
+            ICampusDimService campusDimService,
+            ILibraryFactService libraryFactService
+        ) : base(libraryFactService)
         {
-            LibraryFactService = libraryFactService;
+            CampusDimService = campusDimService;
         }
 
-        public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
-
-        private ILibraryFactService LibraryFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public CampusDim CampusDim
         {
-            return true;
+            get => _campusDim;
+            set
+            {
+                if (!SetProperty(ref _campusDim, value)) return;
+
+                Specifications[typeof(CampusDim)] = _campusDim == null
+                    ? null
+                    : new LibraryFactCampusDimSpecification(_campusDim.Id);
+
+                UpdateSeriesCollection();
+            }
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<CampusDim>> CampusDimsTask
         {
-            SeriesCollection.Clear();
+            get => _campusDimsTask;
+            private set => SetProperty(ref _campusDimsTask, value);
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        private ICampusDimService CampusDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            var libraryFacts = await LibraryFactService.GetAsync();
+            base.OnNavigatedFrom(navigationContext);
 
-            var dictionary = libraryFacts
-                .GroupBy(fact => fact.CampusDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.YearDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1.Sum(fact => fact.Count)
-                        )
-                );
+            CampusDim = null;
+        }
 
-            var seriesViews = dictionary
-                .Select(pair =>
-                {
-                    var points = pair.Value.Select(pair1 => new ObservablePoint(pair1.Key.Year, pair1.Value));
-                    
-                    return new LineSeries
-                    {
-                        Title = pair.Key.Name,
-                        Values = new ChartValues<ObservablePoint>(points)
-                    };
-                }).ToList();
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
 
-            SeriesCollection.AddRange(seriesViews);
+            var task = Task.Run(CampusDimService.GetAsync);
+            CampusDimsTask = new NotifyTaskCompletion<IEnumerable<CampusDim>>(task);
         }
     }
 }

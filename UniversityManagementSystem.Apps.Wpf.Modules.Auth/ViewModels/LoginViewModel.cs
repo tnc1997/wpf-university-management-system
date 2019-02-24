@@ -1,13 +1,14 @@
 using System.Threading.Tasks;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
 using UniversityManagementSystem.Services;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
 {
-    public class LoginViewModel : BindableBase
+    public class LoginViewModel : ViewModelBase
     {
+        private bool _isAwaiting;
         private string _password;
         private string _username;
 
@@ -18,14 +19,21 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
 
             LoginCommand = new DelegateCommand(OnLoginAsync, CanLogin)
                 .ObservesProperty(() => Username)
-                .ObservesProperty(() => Password);
+                .ObservesProperty(() => Password)
+                .ObservesProperty(() => IsAwaiting);
+        }
+
+        public DelegateCommand LoginCommand { get; }
+
+        public bool IsAwaiting
+        {
+            get => _isAwaiting;
+            private set => SetProperty(ref _isAwaiting, value);
         }
 
         private IRegionManager RegionManager { get; }
 
         private IUserService UserService { get; }
-
-        public DelegateCommand LoginCommand { get; }
 
         public string Username
         {
@@ -39,20 +47,25 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        private bool CanLogin()
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+            base.OnNavigatedFrom(navigationContext);
+
+            Username = Password = null;
         }
 
-        private async Task LoginAsync()
+        private bool CanLogin()
         {
-            if (await UserService.GetAsync(Username, Password) != null)
-                RegionManager.RequestNavigate("ContentRegion", "MainView");
+            return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password) && !IsAwaiting;
         }
 
         private async void OnLoginAsync()
         {
-            await LoginAsync();
+            IsAwaiting = true;
+            var isLoginValid = await Task.Run(() => UserService.GetAsync(Username, Password)) != null;
+            IsAwaiting = false;
+
+            if (isLoginValid) RegionManager.RequestNavigate("ContentRegion", "MainView");
         }
     }
 }
