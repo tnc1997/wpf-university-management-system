@@ -11,9 +11,9 @@ namespace UniversityManagementSystem.Extensions
         {
             if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
 
-            return dictionary.AsObservablePoints(pair => pair.Key, pair => pair.Value);
+            return dictionary.AsObservablePoints(i => i, i => i);
         }
-        
+
         public static IEnumerable<ObservablePoint> AsObservablePoints<TKey>(
             this IDictionary<TKey, int> dictionary,
             Func<TKey, int> xSelector
@@ -21,7 +21,28 @@ namespace UniversityManagementSystem.Extensions
         {
             if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
 
-            return dictionary.AsObservablePoints(pair => xSelector(pair.Key), pair => pair.Value);
+            return dictionary.AsObservablePoints(xSelector, i => i);
+        }
+
+        public static IEnumerable<ObservablePoint> AsObservablePoints<TValue>(
+            this IDictionary<int, TValue> dictionary,
+            Func<TValue, int> ySelector
+        )
+        {
+            if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
+
+            return dictionary.AsObservablePoints(i => i, ySelector);
+        }
+
+        public static IEnumerable<ObservablePoint> AsObservablePoints<TKey, TValue>(
+            this IDictionary<TKey, TValue> dictionary,
+            Func<TKey, int> xSelector,
+            Func<TValue, int> ySelector
+        )
+        {
+            if (dictionary == null) throw new ArgumentNullException(nameof(dictionary));
+
+            return dictionary.AsObservablePoints(pair => xSelector(pair.Key), pair => ySelector(pair.Value));
         }
 
         public static IEnumerable<ObservablePoint> AsObservablePoints<TKey, TValue>(

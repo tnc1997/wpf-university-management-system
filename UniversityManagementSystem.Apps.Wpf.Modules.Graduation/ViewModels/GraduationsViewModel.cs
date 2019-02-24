@@ -1,63 +1,63 @@
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
+using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Graduation.ViewModels
 {
-    public class GraduationsViewModel : BindableBase, INavigationAware
+    public class GraduationsViewModel : FactChartViewModelBase<GraduationFact>
     {
-        public GraduationsViewModel(IGraduationFactService graduationFactService)
+        private CourseDim _courseDim;
+        private INotifyTaskCompletion<IEnumerable<CourseDim>> _courseDimsTask;
+
+        public GraduationsViewModel(
+            ICourseDimService courseDimService,
+            IGraduationFactService graduationFactService
+        ) : base(graduationFactService)
         {
-            GraduationFactService = graduationFactService;
+            CourseDimService = courseDimService;
         }
 
-        public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
-
-        private IGraduationFactService GraduationFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public CourseDim CourseDim
         {
-            return true;
+            get => _courseDim;
+            set
+            {
+                if (!SetProperty(ref _courseDim, value)) return;
+
+                Specifications[typeof(CourseDim)] = _courseDim == null
+                    ? null
+                    : new GraduationFactCourseDimSpecification(_courseDim.Id);
+
+                UpdateSeriesCollection();
+            }
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<CourseDim>> CourseDimsTask
         {
-            SeriesCollection.Clear();
+            get => _courseDimsTask;
+            private set => SetProperty(ref _courseDimsTask, value);
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        private ICourseDimService CourseDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            var graduationFacts = await GraduationFactService.GetAsync();
+            base.OnNavigatedFrom(navigationContext);
 
-            var dictionary = graduationFacts
-                .GroupBy(fact => fact.CourseDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.YearDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1.Sum(fact => fact.Count)
-                        )
-                );
+            CourseDim = null;
+        }
 
-            var seriesViews = dictionary
-                .Select(pair =>
-                {
-                    var points = pair.Value.Select(pair1 => new ObservablePoint(pair1.Key.Year, pair1.Value));
-                    
-                    return new LineSeries
-                    {
-                        Title = pair.Key.Name,
-                        Values = new ChartValues<ObservablePoint>(points)
-                    };
-                }).ToList();
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
 
-            SeriesCollection.AddRange(seriesViews);
+            var task = Task.Run(CourseDimService.GetAsync);
+            CourseDimsTask = new NotifyTaskCompletion<IEnumerable<CourseDim>>(task);
         }
     }
 }

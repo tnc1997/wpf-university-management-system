@@ -1,63 +1,63 @@
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
+using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Enrolment.ViewModels
 {
-    public class EnrolmentsViewModel : BindableBase, INavigationAware
+    public class EnrolmentsViewModel : FactChartViewModelBase<EnrolmentFact>
     {
-        public EnrolmentsViewModel(IEnrolmentFactService enrolmentFactService)
+        private ModuleDim _moduleDim;
+        private INotifyTaskCompletion<IEnumerable<ModuleDim>> _moduleDimsTask;
+
+        public EnrolmentsViewModel(
+            IEnrolmentFactService enrolmentFactService,
+            IModuleDimService moduleDimService
+        ) : base(enrolmentFactService)
         {
-            EnrolmentFactService = enrolmentFactService;
+            ModuleDimService = moduleDimService;
         }
 
-        public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
-
-        private IEnrolmentFactService EnrolmentFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public ModuleDim ModuleDim
         {
-            return true;
+            get => _moduleDim;
+            set
+            {
+                if (!SetProperty(ref _moduleDim, value)) return;
+
+                Specifications[typeof(ModuleDim)] = _moduleDim == null
+                    ? null
+                    : new EnrolmentFactModuleDimSpecification(_moduleDim.Id);
+
+                UpdateSeriesCollection();
+            }
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<ModuleDim>> ModuleDimsTask
         {
-            SeriesCollection.Clear();
+            get => _moduleDimsTask;
+            private set => SetProperty(ref _moduleDimsTask, value);
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        private IModuleDimService ModuleDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            var enrolmentFacts = await EnrolmentFactService.GetAsync();
+            base.OnNavigatedFrom(navigationContext);
 
-            var dictionary = enrolmentFacts
-                .GroupBy(fact => fact.ModuleDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.YearDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1.Sum(fact => fact.Count)
-                        )
-                );
+            ModuleDim = null;
+        }
 
-            var seriesViews = dictionary
-                .Select(pair =>
-                {
-                    var points = pair.Value.Select(pair1 => new ObservablePoint(pair1.Key.Year, pair1.Value));
-                    
-                    return new LineSeries
-                    {
-                        Title = pair.Key.ToString(),
-                        Values = new ChartValues<ObservablePoint>(points)
-                    };
-                }).ToList();
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
 
-            SeriesCollection.AddRange(seriesViews);
+            var task = Task.Run(ModuleDimService.GetAsync);
+            ModuleDimsTask = new NotifyTaskCompletion<IEnumerable<ModuleDim>>(task);
         }
     }
 }

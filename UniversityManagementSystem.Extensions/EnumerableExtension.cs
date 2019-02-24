@@ -1,41 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LiveCharts.Defaults;
+using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Extensions
 {
     public static class EnumerableExtension
     {
-        public static IEnumerable<TResult> Distinct<TSource, TResult>(
-            this IEnumerable<TSource> enumerable,
-            Func<TSource, TResult> selector
-        )
+        public static IEnumerable<ObservablePoint> AsObservablePoints<TFact>(this IEnumerable<TFact> facts)
+            where TFact : IFact
         {
-            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
+            if (facts == null) throw new ArgumentNullException(nameof(facts));
 
-            return enumerable.Select(selector).Distinct();
-        }
-        
-        public static TSource MaxBy<TSource>(
-            this IEnumerable<TSource> enumerable,
-            Func<TSource, int> selector
-        )
-        {
-            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return enumerable.Aggregate((min, value) => selector(value) > selector(min) ? value : min);
-        }
-
-        public static TSource MinBy<TSource>(
-            this IEnumerable<TSource> enumerable,
-            Func<TSource, int> selector
-        )
-        {
-            if (enumerable == null) throw new ArgumentNullException(nameof(enumerable));
-            if (selector == null) throw new ArgumentNullException(nameof(selector));
-
-            return enumerable.Aggregate((min, value) => selector(value) < selector(min) ? value : min);
+            return facts
+                .GroupBy(fact => fact.YearDim)
+                .ToDictionary(
+                    facts1 => facts1.Key,
+                    facts1 => facts1.Sum(fact => fact.Count)
+                ).AsObservablePoints(dim => dim.Year);
         }
     }
 }

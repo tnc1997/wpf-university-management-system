@@ -48,6 +48,12 @@
     <ItemGroup>
       <PackageReference Include="LiveCharts" Version="0.9.7" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
+        <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
+        <Name>UniversityManagementSystem.Data</Name>
+      </ProjectReference>
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

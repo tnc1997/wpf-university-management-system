@@ -11,5 +11,10 @@ namespace UniversityManagementSystem.Data.Entities
         public string LastName { get; set; }
 
         public ICollection<RentalFact> RentalFacts { get; set; }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }

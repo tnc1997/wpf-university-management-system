@@ -52,6 +52,7 @@
         </Compile>
     </ItemGroup>
     <ItemGroup>
+      <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0212" />
       <PackageReference Include="Prism.Wpf" Version="7.1.0.431" />
     </ItemGroup>
     <ItemGroup>

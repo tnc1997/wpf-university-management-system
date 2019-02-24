@@ -13,5 +13,10 @@ namespace UniversityManagementSystem.Data.Entities
         public ICollection<LibraryFact> LibraryFacts { get; set; }
 
         public ICollection<RoomFact> RoomFacts { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

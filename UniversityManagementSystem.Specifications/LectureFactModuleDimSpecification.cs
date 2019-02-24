@@ -4,14 +4,14 @@ using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Specifications
 {
-    public class AssignmentFactModuleSpecification : SpecificationBase<AssignmentFact>
+    public class LectureFactModuleDimSpecification : SpecificationBase<LectureFact>
     {
-        public AssignmentFactModuleSpecification(int moduleDimId)
+        public LectureFactModuleDimSpecification(int moduleDimId)
         {
             Expression = fact => fact.ModuleDimId == moduleDimId;
         }
 
         /// <inheritdoc />
-        public override Expression<Func<AssignmentFact, bool>> Expression { get; }
+        public override Expression<Func<LectureFact, bool>> Expression { get; }
     }
 }

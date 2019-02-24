@@ -1,63 +1,63 @@
-using System.Linq;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using Prism.Mvvm;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Prism.Regions;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
+using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Services;
+using UniversityManagementSystem.Specifications;
+using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Student.ViewModels
 {
-    public class StudentsViewModel : BindableBase, INavigationAware
+    public class StudentsViewModel : FactChartViewModelBase<StudentFact>
     {
-        public StudentsViewModel(IStudentFactService studentFactService)
+        private CountryDim _countryDim;
+        private INotifyTaskCompletion<IEnumerable<CountryDim>> _countryDimsTask;
+
+        public StudentsViewModel(
+            ICountryDimService countryDimService,
+            IStudentFactService studentFactService
+        ) : base(studentFactService)
         {
-            StudentFactService = studentFactService;
+            CountryDimService = countryDimService;
         }
 
-        public SeriesCollection SeriesCollection { get; } = new SeriesCollection();
-
-        private IStudentFactService StudentFactService { get; }
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
+        public CountryDim CountryDim
         {
-            return true;
+            get => _countryDim;
+            set
+            {
+                if (!SetProperty(ref _countryDim, value)) return;
+
+                Specifications[typeof(CountryDim)] = _countryDim == null
+                    ? null
+                    : new StudentFactCountryDimSpecification(_countryDim.Id);
+
+                UpdateSeriesCollection();
+            }
         }
 
-        public void OnNavigatedFrom(NavigationContext navigationContext)
+        public INotifyTaskCompletion<IEnumerable<CountryDim>> CountryDimsTask
         {
-            SeriesCollection.Clear();
+            get => _countryDimsTask;
+            private set => SetProperty(ref _countryDimsTask, value);
         }
 
-        public async void OnNavigatedTo(NavigationContext navigationContext)
+        private ICountryDimService CountryDimService { get; }
+
+        public override void OnNavigatedFrom(NavigationContext navigationContext)
         {
-            var studentFacts = await StudentFactService.GetAsync();
+            base.OnNavigatedFrom(navigationContext);
 
-            var dictionary = studentFacts
-                .GroupBy(fact => fact.CountryDim)
-                .ToDictionary(
-                    facts => facts.Key,
-                    facts => facts
-                        .GroupBy(fact => fact.YearDim)
-                        .ToDictionary(
-                            facts1 => facts1.Key,
-                            facts1 => facts1.Sum(fact => fact.Count)
-                        )
-                );
+            CountryDimsTask = null;
+        }
 
-            var seriesViews = dictionary
-                .Select(pair =>
-                {
-                    var points = pair.Value.Select(pair1 => new ObservablePoint(pair1.Key.Year, pair1.Value));
-                    
-                    return new LineSeries
-                    {
-                        Title = pair.Key.ToString(),
-                        Values = new ChartValues<ObservablePoint>(points)
-                    };
-                }).ToList();
+        public override void OnNavigatedTo(NavigationContext navigationContext)
+        {
+            base.OnNavigatedTo(navigationContext);
 
-            SeriesCollection.AddRange(seriesViews);
+            var task = Task.Run(CountryDimService.GetAsync);
+            CountryDimsTask = new NotifyTaskCompletion<IEnumerable<CountryDim>>(task);
         }
     }
 }
