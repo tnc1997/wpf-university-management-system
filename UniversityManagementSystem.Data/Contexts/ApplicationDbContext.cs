@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Configuration;
 using UniversityManagementSystem.Data.Entities;
 using UniversityManagementSystem.Data.Initializers;
+using static System.Diagnostics.Debug;
 
 namespace UniversityManagementSystem.Data.Contexts
 {
@@ -12,6 +13,8 @@ namespace UniversityManagementSystem.Data.Contexts
         public ApplicationDbContext() : base("Default")
         {
             Database.SetInitializer(new ApplicationDbInitializer());
+            
+            Database.Log = message => WriteLine(message);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
