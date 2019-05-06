@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Prism.Mvvm;
 using Prism.Regions;
 using UniversityManagementSystem.Apps.Wpf.Modules.Main.Models;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Main.ViewModels
 {
-    public class MainViewModel : BindableBase
+    public class MainViewModel : ViewModelBase
     {
         private NavigationViewItemModel _selectedItem;
 

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 
 namespace UniversityManagementSystem.Extensions
 {
+    /// <summary>
+    ///     Defines extension methods for collections.
+    /// </summary>
     public static class CollectionExtension
     {
         /// <summary>
-        /// Adds an enumerable of items to the end of the collection.
+        ///     Adds an enumerable of items to the end of the collection.
         /// </summary>
         /// <typeparam name="TSource">The type of the items.</typeparam>
         /// <param name="collection">The collection to add the items to.</param>

@@ -58,6 +58,12 @@
     <ItemGroup>
       <Page Include="Views\HomeView.xaml" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.ViewModels\UniversityManagementSystem.Apps.Wpf.ViewModels.csproj">
+        <Project>{78c4d774-529e-41bb-bf16-893f1e9955f4}</Project>
+        <Name>UniversityManagementSystem.Apps.Wpf.ViewModels</Name>
+      </ProjectReference>
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.

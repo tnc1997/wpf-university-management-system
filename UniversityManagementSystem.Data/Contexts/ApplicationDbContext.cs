@@ -8,35 +8,51 @@ using static System.Diagnostics.Debug;
 
 namespace UniversityManagementSystem.Data.Contexts
 {
+    /// <summary>
+    ///     Defines members which represent the configuration and structure of the accompanying database.
+    /// </summary>
     public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        ///     Constructs an instance of this class using the "Default" connection string, which can be found in
+        ///     the "UniversityManagementSystem\UniversityManagementSystem.Apps.Wpf\ConnectionStrings.config" file.
+        /// </summary>
         public ApplicationDbContext() : base("Default")
         {
+            // Configures the database to use the custom `ApplicationDbInitializer` class.
             Database.SetInitializer(new ApplicationDbInitializer());
             
+            // Configures the databases to log its output to the console when debugging.
             Database.Log = message => WriteLine(message);
         }
 
+        /// <inheritdoc />
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configures the database to use the specific "S1502752" schema.
             modelBuilder.HasDefaultSchema("S1502752");
 
+            // Checks if a property is of type string and does not have a maximum length attribute.
             bool Predicate(System.Reflection.PropertyInfo propertyInfo) =>
                 propertyInfo.PropertyType == typeof(string) &&
                 propertyInfo.GetCustomAttributes(typeof(MaxLengthAttribute), false).Length == 0;
 
+            // Configures properties of type string to have a maximum length of 2000.
             void ConfigurationAction(ConventionPrimitivePropertyConfiguration propertyConfiguration) =>
                 propertyConfiguration.HasMaxLength(2000);
 
+            // Configures the database to store properties of type string as "NVARCHAR2(2000)" rather than "NCLOB".
             modelBuilder
                 .Properties()
                 .Where(Predicate)
                 .Configure(ConfigurationAction);
 
+            // Configures the operational database.
             #region Operational Database
 
+            // Configures the composite primary keys of the operational database.
             #region Composite Primary Keys
 
             modelBuilder
@@ -55,8 +71,10 @@ namespace UniversityManagementSystem.Data.Contexts
 
             #endregion
 
+            // Configures the data warehouse.
             #region Data Warehouse
 
+            // Configures the composite primary keys of the data warehouse.
             #region Composite Primary Keys
 
             modelBuilder
@@ -109,6 +127,7 @@ namespace UniversityManagementSystem.Data.Contexts
 
             #endregion
 
+            // Disables the auto-generated primary keys of the dimension tables.
             #region Disable Auto-Generated Primary Keys
             
             modelBuilder

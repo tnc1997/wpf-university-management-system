@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 
 namespace UniversityManagementSystem.Specifications
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Defines generic implementations for members which are shared between specifications.
     /// </summary>

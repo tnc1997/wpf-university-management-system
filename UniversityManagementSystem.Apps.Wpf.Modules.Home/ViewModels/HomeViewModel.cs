@@ -1,8 +1,8 @@
-using Prism.Mvvm;
+using UniversityManagementSystem.Apps.Wpf.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Home.ViewModels
 {
-    public class HomeViewModel : BindableBase
+    public class HomeViewModel : ViewModelBase
     {
     }
 }

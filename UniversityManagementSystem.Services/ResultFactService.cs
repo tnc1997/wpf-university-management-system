@@ -5,13 +5,18 @@ using UniversityManagementSystem.Data.Entities;
 
 namespace UniversityManagementSystem.Services
 {
+    /// <summary>
+    ///     Defines implementations for the inherited members which perform result fact related business logic.
+    /// </summary>
     public class ResultFactService : FactServiceBase<ResultFact>, IResultFactService
     {
+        /// <inheritdoc />
         protected override DbSet<ResultFact> GetDbSet(ApplicationDbContext context)
         {
             return context.ResultFacts;
         }
 
+        /// <inheritdoc />
         protected override IQueryable<ResultFact> GetQueryable(ApplicationDbContext context)
         {
             return base.GetQueryable(context)

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Threading;
 using Prism.Ioc;
 using Prism.Modularity;
 using UniversityManagementSystem.Apps.Wpf.Modules.Assignment;
@@ -20,8 +21,12 @@ using UniversityManagementSystem.Services;
 
 namespace UniversityManagementSystem.Apps.Wpf
 {
+    /// <summary>
+    ///     Defines the main methods used to setup and configure the app.
+    /// </summary>
     public partial class App
     {
+        /// <inheritdoc />
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<AssignmentModule>();
@@ -40,11 +45,13 @@ namespace UniversityManagementSystem.Apps.Wpf
             moduleCatalog.AddModule<StudentModule>();
         }
 
+        /// <inheritdoc />
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
         }
 
+        /// <inheritdoc />
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             #region Services
@@ -84,6 +91,18 @@ namespace UniversityManagementSystem.Apps.Wpf
             #endregion
 
             #endregion
+        }
+
+        /// <summary>
+        ///     Occurs when an exception is thrown by the application but not handled.
+        /// </summary>
+        /// <param name="sender">The sender of the exception.</param>
+        /// <param name="e">The exception event arguments.</param>
+        private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            e.Handled = true;
         }
     }
 }

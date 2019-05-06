@@ -4,7 +4,6 @@ using static System.Linq.Expressions.Expression;
 
 namespace UniversityManagementSystem.Specifications
 {
-    /// <inheritdoc />
     /// <summary>
     ///     Defines implementations for the inherited members which represent an or specification.
     /// </summary>

@@ -8,11 +8,13 @@ namespace UniversityManagementSystem.ViewModels
     /// </summary>
     public class NotifyTaskCompletion<TResult> : NotifyTaskCompletionBase<TResult>
     {
+        /// <inheritdoc />
         public NotifyTaskCompletion(Task<TResult> task) : base(task)
         {
             var _ = WatchTaskAsync();
         }
 
+        /// <inheritdoc />
         public override event PropertyChangedEventHandler PropertyChanged;
 
         private async Task WatchTaskAsync()

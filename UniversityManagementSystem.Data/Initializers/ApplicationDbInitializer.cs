@@ -5,8 +5,13 @@ using UniversityManagementSystem.Data.Initializers.Seeds;
 
 namespace UniversityManagementSystem.Data.Initializers
 {
+    /// <summary>
+    ///     Defines members which initialize the database. If the database does not exist, then this class will create
+    ///     all the tables and seed them with the data contained in the seed classes automatically.
+    /// </summary>
     public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
+        /// <inheritdoc />
         protected override async void Seed(ApplicationDbContext context)
         {
             context.Campuses.AddOrUpdate(CampusesSeed.ToArray());
