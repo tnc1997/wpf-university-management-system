@@ -9,6 +9,9 @@ using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Student.ViewModels
 {
+    /// <summary>
+    ///     Declares members belonging to the students view model.
+    /// </summary>
     public class StudentsViewModel : FactChartViewModelBase<StudentFact>
     {
         private CountryDim _countryDim;
@@ -22,6 +25,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Student.ViewModels
             CountryDimService = countryDimService;
         }
 
+        /// <summary>
+        ///     Gets or sets the country dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public CountryDim CountryDim
         {
             get => _countryDim;

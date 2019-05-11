@@ -9,6 +9,9 @@ using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Lecture.ViewModels
 {
+    /// <summary>
+    ///     Declares members belonging to the lectures view model.
+    /// </summary>
     public class LecturesViewModel : FactChartViewModelBase<LectureFact>
     {
         private ModuleDim _moduleDim;
@@ -26,6 +29,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Lecture.ViewModels
             RoomDimService = roomDimService;
         }
 
+        /// <summary>
+        ///     Gets or sets the module dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public ModuleDim ModuleDim
         {
             get => _moduleDim;
@@ -47,6 +59,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Lecture.ViewModels
             private set => SetProperty(ref _moduleDimsTask, value);
         }
 
+        /// <summary>
+        ///     Gets or sets the room dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public RoomDim RoomDim
         {
             get => _roomDim;

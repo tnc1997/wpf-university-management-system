@@ -9,6 +9,9 @@ using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Library.ViewModels
 {
+    /// <summary>
+    ///     Declares members belonging to the libraries view model.
+    /// </summary>
     public class LibrariesViewModel : FactChartViewModelBase<LibraryFact>
     {
         private CampusDim _campusDim;
@@ -22,6 +25,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Library.ViewModels
             CampusDimService = campusDimService;
         }
 
+        /// <summary>
+        ///     Gets or sets the campus dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public CampusDim CampusDim
         {
             get => _campusDim;

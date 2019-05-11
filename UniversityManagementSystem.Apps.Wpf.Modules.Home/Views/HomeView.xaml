@@ -17,14 +17,14 @@
             VerticalAlignment="Center" />
 
         <TextBlock
-            FontSize="16"
+            FontSize="22"
             HorizontalAlignment="Center"
             Margin="0,24,0,0"
-            Text="The data made available within this application is partially owned by the University of Gloucestershire and is used solely for educational purposes only."
+            Text="The data made available within this application is partially owned by the University of Gloucestershire and is used solely for educational purposes."
             VerticalAlignment="Center" />
 
         <TextBlock
-            FontSize="8"
+            FontSize="14"
             FontWeight="Bold"
             HorizontalAlignment="Center"
             Margin="0,48,0,0"
@@ -32,21 +32,21 @@
             VerticalAlignment="Center" />
 
         <TextBlock
-            FontSize="8"
+            FontSize="14"
             HorizontalAlignment="Center"
             Margin="0,24,0,0"
             Text="Modules: CT4005, CT4008, CT4009, CT4010, CT4011, CT4012, CT4014, CT4016, CT5006, CT5008, CT5009, CT5012, CT5016, CT5017, CT5018, CT5022, CT6005, CT6013, CT6028, CT6038, CT6039, CT6042"
             VerticalAlignment="Center" />
 
         <TextBlock
-            FontSize="8"
+            FontSize="14"
             HorizontalAlignment="Center"
             Margin="0,24,0,0"
             Text="Rooms: PK-TC-007 Lecture Theatre, PK-WW-001 Computer Room, PK-WW-002 Computer Room, PK-WW-101A Computer Room"
             VerticalAlignment="Center" />
 
         <TextBlock
-            FontSize="8"
+            FontSize="14"
             HorizontalAlignment="Center"
             Margin="0,24,0,0"
             Text="Courses: Advertising, Computing"

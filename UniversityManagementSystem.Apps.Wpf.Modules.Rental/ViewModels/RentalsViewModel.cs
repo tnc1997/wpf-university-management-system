@@ -9,6 +9,9 @@ using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Rental.ViewModels
 {
+    /// <summary>
+    ///     Declares members belonging to the rentals view model.
+    /// </summary>
     public class RentalsViewModel : FactChartViewModelBase<RentalFact>
     {
         private BookDim _bookDim;
@@ -26,6 +29,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Rental.ViewModels
             UserDimService = userDimService;
         }
 
+        /// <summary>
+        ///     Gets or sets the book dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public BookDim BookDim
         {
             get => _bookDim;
@@ -47,6 +59,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Rental.ViewModels
             private set => SetProperty(ref _bookDimsTask, value);
         }
 
+        /// <summary>
+        ///     Gets or sets the user dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public UserDim UserDim
         {
             get => _userDim;

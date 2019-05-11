@@ -9,6 +9,9 @@ using UniversityManagementSystem.ViewModels;
 
 namespace UniversityManagementSystem.Apps.Wpf.Modules.Enrolment.ViewModels
 {
+    /// <summary>
+    ///     Declares members belonging to the enrolments view model.
+    /// </summary>
     public class EnrolmentsViewModel : FactChartViewModelBase<EnrolmentFact>
     {
         private ModuleDim _moduleDim;
@@ -22,6 +25,15 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Enrolment.ViewModels
             ModuleDimService = moduleDimService;
         }
 
+        /// <summary>
+        ///     Gets or sets the module dimension filter.
+        /// </summary>
+        /// <remarks>
+        ///     When the user selects a new dimension from the list of filters, the dictionary of specifications,
+        ///     which is used to filter the facts returned from the database, is updated with the value of the
+        ///     selected dimension. If the selected dimension has been cleared by the user, then its value in the
+        ///     dictionary is nullified in order to preclude it from future queries in the database.
+        /// </remarks>
         public ModuleDim ModuleDim
         {
             get => _moduleDim;
