@@ -30,6 +30,7 @@
             <StackPanel
                 Grid.Row="1"
                 VerticalAlignment="Center"
+                Visibility="{Binding Converter={StaticResource InverseBooleanToVisibilityConverter}, Path=IsAwaiting}"
                 Width="320">
 
                 <Label
@@ -50,7 +51,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding Password, Mode=TwoWay}" />
+                    <PasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" />
 
                     <Button
                         Command="{Binding LoginCommand}"
