@@ -1,3 +1,4 @@
+using System.Security;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Regions;
@@ -9,7 +10,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         private bool _isAwaiting;
-        private string _password;
+        private SecureString _password;
         private string _username;
 
         public LoginViewModel(IRegionManager regionManager, IUserService userService)
@@ -19,7 +20,6 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
 
             LoginCommand = new DelegateCommand(OnLoginAsync, CanLogin)
                 .ObservesProperty(() => Username)
-                .ObservesProperty(() => Password)
                 .ObservesProperty(() => IsAwaiting);
         }
 
@@ -41,7 +41,7 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
             set => SetProperty(ref _username, value);
         }
 
-        public string Password
+        public SecureString Password
         {
             get => _password;
             set => SetProperty(ref _password, value);
@@ -51,12 +51,13 @@ namespace UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels
         {
             base.OnNavigatedFrom(navigationContext);
 
-            Username = Password = null;
+            Username = string.Empty;
+            Password = new SecureString();
         }
 
         private bool CanLogin()
         {
-            return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password) && !IsAwaiting;
+            return !string.IsNullOrWhiteSpace(Username) && !IsAwaiting;
         }
 
         private async void OnLoginAsync()
