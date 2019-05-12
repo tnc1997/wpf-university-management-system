@@ -1,0 +1,75 @@
+<UserControl
+    x:Class="UniversityManagementSystem.Apps.Wpf.Modules.Auth.Views.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModels="clr-namespace:UniversityManagementSystem.Apps.Wpf.Modules.Auth.ViewModels"
+    d:DataContext="{d:DesignInstance viewModels:LoginViewModel}"
+    mc:Ignorable="d"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Background="Black">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.RowSpan="2"
+                HorizontalAlignment="Center"
+                Source="/Assets/Images/LoginBackground.jpg"
+                Stretch="UniformToFill"
+                VerticalAlignment="Center" />
+
+            <StackPanel
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                Visibility="{Binding Converter={StaticResource InverseBooleanToVisibilityConverter}, Path=IsAwaiting}"
+                Width="320">
+
+                <Label
+                    Content="Username"
+                    Foreground="White" />
+
+                <TextBox Text="{Binding Username, Mode=TwoWay}" />
+
+                <Rectangle Margin="12" />
+
+                <Label
+                    Content="Password"
+                    Foreground="White" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <PasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" />
+
+                    <Button
+                        Command="{Binding LoginCommand}"
+                        Content="Login"
+                        Grid.Column="1" />
+                </Grid>
+            </StackPanel>
+
+            <Image
+                Grid.Row="2"
+                HorizontalAlignment="Center"
+                Margin="24"
+                Source="/Assets/AppLogo.png"
+                Stretch="Uniform"
+                VerticalAlignment="Center"
+                Width="640" />
+        </Grid>
+
+        <mah:ProgressRing IsActive="{Binding IsAwaiting, Mode=OneWay}" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{403DA3DA-9B25-4DA5-BD55-235642E99AD0}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>UniversityManagementSystem.Services</RootNamespace>
+        <AssemblyName>UniversityManagementSystem.Services</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="AssignmentFactService.cs" />
+        <Compile Include="BookDimService.cs" />
+        <Compile Include="BookFactService.cs" />
+        <Compile Include="CampusDimService.cs" />
+        <Compile Include="ClassificationDimService.cs" />
+        <Compile Include="CountryDimService.cs" />
+        <Compile Include="CourseDimService.cs" />
+        <Compile Include="DimServiceBase.cs" />
+        <Compile Include="EnrolmentFactService.cs" />
+        <Compile Include="FactServiceBase.cs" />
+        <Compile Include="GraduationFactService.cs" />
+        <Compile Include="HallFactService.cs" />
+        <Compile Include="IAssignmentFactService.cs" />
+        <Compile Include="IBookDimService.cs" />
+        <Compile Include="IBookFactService.cs" />
+        <Compile Include="ICampusDimService.cs" />
+        <Compile Include="IClassificationDimService.cs" />
+        <Compile Include="ICountryDimService.cs" />
+        <Compile Include="ICourseDimService.cs" />
+        <Compile Include="IDimService.cs" />
+        <Compile Include="IEnrolmentFactService.cs" />
+        <Compile Include="IFactService.cs" />
+        <Compile Include="IGraduationFactService.cs" />
+        <Compile Include="IHallFactService.cs" />
+        <Compile Include="ILectureFactService.cs" />
+        <Compile Include="ILibraryDimService.cs" />
+        <Compile Include="ILibraryFactService.cs" />
+        <Compile Include="IModuleDimService.cs" />
+        <Compile Include="IModuleFactService.cs" />
+        <Compile Include="IRentalFactService.cs" />
+        <Compile Include="IRoomDimService.cs" />
+        <Compile Include="IRoomFactService.cs" />
+        <Compile Include="IService.cs" />
+        <Compile Include="IResultFactService.cs" />
+        <Compile Include="IStudentFactService.cs" />
+        <Compile Include="IUserDimService.cs" />
+        <Compile Include="IUserService.cs" />
+        <Compile Include="IYearDimService.cs" />
+        <Compile Include="LectureFactService.cs" />
+        <Compile Include="LibraryDimService.cs" />
+        <Compile Include="LibraryFactService.cs" />
+        <Compile Include="ModuleDimService.cs" />
+        <Compile Include="ModuleFactService.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="RentalFactService.cs" />
+        <Compile Include="RoomDimService.cs" />
+        <Compile Include="RoomFactService.cs" />
+        <Compile Include="ServiceBase.cs" />
+        <Compile Include="ResultFactService.cs" />
+        <Compile Include="StudentFactService.cs" />
+        <Compile Include="UserDimService.cs" />
+        <Compile Include="UserService.cs" />
+        <Compile Include="YearDimService.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
+        <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
+        <Name>UniversityManagementSystem.Data</Name>
+      </ProjectReference>
+      <ProjectReference Include="..\UniversityManagementSystem.Specifications\UniversityManagementSystem.Specifications.csproj">
+        <Project>{55a75553-df3e-4559-b96f-711faf3ad212}</Project>
+        <Name>UniversityManagementSystem.Specifications</Name>
+      </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="3.1.3" />
+      <PackageReference Include="EntityFramework" Version="6.2.0" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+
+</Project>

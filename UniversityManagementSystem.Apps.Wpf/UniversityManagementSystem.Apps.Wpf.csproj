@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{954388A3-E792-4E05-9729-55C4F3187863}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>UniversityManagementSystem.Apps.Wpf</RootNamespace>
+    <AssemblyName>UniversityManagementSystem.Apps.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AppLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\LoginBackground.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ConnectionStrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0212" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="3.0.0-alpha0103" />
+    <PackageReference Include="Oracle.ManagedDataAccess.EntityFramework" Version="18.3.0" />
+    <PackageReference Include="Prism.DryIoc" Version="7.1.0.431" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Assignment\UniversityManagementSystem.Apps.Wpf.Modules.Assignment.csproj">
+      <Project>{646d14c3-3de2-4431-82a1-f492172c9e97}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Assignment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Auth\UniversityManagementSystem.Apps.Wpf.Modules.Auth.csproj">
+      <Project>{f1a39f55-1e5c-43a9-8681-468281f8f6d0}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Book\UniversityManagementSystem.Apps.Wpf.Modules.Book.csproj">
+      <Project>{99cd74bd-e4f3-4edf-b866-39251b2f70de}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Book</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Enrolment\UniversityManagementSystem.Apps.Wpf.Modules.Enrolment.csproj">
+      <Project>{f885381f-ba56-433c-acc7-3a455363ed1c}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Enrolment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Graduation\UniversityManagementSystem.Apps.Wpf.Modules.Graduation.csproj">
+      <Project>{f3eaf000-05ff-4e8a-b49a-d5f76c0d1d01}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Graduation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Home\UniversityManagementSystem.Apps.Wpf.Modules.Home.csproj">
+      <Project>{aa2d9343-2e80-4c52-bf5b-0114e8ff4ba1}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Home</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Lecture\UniversityManagementSystem.Apps.Wpf.Modules.Lecture.csproj">
+      <Project>{ad59217d-a9b2-4173-80e8-cdc55b36a800}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Lecture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Library\UniversityManagementSystem.Apps.Wpf.Modules.Library.csproj">
+      <Project>{23036b10-a0ab-405a-bd4c-d2334cd2850d}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Main\UniversityManagementSystem.Apps.Wpf.Modules.Main.csproj">
+      <Project>{64a43f31-6d41-4333-bcb5-4e5bbdd31ca2}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Module\UniversityManagementSystem.Apps.Wpf.Modules.Module.csproj">
+      <Project>{0d65a1fd-bfe9-4ef7-ae88-dbdde41ab993}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Rental\UniversityManagementSystem.Apps.Wpf.Modules.Rental.csproj">
+      <Project>{43ec41bc-4953-4a09-985a-7b32eb0c0b04}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Rental</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Result\UniversityManagementSystem.Apps.Wpf.Modules.Result.csproj">
+      <Project>{de71f295-3df9-4bda-a7cc-aaffece29de2}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Result</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Room\UniversityManagementSystem.Apps.Wpf.Modules.Room.csproj">
+      <Project>{3be49aed-5694-4ee6-8216-f8012b684212}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Room</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Apps.Wpf.Modules.Student\UniversityManagementSystem.Apps.Wpf.Modules.Student.csproj">
+      <Project>{d98a6ae6-9bbc-4c91-8e89-4ef172c0746d}</Project>
+      <Name>UniversityManagementSystem.Apps.Wpf.Modules.Student</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
+      <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
+      <Name>UniversityManagementSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Extensions\UniversityManagementSystem.Extensions.csproj">
+      <Project>{127b4281-d4f4-4bb8-b6a3-825c5e27ee1c}</Project>
+      <Name>UniversityManagementSystem.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Services\UniversityManagementSystem.Services.csproj">
+      <Project>{403da3da-9b25-4da5-bd55-235642e99ad0}</Project>
+      <Name>UniversityManagementSystem.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniversityManagementSystem.Specifications\UniversityManagementSystem.Specifications.csproj">
+      <Project>{55a75553-df3e-4559-b96f-711faf3ad212}</Project>
+      <Name>UniversityManagementSystem.Specifications</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
