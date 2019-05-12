@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using static System.Linq.Expressions.Expression;
 
 namespace UniversityManagementSystem.Specifications
 {
@@ -11,7 +12,7 @@ namespace UniversityManagementSystem.Specifications
     {
         protected CompositeSpecificationBase(ISpecification<TEntity> left, ISpecification<TEntity> right)
         {
-            ParameterExpression = System.Linq.Expressions.Expression.Parameter(typeof(TEntity));
+            ParameterExpression = Parameter(typeof(TEntity));
 
             var leftVisitor = new ReplaceExpressionVisitor(left.Expression.Parameters[0], ParameterExpression);
             LeftExpression = leftVisitor.Visit(left.Expression.Body);

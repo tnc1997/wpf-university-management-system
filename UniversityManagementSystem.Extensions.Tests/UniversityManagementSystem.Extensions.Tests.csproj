@@ -4,11 +4,12 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{127B4281-D4F4-4BB8-B6A3-825C5E27EE1C}</ProjectGuid>
+        <ProjectGuid>{0C1139CB-6F94-4883-9FE6-63AF691C3759}</ProjectGuid>
+        <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>UniversityManagementSystem.Extensions</RootNamespace>
-        <AssemblyName>UniversityManagementSystem.Extensions</AssemblyName>
+        <RootNamespace>UniversityManagementSystem.Extensions.Tests</RootNamespace>
+        <AssemblyName>UniversityManagementSystem.Extensions.Tests</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -38,21 +39,24 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ChartValuesExtension.cs" />
-        <Compile Include="CollectionExtension.cs" />
-        <Compile Include="DictionaryExtension.cs" />
-        <Compile Include="EnumerableExtension.cs" />
-        <Compile Include="SeriesViewExtension.cs" />
+        <Compile Include="CollectionExtensionTests.cs" />
+        <Compile Include="DictionaryExtensionTests.cs" />
+        <Compile Include="EnumerableExtensionTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="LiveCharts" Version="0.9.7" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\UniversityManagementSystem.Data\UniversityManagementSystem.Data.csproj">
         <Project>{d08f8d8b-63aa-4547-b0cd-142d0ba2772d}</Project>
         <Name>UniversityManagementSystem.Data</Name>
       </ProjectReference>
+      <ProjectReference Include="..\UniversityManagementSystem.Extensions\UniversityManagementSystem.Extensions.csproj">
+        <Project>{127b4281-d4f4-4bb8-b6a3-825c5e27ee1c}</Project>
+        <Name>UniversityManagementSystem.Extensions</Name>
+      </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="LiveCharts" Version="0.9.7" />
+      <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -62,5 +66,4 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
 </Project>
